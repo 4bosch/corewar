@@ -1,0 +1,11 @@
+gcc
+-Iinclude
+-Iinclude/asm
+-Iinclude/corewar
+-Ilib/ft/include
+-Wall
+-Wextra
+-Wno-unused
+-Wno-unused-parameter
+-fsanitize=address
+-fsanitize=undefined
