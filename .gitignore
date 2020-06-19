@@ -2,6 +2,7 @@
 /asm
 /corewar
 /lib
+resources
 
 # Prerequisites
 *.d

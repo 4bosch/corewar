@@ -20,6 +20,12 @@ List of opcode in Hexa:
 	lfork	:	0x0f
 	aff		:	0x10
 
+Label properties :
+	- Can have 0 or 1 instruction on the definition line
+	- Can be at the end of the file
+	- Can have 0 or x blank char between the ':' and the instruction
+	
+
 ┌──────────────────────────────────────────────────────────────────────────────╮
  ### VM
 ╰──────────────────────────────────────────────────────────────────────────────╯
