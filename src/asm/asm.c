@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:24:13 by abaisago          #+#    #+#             */
-/*   Updated: 2020/06/18 18:48:11 by abosch           ###   ########.fr       */
+/*   Updated: 2020/06/22 17:03:25 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,31 @@
 
 #include <stdlib.h>
 
+static int	print_token(void *content, size_t content_size, unsigned position, unsigned total)
+{
+	t_token *tok;
+
+	tok = (t_token*)content;
+	ft_printf("| ");
+	if (tok->type == LSEP)
+		ft_printf(":       |");
+	else if (tok->type == SEP)
+		ft_printf(",       |");
+	else if (tok->type == IND)
+		ft_printf("%%       |");
+	else if (tok->type == SYMBOL)
+		ft_printf("Symbol  |");
+	else if (tok->type == NEWLINE)
+		ft_printf("Newline |");
+	if (tok->content != NULL)
+		ft_printf(" %s |\n", tok->content->buf);
+	else
+		ft_printf("    |\n");
+	if (tok->type == NEWLINE)
+		ft_printf("\n");
+	return (1);
+}
+
 int			asmcore(int ac, char **av)
 {
 	t_list	*token_list;
@@ -23,5 +48,6 @@ int			asmcore(int ac, char **av)
 	if ((token_list = ft_list_init()) == NULL)
 		ft_printerr("asm: asmcore(ft_list_init): %s\n", strerror(errno));
 	lexer(token_list);
+	ft_list_print(token_list, &print_token);
 	return (EXIT_SUCCESS);
 }

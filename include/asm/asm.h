@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:31:58 by abaisago          #+#    #+#             */
-/*   Updated: 2020/06/18 19:15:23 by abosch           ###   ########.fr       */
+/*   Updated: 2020/06/22 13:34:10 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,14 @@
 # define SEP		1
 # define IND		2
 # define SYMBOL		3
-# define COMMENT	4
-# define NEWLINE	5
+# define NEWLINE	4
 
 typedef struct	s_token t_token;
 
 struct			s_token
 {
 	t_byte		type;
-	char		*content;
+	t_string	*content;
 };
 
 int		asmcore(int ac, char **av);
