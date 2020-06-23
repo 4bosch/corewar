@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   corewar.h                                          :+:      :+:    :+:   */
+/*   options.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
+/*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/10 16:32:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/06/10 16:51:40 by abaisago         ###   ########.fr       */
+/*   Created: 2020/06/23 13:52:18 by abaisago          #+#    #+#             */
+/*   Updated: 2020/06/23 17:17:33 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_H
-# define COREWAR_H
+#ifndef OPTIONS_H
+# define OPTIONS_H
 
-int		corewar(int ac, char **av);
+int			options(int ac, char **av, t_vm *corewar)
 
 /*
-***************
-** COREWAR_H **
-***************
+** OPTIONS_H
 */
 #endif

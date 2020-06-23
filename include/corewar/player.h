@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/23 17:15:19 by abaisago          #+#    #+#             */
-/*   Updated: 2020/06/23 18:32:40 by abaisago         ###   ########.fr       */
+/*   Created: 2020/06/23 16:09:53 by abaisago          #+#    #+#             */
+/*   Updated: 2020/06/23 17:40:11 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#ifndef PLAYER_H
+# define PLAYER_H
+# include "op.h"
+# include "vm.h"
+
+typedef struct	s_player
+{
+	char		*filename;
+	char		name[PROG_NAME_LENGTH];
+	unsigned	size;
+}				t_player;
+
+void			player_create(t_vm *vm, int id, char *file);
 
 /*
-** VM
-*/
-
-# define EINVEXT		"Invalid file extension, must be .cor"
-# define EMANYPLAYER	"Too many players specified"
-# define EMAXPLAYER		"Specified id too big, max: %d"
-# define ESAMEID		"Same id for different champions forbidden"
-# define USAGE			"Usage: " \
-	"corewar [-dump nbr_cycles] [-n number] CHAMPION.cor [CHAMPION.cor ...]"
-
-/*
-*************
-** ERROR_H **
-*************
+** PLAYER_H
 */
 #endif

@@ -6,7 +6,7 @@
 #    By: abaisago <adam_bai@protonmail.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 11:54:38 by abaisago          #+#    #+#              #
-#    Updated: 2020/06/18 16:57:10 by abosch           ###   ########.fr        #
+#    Updated: 2020/06/23 18:34:13 by abaisago         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,8 @@ SUB_ASM        := $(addprefix asm/, $(SUB_ASM))
 SRC_NAME_ASM   := $(SUB_ASM)
 SRC_ASM        := $(addprefix $(SRC_PATH)/,$(SRC_NAME_ASM))
 
-SUB_CW         := main.c corewar.c
+SUB_CW         := main.c corewar.c \
+                  options.c
 SUB_CW         := $(addprefix corewar/, $(SUB_CW))
 SRC_NAME_CW    := $(SUB_CW)
 SRC_CW         := $(addprefix $(SRC_PATH)/,$(SRC_NAME_CW))
