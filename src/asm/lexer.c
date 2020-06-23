@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 16:40:51 by abosch            #+#    #+#             */
-/*   Updated: 2020/06/22 18:43:28 by abosch           ###   ########.fr       */
+/*   Updated: 2020/06/23 17:21:55 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,28 @@ static int		simple_case(t_list *toklist, char c)
 	else if (c == '\n') 
 		ft_list_push(toklist, ft_list_link_new(
 					token_new(&tok, NEWLINE, NULL), sizeof(t_token)));
+	else if (c == '.')
+		ft_list_push(toklist, ft_list_link_new(
+					token_new(&tok, DOT, NULL), sizeof(t_token)));
 	else
 		return (0);
 	return (1);
+}
+
+static void		last_append(t_string *str, char *buf, int *begin, int i)
+{
+	char		c;
+
+	c = buf[i];
+	buf[i] = '\0';
+	ft_string_append(str, buf + *begin);
+	buf[i] = c;
 }
 
 void			handle_symbol(t_list *toklist, char *buf, int *begin, int fd)
 {
 	t_token		tok;
 	t_string	*str;
-	char		c;
 	int			i;
 
 	i = *begin;
@@ -63,19 +75,46 @@ void			handle_symbol(t_list *toklist, char *buf, int *begin, int fd)
 			else if (i == -1)
 				ft_printerr("asm: handle_symbol(read): %s\n", strerror(errno));
 			buf[i] = '\0';
-			i = 0;
 			*begin = 0;
+			i = 0;
 		}
 		else
 			i++;
 	}
-	c = buf[i];
-	buf[i] = '\0';
-	ft_string_append(str, buf + *begin);
-	buf[i] = c;
-	ft_list_push(toklist, ft_list_link_new(token_new(&tok, SYMBOL, str),
-		sizeof(t_token)));
+	last_append(str, buf, begin, i);
 	*begin = i - 1;
+	ft_list_push(toklist, ft_list_link_new(token_new(&tok, SYMBOL, str),
+				sizeof(t_token)));
+}
+
+void			handle_string(t_list *toklist, char *buf, int *begin, int fd)
+{
+	t_token		tok;
+	t_string	*str;
+	int			i;
+
+	i = *begin;
+	str = ft_string_init();
+	while (buf[i] != '"')
+	{
+		if (buf[i] == '\0')
+		{
+			ft_string_append(str, buf + *begin);
+			if ((i = read(fd, buf, BUF_SIZE - 1)) == 0)
+				ft_printerr("asm: Missing closing quote.\n");
+			else if (i == -1)
+				ft_printerr("asm: handle_symbol(read): %s\n", strerror(errno));
+			buf[i] = '\0';
+			*begin = 0;
+			i = 0;
+		}
+		else
+			i++;
+	}
+	last_append(str, buf, begin, i);
+	*begin = i;
+	ft_list_push(toklist, ft_list_link_new(token_new(&tok, STRING, str),
+				sizeof(t_token)));
 }
 
 static int		is_newline(int c)
@@ -115,8 +154,15 @@ void			lexer(t_list *toklist)
 				continue ;
 			else if (buf[i] == '#')
 				handle_comment(buf, &i, 0);
+			else if (buf[i] == '"')
+			{
+				++i;
+				handle_string(toklist, buf, &i, 0);
+			}
 			else if (ft_strchr(LABEL_CHARS, buf[i]) != NULL)
 				handle_symbol(toklist, buf, &i, 0);
+			else
+				ft_printerr("asm: Illegal character |%c|\n", buf[i]);
 		}
 	}
 	if (i == -1)

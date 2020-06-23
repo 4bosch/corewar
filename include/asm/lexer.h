@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 17:05:02 by abosch            #+#    #+#             */
-/*   Updated: 2020/06/22 16:37:12 by abosch           ###   ########.fr       */
+/*   Updated: 2020/06/23 17:09:07 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-# define BUF_SIZE 4096
+# define BUF_SIZE 5
 
 void	lexer(t_list *token_list);
 

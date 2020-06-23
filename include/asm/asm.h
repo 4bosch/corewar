@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:31:58 by abaisago          #+#    #+#             */
-/*   Updated: 2020/06/22 13:34:10 by abosch           ###   ########.fr       */
+/*   Updated: 2020/06/23 15:21:07 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define IND		2
 # define SYMBOL		3
 # define NEWLINE	4
+# define DOT		5
+# define STRING		6
 
 typedef struct	s_token t_token;
 

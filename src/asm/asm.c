@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:24:13 by abaisago          #+#    #+#             */
-/*   Updated: 2020/06/22 17:03:25 by abosch           ###   ########.fr       */
+/*   Updated: 2020/06/23 15:21:42 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ static int	print_token(void *content, size_t content_size, unsigned position, un
 		ft_printf("Symbol  |");
 	else if (tok->type == NEWLINE)
 		ft_printf("Newline |");
+	else if (tok->type == DOT)
+		ft_printf(".       |");
+	else if (tok->type == STRING)
+		ft_printf("String  |");
 	if (tok->content != NULL)
 		ft_printf(" %s |\n", tok->content->buf);
 	else
