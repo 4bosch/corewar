@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 16:40:51 by abosch            #+#    #+#             */
-/*   Updated: 2020/06/23 17:21:55 by abosch           ###   ########.fr       */
+/*   Updated: 2020/06/23 17:41:27 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,6 @@ void			lexer(t_list *toklist)
 		buf[i] = '\0';
 		i = -1;
 		while (buf[++i] != '\0' && buf[i] != '#')
-		{
 			if (simple_case(toklist, buf[i]))
 				continue ;
 			else if (buf[i] == '#')
@@ -163,7 +162,6 @@ void			lexer(t_list *toklist)
 				handle_symbol(toklist, buf, &i, 0);
 			else
 				ft_printerr("asm: Illegal character |%c|\n", buf[i]);
-		}
 	}
 	if (i == -1)
 		ft_printerr("asm: lexer(read): %s\n", strerror(errno));
