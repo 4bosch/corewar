@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:24:13 by abaisago          #+#    #+#             */
-/*   Updated: 2020/06/23 15:21:42 by abosch           ###   ########.fr       */
+/*   Updated: 2020/06/26 16:31:50 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int			asmcore(int ac, char **av)
 	t_list	*token_list;
 
 	if ((token_list = ft_list_init()) == NULL)
-		ft_printerr("asm: asmcore(ft_list_init): %s\n", strerror(errno));
+		ft_printerr(ELIST, strerror(errno));
 	lexer(token_list);
 	ft_list_print(token_list, &print_token);
 	return (EXIT_SUCCESS);

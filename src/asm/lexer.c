@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 16:40:51 by abosch            #+#    #+#             */
-/*   Updated: 2020/06/23 17:41:27 by abosch           ###   ########.fr       */
+/*   Updated: 2020/06/26 16:39:38 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void			handle_symbol(t_list *toklist, char *buf, int *begin, int fd)
 			if ((i = read(fd, buf, BUF_SIZE - 1)) == 0)
 				return ;
 			else if (i == -1)
-				ft_printerr("asm: handle_symbol(read): %s\n", strerror(errno));
+				ft_printerr(EREADSYM, strerror(errno));
 			buf[i] = '\0';
 			*begin = 0;
 			i = 0;
@@ -101,9 +101,9 @@ void			handle_string(t_list *toklist, char *buf, int *begin, int fd)
 		{
 			ft_string_append(str, buf + *begin);
 			if ((i = read(fd, buf, BUF_SIZE - 1)) == 0)
-				ft_printerr("asm: Missing closing quote.\n");
+				ft_printerr(ENCQ);
 			else if (i == -1)
-				ft_printerr("asm: handle_symbol(read): %s\n", strerror(errno));
+				ft_printerr(EREADSTR, strerror(errno));
 			buf[i] = '\0';
 			*begin = 0;
 			i = 0;
@@ -117,26 +117,25 @@ void			handle_string(t_list *toklist, char *buf, int *begin, int fd)
 				sizeof(t_token)));
 }
 
-static int		is_newline(int c)
-{
-	return ((c != '\n') ? 1 : 0);
-}
-
 void			handle_comment(char *buf, int *i, int fd)
 {
-	while (buf[*i] != '\n')
+	int			cnt;
+
+	cnt = *i; 
+	while (buf[cnt] != '\n')
 	{
-		*i += ft_strskip(buf + *i, &is_newline);
-		if (buf[*i] == '\0')
+		if (buf[cnt] == '\0')
 		{
-			if ((*i = read(fd, buf, BUF_SIZE - 1)) == -1)
-				ft_printerr("asm: handle_comment(read): %s\n", strerror(errno));
-			else if (*i == 0)
+			if ((cnt = read(fd, buf, BUF_SIZE - 1)) == -1)
+				ft_printerr(EREADCOM, strerror(errno));
+			else if (cnt == 0)
 				return ;
-			buf[*i] = '\0';
-			*i = 0;
+			buf[cnt] = '\0';
+			cnt = 0;
 		}
+		cnt++;
 	}
+	*i = cnt;
 }
 
 void			lexer(t_list *toklist)
@@ -161,8 +160,8 @@ void			lexer(t_list *toklist)
 			else if (ft_strchr(LABEL_CHARS, buf[i]) != NULL)
 				handle_symbol(toklist, buf, &i, 0);
 			else
-				ft_printerr("asm: Illegal character |%c|\n", buf[i]);
+				ft_printerr(EIC, buf[i]);
 	}
 	if (i == -1)
-		ft_printerr("asm: lexer(read): %s\n", strerror(errno));
+		ft_printerr(EREADLEX, strerror(errno));
 }
