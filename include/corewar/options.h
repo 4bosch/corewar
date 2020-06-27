@@ -6,14 +6,15 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 13:52:18 by abaisago          #+#    #+#             */
-/*   Updated: 2020/06/23 17:17:33 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/06/27 14:29:07 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OPTIONS_H
 # define OPTIONS_H
+# include "vm.h"
 
-int			options(int ac, char **av, t_vm *corewar)
+void	    options(t_vm *vm, int ac, char **av);
 
 /*
 ** OPTIONS_H

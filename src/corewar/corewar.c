@@ -21,6 +21,6 @@ int				corewar(int ac, char **av)
 	t_vm		vm;
 
 	vm = (t_vm){0};
-	options(ac, av, &vm);
+	options(&vm, ac, av);
 	return (EXIT_SUCCESS);
 }
