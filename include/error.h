@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 17:15:19 by abaisago          #+#    #+#             */
-/*   Updated: 2020/06/29 19:49:45 by abosch           ###   ########.fr       */
+/*   Updated: 2020/06/27 16:40:17 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 ** VM
 */
 
-# define EINVEXT		"Invalid file extension, must be .cor"
+# define EINVEXT		"\"%s\" has an invalid file extension, must be .cor"
 # define EMANYPLAYER	"Too many players specified"
-# define EMAXPLAYER		"Specified id too big, max: %d"
-# define ESAMEID		"Same id for different champions forbidden"
+# define ESAMEID		"Duplicate player ID: \"%s\""
+# define EWRONGID		"Player ID \"%s\" is out of range"
 # define USAGE			"Usage: " \
 	"corewar [-dump nbr_cycles] [-n number] CHAMPION.cor [CHAMPION.cor ...]"
 
