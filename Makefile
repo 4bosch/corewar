@@ -238,7 +238,7 @@ endif
 clean: libclean thisclean
 cleandbg: libcleandbg thiscleandbg
 
-binclean: 
+binclean:
 	@for TARGET in $(REL); do \
 		if [ -e "$$TARGET" ]; then \
 			$(RM) -f $$TARGET \
@@ -246,7 +246,7 @@ binclean:
 		fi; \
 	done
 
-bincleandbg: 
+bincleandbg:
 	@for TARGET in $(DBG); do \
 		if [ -e "$$TARGET" ]; then \
 			$(RM) -f $$TARGET \
