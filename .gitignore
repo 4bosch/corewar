@@ -3,6 +3,8 @@
 /corewar
 /lib
 resources
+debug
+test.s
 
 # Prerequisites
 *.d
