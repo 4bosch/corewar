@@ -6,11 +6,12 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:24:13 by abaisago          #+#    #+#             */
-/*   Updated: 2020/06/29 15:43:10 by abosch           ###   ########.fr       */
+/*   Updated: 2020/06/29 16:26:35 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+#include "parser.h"
 
 #include "debug.h"
 
@@ -129,6 +130,7 @@ int			asmcore(int ac, char **av)
 	t_list	*token_list;
 	t_list	**token_tab;
 	t_list	*label;
+	t_cmd	cmd;
 
 	if ((token_list = ft_list_init()) == NULL)
 		ft_printerr("asm: asmcore(ft_list_init): %s\n", strerror(errno));
@@ -138,6 +140,6 @@ int			asmcore(int ac, char **av)
 	print_tab(token_tab);
 	if ((label = ft_list_init()) == NULL)
 		ft_printerr("asm: asmcore(ft_list_init): %s\n", strerror(errno));
-	parser(token_tab, label);
+	parser(token_tab, label, &cmd);
 	return (EXIT_SUCCESS);
 }

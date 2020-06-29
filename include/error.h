@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 17:15:19 by abaisago          #+#    #+#             */
-/*   Updated: 2020/06/27 17:11:04 by abosch           ###   ########.fr       */
+/*   Updated: 2020/06/29 19:49:45 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define EIC		"asm: Illegal character |%c|\n"
 # define ENONL		"asm: The file doesn't have any newline.\n"
 # define ENOLASTNL	"asm: The file doesn't finish with a newline\n"
+
 
 /*
 *************

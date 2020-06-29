@@ -1,21 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   util.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/24 16:52:42 by abosch            #+#    #+#             */
-/*   Updated: 2020/06/29 20:07:55 by abosch           ###   ########.fr       */
+/*   Created: 2020/06/29 20:04:22 by abosch            #+#    #+#             */
+/*   Updated: 2020/06/29 20:09:22 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef UTIL_H
+# define UTIL_H
 
-# include "util.h"
+/*
+** COMMON
+*/
+
 # include "libft.h"
 
-void	parser(t_list **token_tab, t_list *label, t_cmd *cmd);
+/*
+** ASM
+*/
+
+# define LSEP		0
+# define SEP		1
+# define IND		2
+# define SYMBOL		3
+# define NEWLINE	4
+# define DOT		5
+# define STRING		6
+
+
+typedef struct	s_cmd t_cmd;
+typedef struct	s_token t_token;
+
+struct			s_token
+{
+	t_byte		type;
+	t_string	*content;
+};
+
+struct			s_cmd
+{
+	char		*name;
+	char		*comment;
+};
+
+/*
+** VM
+*/
 
 #endif
