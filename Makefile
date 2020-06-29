@@ -75,6 +75,7 @@ SRC_NAME_ASM   := $(SUB_ASM)
 SRC_ASM        := $(addprefix $(SRC_PATH)/,$(SRC_NAME_ASM))
 
 SUB_CW         := main.c corewar.c \
+                  checks.c         \
                   options.c
 SUB_CW         := $(addprefix corewar/, $(SUB_CW))
 SRC_NAME_CW    := $(SUB_CW)

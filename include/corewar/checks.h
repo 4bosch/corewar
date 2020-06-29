@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   corewar.c                                          :+:      :+:    :+:   */
+/*   checks.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
+/*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/10 16:28:46 by abaisago          #+#    #+#             */
-/*   Updated: 2020/06/23 16:22:08 by abaisago         ###   ########.fr       */
+/*   Created: 2020/06/27 14:49:40 by abaisago          #+#    #+#             */
+/*   Updated: 2020/06/27 14:56:33 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#ifndef CHECKS_H
+# define CHECKS_H
+# include "vm.h"
 
-#include "checks.h"
-#include "options.h"
+void	checks(t_vm *vm);
 
-#include <stdlib.h>
-
-int				corewar(int ac, char **av)
-{
-	t_vm		vm;
-
-	vm = (t_vm){0};
-	options(&vm, ac, av);
-	checks(&vm);
-	return (EXIT_SUCCESS);
-}
+/*
+**************
+** CHECKS_H **
+**************
+*/
+#endif
