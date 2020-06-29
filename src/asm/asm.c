@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:24:13 by abaisago          #+#    #+#             */
-/*   Updated: 2020/06/26 16:31:50 by abosch           ###   ########.fr       */
+/*   Updated: 2020/06/29 15:43:10 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,104 @@ static int	print_token(void *content, size_t content_size, unsigned position, un
 		ft_printf(" %s |\n", tok->content->buf);
 	else
 		ft_printf("    |\n");
-	if (tok->type == NEWLINE)
-		ft_printf("\n");
 	return (1);
+}
+
+void		print_tab(t_list **tab)
+{
+	int		i;
+	
+	i = -1;
+	while (tab[++i] != NULL)
+	{
+		ft_printf("=====================================================\n");
+		ft_list_print(tab[i], &print_token);
+		ft_printf("=====================================================\n\n");
+	}
+}
+
+static int	ft_list_count(t_list *list)
+{
+	t_list_link		*link;
+	unsigned int	cnt;
+	int				i;
+
+	cnt = -1;
+	i = 0;
+	link = list->head;
+	while (++cnt < list->len)
+	{
+		if (((t_token*)link->content)->type == NEWLINE)
+			i++;
+		link = link->next;
+	}
+	return (i);
+}
+
+static void	init_tab(int len, t_list **tab)
+{
+	int	i;
+
+	i = -1;
+	while (++i < len)
+		if ((tab[i] = ft_list_init()) == NULL)
+			ft_printerr("asm: init_tab(ft_list_init): %s\n", strerror(errno));
+	tab[len] = NULL;
+}
+
+static void	fill_tab(int len, t_list **tab, t_list *list)
+{
+	t_list_link		*link;
+	int				j;
+
+	init_tab(len, tab);
+	j = 0;
+	link = list->head;
+	while (link->next != list->head)
+	{
+		if (((t_token*)link->content)->type != NEWLINE)
+		{
+			link = link->next;
+			ft_list_push(tab[j], ft_list_pop_front(list));
+		}
+		else
+		{
+			link = link->next;
+			ft_list_push(tab[j], ft_list_pop_front(list));
+			j++;
+		}
+	}
+	if (((t_token*)tab[j - 1]->head->prev->content)->type != NEWLINE)
+		ft_printerr(ENOLASTNL);
+}
+
+t_list		**list2tab(t_list *token_list)
+{
+	t_list	**ret;
+	int		len;
+
+	if ((len = ft_list_count(token_list)) == 0)
+		ft_printerr(ENONL);
+	if ((ret = (t_list**)malloc(sizeof(t_list*) * (len + 1))) == NULL)
+		ft_printerr("asm: list2tab(malloc): %s\n", strerror(errno));
+	fill_tab(len, ret, token_list);
+	return (ret);
 }
 
 int			asmcore(int ac, char **av)
 {
 	t_list	*token_list;
+	t_list	**token_tab;
+	t_list	*label;
 
 	if ((token_list = ft_list_init()) == NULL)
-		ft_printerr(ELIST, strerror(errno));
+		ft_printerr("asm: asmcore(ft_list_init): %s\n", strerror(errno));
 	lexer(token_list);
 	ft_list_print(token_list, &print_token);
+	token_tab = list2tab(token_list);
+	print_tab(token_tab);
+	if ((label = ft_list_init()) == NULL)
+		ft_printerr("asm: asmcore(ft_list_init): %s\n", strerror(errno));
+	parser(token_tab, label);
 	return (EXIT_SUCCESS);
 }

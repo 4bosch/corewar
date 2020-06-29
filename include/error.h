@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 17:15:19 by abaisago          #+#    #+#             */
-/*   Updated: 2020/06/26 16:39:48 by abosch           ###   ########.fr       */
+/*   Updated: 2020/06/27 17:11:04 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,10 @@
 ** ASM
 */
 
-# define ELIST		"asm: asmcore(ft_list_init): %s\n"
-# define EREADSYM	"asm: handle_symbol(read): %s\n"
 # define ENCQ		"asm: Missing closing quote.\n"
-# define EREADSTR	"asm: handle_string(read): %s\n"
-# define EREADCOM	"asm: handle_comment(read): %s\n"
 # define EIC		"asm: Illegal character |%c|\n"
-# define EREADLEX	"asm: lexer(read): %s\n"
+# define ENONL		"asm: The file doesn't have any newline.\n"
+# define ENOLASTNL	"asm: The file doesn't finish with a newline\n"
 
 /*
 *************

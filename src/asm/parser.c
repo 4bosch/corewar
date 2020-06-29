@@ -6,13 +6,12 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 16:28:49 by abosch            #+#    #+#             */
-/*   Updated: 2020/06/26 16:28:05 by abosch           ###   ########.fr       */
+/*   Updated: 2020/06/29 15:40:25 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "parser.h"
 
-void	parser(t_list *toklist)
+void	parser(t_list **tab, t_list *label)
 {
-	
 }

@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 16:40:51 by abosch            #+#    #+#             */
-/*   Updated: 2020/06/26 16:39:38 by abosch           ###   ########.fr       */
+/*   Updated: 2020/06/27 16:58:04 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void			handle_symbol(t_list *toklist, char *buf, int *begin, int fd)
 			if ((i = read(fd, buf, BUF_SIZE - 1)) == 0)
 				return ;
 			else if (i == -1)
-				ft_printerr(EREADSYM, strerror(errno));
+				ft_printerr("asm : handle_symbol(read): %s\n",strerror(errno));
 			buf[i] = '\0';
 			*begin = 0;
 			i = 0;
@@ -103,7 +103,7 @@ void			handle_string(t_list *toklist, char *buf, int *begin, int fd)
 			if ((i = read(fd, buf, BUF_SIZE - 1)) == 0)
 				ft_printerr(ENCQ);
 			else if (i == -1)
-				ft_printerr(EREADSTR, strerror(errno));
+				ft_printerr("asm: handle_string(read): %s\n",strerror(errno));
 			buf[i] = '\0';
 			*begin = 0;
 			i = 0;
@@ -127,7 +127,7 @@ void			handle_comment(char *buf, int *i, int fd)
 		if (buf[cnt] == '\0')
 		{
 			if ((cnt = read(fd, buf, BUF_SIZE - 1)) == -1)
-				ft_printerr(EREADCOM, strerror(errno));
+				ft_printerr("asm: handle_comment(read): %s\n", strerror(errno));
 			else if (cnt == 0)
 				return ;
 			buf[cnt] = '\0';
@@ -163,5 +163,5 @@ void			lexer(t_list *toklist)
 				ft_printerr(EIC, buf[i]);
 	}
 	if (i == -1)
-		ft_printerr(EREADLEX, strerror(errno));
+		ft_printerr("asm: lexer(read): %s\n", strerror(errno));
 }

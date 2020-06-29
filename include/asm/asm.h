@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:31:58 by abaisago          #+#    #+#             */
-/*   Updated: 2020/06/26 16:32:21 by abosch           ###   ########.fr       */
+/*   Updated: 2020/06/27 17:14:56 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 # include <errno.h>
 # include <string.h>
 
-# include "libft.h"
 # include "lexer.h"
+# include "parser.h"
 # include "error.h"
+# include "libft.h"
 
 # define LSEP		0
 # define SEP		1
