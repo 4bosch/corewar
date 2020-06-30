@@ -24,7 +24,7 @@ Label properties :
 	- Can have 0 or 1 instruction on the definition line
 	- Can be at the end of the file
 	- Can have 0 or x blank char between the ':' and the instruction
-	
+	- Can't be before a command
 Lexer :
 
 convert "ld %15, r9" -> [symbol, "ld"] [%] [symbol, 15] [,] [symbol, r9]
