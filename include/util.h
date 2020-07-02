@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 20:04:22 by abosch            #+#    #+#             */
-/*   Updated: 2020/06/29 20:09:22 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/02 20:57:22 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 */
 
 # include "libft.h"
+
+# include <stdint.h>
 
 /*
 ** ASM
@@ -51,4 +53,16 @@ struct			s_cmd
 ** VM
 */
 
+# define BIG_ENDIAN		0
+# define LITTLE_ENDIAN	1
+
+int		byte_swap_32(const int32_t num);
+int		get_endianness(void);
+int		return_self(const int num);
+
+/*
+************
+** UTIL_H **
+************
+*/
 #endif

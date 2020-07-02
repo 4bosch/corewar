@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checks.c                                           :+:      :+:    :+:   */
+/*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/27 14:47:34 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/02 19:51:05 by abaisago         ###   ########.fr       */
+/*   Created: 2020/06/29 20:09:45 by abaisago          #+#    #+#             */
+/*   Updated: 2020/07/02 19:52:37 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checks.h"
-
-#include "error.h"
 #include "util.h"
-#include "vm.h"
 
-void	checks(t_vm *vm)
+#include <stdint.h>
+
+int32_t					byte_swap_32(const int32_t num)
 {
-	if (vm->settings.player_count <= 0)
-		ft_printerr(USAGE"\n");
-	vm->endian = (get_endianness()) ? byte_swap_32 : return_self;
+	return (((num >> 24) & 0xff)
+			| ((num << 8) & 0xff0000)
+			| ((num >> 8) & 0xff00)
+			| ((num << 24) & 0xff000000));
+}
+
+int32_t					get_endianness(void)
+{
+	volatile uint16_t	num;
+
+	num = 1;
+	return ((*(uint8_t*)&num == 1) ? 1 : 0);
+}
+
+int32_t					return_self(const int32_t num)
+{
+	return (num);
 }
