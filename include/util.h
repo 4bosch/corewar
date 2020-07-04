@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 20:04:22 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/02 20:57:22 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/04 18:37:15 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ struct			s_cmd
 ** VM
 */
 
-# define BIG_ENDIAN		0
-# define LITTLE_ENDIAN	1
+# define ENDIAN_BIG		0
+# define ENGIAN_LITTLE	1
 
 int		byte_swap_32(const int32_t num);
 int		get_endianness(void);
