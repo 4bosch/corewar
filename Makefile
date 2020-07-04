@@ -6,7 +6,7 @@
 #    By: abaisago <adam_bai@protonmail.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 11:54:38 by abaisago          #+#    #+#              #
-#    Updated: 2020/06/27 17:16:32 by abosch           ###   ########.fr        #
+#    Updated: 2020/07/04 17:00:02 by abosch           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,7 +96,7 @@ CW             := $(CW)
 REL            := $(ASM) $(CW)
 REL_OBJ_ASM    := $(addprefix $(REL_PATH)/,$(OBJ_ASM))
 REL_OBJ_CW     := $(addprefix $(REL_PATH)/,$(OBJ_CW))
-REL_CFLAGS     := $(CFLAGS) -O3
+REL_CFLAGS     := $(CFLAGS)
 
 #------------------------------------------------#
 #                     DEBUG                      |

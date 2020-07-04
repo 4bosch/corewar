@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 16:28:49 by abosch            #+#    #+#             */
-/*   Updated: 2020/06/30 19:46:36 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/04 17:42:17 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,26 @@ static void		handle_cmd(t_list_link *lnk, t_cmd *cmd)
 		ft_printerr("asm: Command \"%s\" isn't finished by a newline.\n", getTokenInfo(tok));
 }
 
+static void		handle_label(t_list_link **lnk, t_list *label)
+{
+	t_token	*tok;
+
+	tok = (*lnk)->content;
+	ft_list_push(label, ft_list_link_new(
+		tok->content->buf, tok->content->len * sizeof(char)));
+}
+
+/*
+static void		handle_op(t_list_link **lnk, t_list *label)
+{
+}
+*/
+
 void			parser(t_list **tab, t_list *label, t_cmd *cmd)
 {
 	int			i; 
 	t_list_link	*lnk;
+	t_token		*tok;
 
 	i = -1;
 	while (tab[++i] != NULL)
@@ -69,12 +85,29 @@ void			parser(t_list **tab, t_list *label, t_cmd *cmd)
 		lnk = tab[i]->head;
 		while (lnk->next != tab[i]->head)
 		{
-			if (((t_token*)lnk->content)->type == DOT)
+			tok = lnk->content;
+			ft_printf("tok = %s\n", getTokenInfo(tok));
+			if (tok->type == DOT)
 			{
 				handle_cmd(lnk->next, cmd);
 				break ;
 			}
-			lnk = lnk->next;
+			else if (tok->type == SYMBOL)
+			{
+				tok = lnk->next->content;
+				if (tok->type == LSEP)
+				{
+					handle_label(&lnk, label);
+					if (lnk->next->next != tab[i]->head)
+						lnk = lnk->next->next;
+				}
+				else if (tok->type == SYMBOL || tok->type == IND)
+					break ;
+				else
+					ft_printerr("error excepted SYMBOL or LABEL SEPARATOR.\n");
+			}
+			else
+				ft_printerr("error excepted DOT or SYMBOL.\n");
 		}
 	}
 }
