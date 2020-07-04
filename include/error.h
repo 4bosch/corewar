@@ -6,22 +6,29 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 17:15:19 by abaisago          #+#    #+#             */
-/*   Updated: 2020/06/27 16:40:17 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/04 16:40:59 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERROR_H
 # define ERROR_H
 
+# define EACCESS		"cannot access '%s'"
+# define EINVOPT		"invalid option -- '%s'"
+
 /*
 ** VM
 */
 
-# define EINVEXT		"\"%s\" has an invalid file extension, must be .cor"
-# define EMANYPLAYER	"Too many players specified"
-# define ESAMEID		"Duplicate player ID: \"%s\""
-# define EWRONGID		"Player ID \"%s\" is out of range"
-# define USAGE			"Usage: " \
+# define EBIGPSIZEHEAD	"'%s' header prog_size too big"
+# define EINVCOMMENT	"'%s' has an invalid comment"
+# define EINVEXT		"'%s' has an invalid file extension, must be .cor"
+# define EINVID			"player id '%s' is out of range"
+# define EINVMAGIC		"'%s' has an invalid magic number"
+# define EINVPROGNAME	"'%s' has an invalid program name"
+# define EMANYPLAYER	"too many players specified"
+# define ESAMEID		"duplicate player id '%d'"
+# define USAGE			"usage: " \
 	"corewar [-dump nbr_cycles] [-n number] CHAMPION.cor [CHAMPION.cor ...]"
 
 /*
