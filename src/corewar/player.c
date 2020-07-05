@@ -6,13 +6,14 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 17:17:21 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/05 18:35:48 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/05 21:32:05 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "player.h"
 
 #include "debug.h" // DEL
+#include "cursor.h"
 #include "error.h"
 #include "util.h"
 #include "vm.h"
@@ -67,6 +68,7 @@ static void		read_code(t_player *player, int fd)
 
 void			load_players(t_vm *vm)
 {
+	t_cursor	cursor;
 	int			fd;
 	int			i;
 
@@ -78,6 +80,8 @@ void			load_players(t_vm *vm)
 				vm->players[i].filename, strerror(errno));
 		read_header(vm, vm->players + i, fd);
 		read_code(vm->players + i, fd);
+		cursor_init(vm->players + i, i + 1, vm->settings.player_count, &cursor);
+		vm_cursor_add(vm, &cursor);
 		close(fd);
 	}
 }

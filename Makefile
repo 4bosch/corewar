@@ -6,7 +6,7 @@
 #    By: abaisago <adam_bai@protonmail.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 11:54:38 by abaisago          #+#    #+#              #
-#    Updated: 2020/07/05 17:16:18 by abaisago         ###   ########.fr        #
+#    Updated: 2020/07/05 21:00:06 by abaisago         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,10 +76,12 @@ SRC_ASM        := $(addprefix $(SRC_PATH)/,$(SRC_NAME_ASM))
 
 SUB_CW         := main.c corewar.c \
                   checks.c         \
+                  cursor.c         \
                   debug.c          \
                   options.c        \
                   player.c         \
-                  util.c
+                  util.c           \
+                  vm.c
 SUB_CW         := $(addprefix corewar/, $(SUB_CW))
 SRC_NAME_CW    := $(SUB_CW)
 SRC_CW         := $(addprefix $(SRC_PATH)/,$(SRC_NAME_CW))

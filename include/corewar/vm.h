@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:32:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/05 16:37:27 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/05 21:30:07 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef VM_H
@@ -15,13 +15,14 @@
 
 # include "op.h"
 
+# define PC 0
+
 typedef struct	s_cursor
 {
 	int			last_live;
 	int			pid;
 	t_byte		carry;
-	int32_t		pc;
-	int32_t		registers[REG_SIZE];
+	int32_t		registers[REG_SIZE + 1];
 }				t_cursor;
 
 typedef struct	s_player
@@ -41,11 +42,13 @@ typedef struct	s_vm
 {
 	int32_t		(*endian)(int32_t number);
 	t_byte		arena[MEM_SIZE];
-	t_list		cursors;
+	t_list		*cursors;
 	t_player	players[MAX_PLAYERS];
 	t_settings	settings;
 }				t_vm;
 
+void			vm_cursor_add(t_vm *vm, t_cursor *cursor);
+void			vm_init(t_vm *vm);
 int				corewar(int ac, char **av);
 
 /*
