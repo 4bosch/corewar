@@ -29,6 +29,7 @@
 # define EMANYPLAYER	"too many players specified"
 # define ESAMEID		"duplicate player id '%d'"
 # define ESMALLFILE		"'%s' file too small"
+# define EUNMATCHSIZE	"'%s' code size does not match what its header says"
 # define USAGE			"usage: " \
 	"corewar [-dump nbr_cycles] [-n number] CHAMPION.cor [CHAMPION.cor ...]"
 

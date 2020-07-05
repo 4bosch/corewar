@@ -6,12 +6,13 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 17:17:21 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/05 16:20:14 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/05 18:35:48 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "player.h"
 
+#include "debug.h" // DEL
 #include "error.h"
 #include "util.h"
 #include "vm.h"
@@ -44,9 +45,28 @@ static void		read_header(t_vm *vm, t_player *player, int fd)
 		ft_printerr("corewar: " EINVCOMMENT "\n", player->filename);
 }
 
+static void		read_code(t_player *player, int fd)
+{
+	int			res;
+	int			isbig;
+
+	res = read(fd, player->code, CHAMP_MAX_SIZE + 1);
+	if (res == -1)
+		ft_printerr("corewar: get_players(read): %s\n", strerror(errno));
+	else if (res != player->header.prog_size)
+	{
+		isbig = (res > CHAMP_MAX_SIZE) ? 1 : 0;
+		ft_printerr("corewar: " EUNMATCHSIZE "\n"
+			"'%d'  (header)\n"
+			"'%d%s' (actual)\n",
+			player->filename,
+			player->header.prog_size,
+			(isbig) ? CHAMP_MAX_SIZE : res, (isbig) ? "+" : "");
+	}
+}
+
 void			load_players(t_vm *vm)
 {
-	char		code[CHAMP_MAX_SIZE];
 	int			fd;
 	int			i;
 
@@ -57,7 +77,7 @@ void			load_players(t_vm *vm)
 			ft_printerr("corewar: " EACCESS ": %s\n",
 				vm->players[i].filename, strerror(errno));
 		read_header(vm, vm->players + i, fd);
-		if (read(fd, code, CHAMP_MAX_SIZE + 1) == -1)
-			ft_printerr("corewar: get_players(read): %s\n", strerror(errno));
+		read_code(vm->players + i, fd);
+		close(fd);
 	}
 }

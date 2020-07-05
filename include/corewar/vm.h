@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:32:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/02 20:50:26 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/05 16:37:27 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef VM_H
@@ -28,6 +28,7 @@ typedef struct	s_player
 {
 	char		*filename;
 	t_header	header;
+	t_byte		code[CHAMP_MAX_SIZE + 1];
 }				t_player;
 
 typedef struct	s_settings
