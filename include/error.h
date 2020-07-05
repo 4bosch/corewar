@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 17:15:19 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/04 16:40:59 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/05 17:42:15 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@
 */
 
 # define EBIGSIZE		"'%s' size of '%d' too big"
+# define EDUPID			"duplicate player id '%d'"
 # define EINVCOMMENT	"'%s' has an invalid comment"
 # define EINVEXT		"'%s' has an invalid file extension, must be .cor"
 # define EINVID			"player id '%s' is out of range"
 # define EINVMAGIC		"'%s' has an invalid magic number"
 # define EINVPROGNAME	"'%s' has an invalid program name"
 # define EMANYPLAYER	"too many players specified"
-# define ESAMEID		"duplicate player id '%d'"
 # define ESMALLFILE		"'%s' file too small"
 # define EUNMATCHSIZE	"'%s' code size does not match what its header says"
 # define USAGE			"usage: " \

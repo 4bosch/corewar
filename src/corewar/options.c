@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 13:50:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/03 15:43:29 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/05 16:47:31 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void		get_player_filename(t_vm *vm, int id, char *filename)
 		|| !ft_strequ(filename + ft_strlen(filename) - 4, ".cor"))
 		ft_printerr("corewar: " EINVEXT "\n", filename);
 	if (vm->players[id - 1].filename != NULL)
-		ft_printerr("corewar: " ESAMEID "\n", id);
+		ft_printerr("corewar: " EDUPID "\n", id);
 	vm->players[id - 1].filename = filename;
 	vm->settings.player_count += 1;
 }
