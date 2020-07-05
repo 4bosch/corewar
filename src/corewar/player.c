@@ -24,8 +24,13 @@
 
 static void		read_header(t_vm *vm, t_player *player, int fd)
 {
-	if (read(fd, &player->header, sizeof(t_header)) == -1)
+	int			res;
+
+	res = read(fd, &player->header, sizeof(t_header));
+	if (res == -1)
 		ft_printerr("corewar: get_players(read): %s\n", strerror(errno));
+	else if (res < (int)sizeof(t_header))
+		ft_printerr("corewar: " ESMALLFILE "\n", player->filename);
 	player->header.magic = vm->endian(player->header.magic);
 	player->header.prog_size = vm->endian(player->header.prog_size);
 	if (player->header.magic != COREWAR_EXEC_MAGIC)
@@ -33,7 +38,8 @@ static void		read_header(t_vm *vm, t_player *player, int fd)
 	if (*(int32_t*)(player->header.prog_name + PROG_NAME_LENGTH) != 0)
 		ft_printerr("corewar: " EINVPROGNAME "\n", player->filename);
 	if (player->header.prog_size > CHAMP_MAX_SIZE)
-		ft_printerr("corewar: " EBIGPSIZEHEAD "\n", player->filename);
+		ft_printerr("corewar: " EBIGSIZE "\n",
+			player->filename, player->header.prog_size);
 	if (*(int32_t*)(player->header.comment + COMMENT_LENGTH) != '\0')
 		ft_printerr("corewar: " EINVCOMMENT "\n", player->filename);
 }

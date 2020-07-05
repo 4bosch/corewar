@@ -20,7 +20,7 @@
 ** VM
 */
 
-# define EBIGPSIZEHEAD	"'%s' header prog_size too big"
+# define EBIGSIZE		"'%s' size of '%d' too big"
 # define EINVCOMMENT	"'%s' has an invalid comment"
 # define EINVEXT		"'%s' has an invalid file extension, must be .cor"
 # define EINVID			"player id '%s' is out of range"
@@ -28,6 +28,7 @@
 # define EINVPROGNAME	"'%s' has an invalid program name"
 # define EMANYPLAYER	"too many players specified"
 # define ESAMEID		"duplicate player id '%d'"
+# define ESMALLFILE		"'%s' file too small"
 # define USAGE			"usage: " \
 	"corewar [-dump nbr_cycles] [-n number] CHAMPION.cor [CHAMPION.cor ...]"
 
