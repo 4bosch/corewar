@@ -22,7 +22,7 @@ typedef struct	s_cursor
 	int			last_live;
 	int			pid;
 	t_byte		carry;
-	int32_t		registers[REG_SIZE + 1];
+	int32_t		registers[REG_NUMBER + 1];
 }				t_cursor;
 
 typedef struct	s_player
