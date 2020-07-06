@@ -6,17 +6,15 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 17:17:21 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/05 21:32:05 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/06 17:23:34 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "player.h"
+#include "vm.h"
 
 #include "debug.h" // DEL
-#include "cursor.h"
 #include "error.h"
 #include "util.h"
-#include "vm.h"
 
 #include <errno.h>
 #include <fcntl.h>

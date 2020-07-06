@@ -6,15 +6,14 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 13:50:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/05 16:47:31 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/06 17:22:45 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "options.h"
+#include "vm.h"
 #include "libft.h"
 
 #include "error.h"
-#include "vm.h"
 
 static int		get_dump(int ac, char **av, int i)
 {

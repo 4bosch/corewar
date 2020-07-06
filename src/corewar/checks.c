@@ -6,15 +6,14 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:47:34 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/02 19:51:05 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/06 17:22:09 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checks.h"
+#include "vm.h"
 
 #include "error.h"
 #include "util.h"
-#include "vm.h"
 
 void	checks(t_vm *vm)
 {
