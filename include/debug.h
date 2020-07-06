@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 17:06:17 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/05 17:12:40 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/06 20:09:52 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #  define DF(...) /* Doesn't do anything in release builds */
 # endif
 
+void		dbg_cursor(t_cursor *cursor);
 void		dbg_player(t_player *player);
 
 /*
