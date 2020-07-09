@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:24:13 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/04 17:46:58 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/09 19:47:14 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,22 @@ static int	print_token(void *content, size_t content_size, unsigned position, un
 
 	tok = (t_token*)content;
 	ft_printf("| ");
-	if (tok->type == LSEP)
-		ft_printf(":       |");
+	if (tok->type == LABELDEF)
+		ft_printf("Label def|");
 	else if (tok->type == SEP)
-		ft_printf(",       |");
+		ft_printf(",        |");
 	else if (tok->type == IND)
-		ft_printf("%%       |");
+		ft_printf("%%        |");
 	else if (tok->type == SYMBOL)
-		ft_printf("Symbol  |");
+		ft_printf("Symbol   |");
 	else if (tok->type == NEWLINE)
-		ft_printf("Newline |");
+		ft_printf("Newline  |");
 	else if (tok->type == DOT)
-		ft_printf(".       |");
+		ft_printf(".        |");
 	else if (tok->type == STRING)
-		ft_printf("String  |");
+		ft_printf("String   |");
+	else if (tok->type == LABELARG)
+		ft_printf("Label arg|");
 	if (tok->content != NULL)
 		ft_printf(" %s |\n", tok->content->buf);
 	else
@@ -141,11 +143,11 @@ int			asmcore(int ac, char **av)
 	if ((label = ft_list_init()) == NULL)
 		ft_printerr("asm: asmcore(ft_list_init): %s\n", strerror(errno));
 	ft_bzero(&cmd, sizeof(t_cmd));
-	parser(token_tab, label, &cmd);
+//	parser(token_tab, label, &cmd);
 	//DEBUG
-	ft_printf("name : |%s|\ncomment : |%s|\n", cmd.name, cmd.comment);
-	ft_printf("%s\n",label->head->content);
-	ft_printf("%s\n",label->head->next->content);
+//	ft_printf("name : |%s|\ncomment : |%s|\n", cmd.name, cmd.comment);
+//	ft_printf("%s\n",label->head->content);
+//	ft_printf("%s\n",label->head->next->content);
 	//END
 	return (EXIT_SUCCESS);
 }

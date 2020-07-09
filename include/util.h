@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 20:04:22 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/04 18:37:15 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/09 20:11:58 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@
 ** ASM
 */
 
-# define LSEP		0
-# define SEP		1
-# define IND		2
-# define SYMBOL		3
-# define NEWLINE	4
-# define DOT		5
-# define STRING		6
+# define SEP		0
+# define IND		1
+# define NEWLINE	2
+# define DOT		3
+# define SYMBOL		4
+# define STRING		5
+# define LABELDEF	6
+# define LABELARG	7
 
 
 typedef struct	s_cmd t_cmd;

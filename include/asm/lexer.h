@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 17:05:02 by abosch            #+#    #+#             */
-/*   Updated: 2020/06/29 20:11:02 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/09 19:40:48 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,20 @@
 
 # define BUF_SIZE 5
 
+typedef struct	s_lexargs t_lexargs;
+
+struct s_lexargs
+{
+	char	*buf;
+	int		fd;
+	int		i;
+	t_list	*toklist;
+};
+
+int		read_more(int *i, t_lexargs *args);
+t_token	*token_new(t_token *tok, t_byte type, t_string *content);
+int		simple_case(t_lexargs *args);
+void	handle_comment(t_lexargs *args);
 void	lexer(t_list *token_list);
 
 #endif

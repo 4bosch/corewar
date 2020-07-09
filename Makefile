@@ -6,7 +6,7 @@
 #    By: abaisago <adam_bai@protonmail.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 11:54:38 by abaisago          #+#    #+#              #
-#    Updated: 2020/07/05 21:00:06 by abaisago         ###   ########.fr        #
+#    Updated: 2020/07/09 13:30:43 by abosch           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ RM             := /bin/rm
 
 SRC_PATH       := src
 
-SUB_ASM        := main.c asm.c lexer.c parser.c
+SUB_ASM        := main.c asm.c lexer1.c lexer2.c parser.c
 SUB_ASM        := $(addprefix asm/, $(SUB_ASM))
 SRC_NAME_ASM   := $(SUB_ASM)
 SRC_ASM        := $(addprefix $(SRC_PATH)/,$(SRC_NAME_ASM))

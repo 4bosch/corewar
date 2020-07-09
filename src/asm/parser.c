@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 16:28:49 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/04 17:42:17 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/09 20:11:07 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 char			*getTokenInfo(t_token *tok)
 {
-	if (tok->type == LSEP)
-		return (":");
-	else if (tok->type == SEP)
+	if (tok->type == SEP)
 		return (",");
 	else if (tok->type == IND)
 		return ("%");
@@ -58,20 +56,19 @@ static void		handle_cmd(t_list_link *lnk, t_cmd *cmd)
 		ft_printerr("asm: Command \"%s\" isn't finished by a newline.\n", getTokenInfo(tok));
 }
 
-static void		handle_label(t_list_link **lnk, t_list *label)
+static void		handle_labeldef(t_list_link **lnk, t_list *label)
 {
 	t_token	*tok;
 
 	tok = (*lnk)->content;
 	ft_list_push(label, ft_list_link_new(
 		tok->content->buf, tok->content->len * sizeof(char)));
+	*lnk = (*lnk)->next;
 }
 
-/*
-static void		handle_op(t_list_link **lnk, t_list *label)
+static void		handle_op(t_list_link *lnk, t_list *label)
 {
 }
-*/
 
 void			parser(t_list **tab, t_list *label, t_cmd *cmd)
 {
@@ -92,20 +89,10 @@ void			parser(t_list **tab, t_list *label, t_cmd *cmd)
 				handle_cmd(lnk->next, cmd);
 				break ;
 			}
+			else if (tok->type == LABELDEF)
+				handle_labeldef(&lnk, label);
 			else if (tok->type == SYMBOL)
-			{
-				tok = lnk->next->content;
-				if (tok->type == LSEP)
-				{
-					handle_label(&lnk, label);
-					if (lnk->next->next != tab[i]->head)
-						lnk = lnk->next->next;
-				}
-				else if (tok->type == SYMBOL || tok->type == IND)
-					break ;
-				else
-					ft_printerr("error excepted SYMBOL or LABEL SEPARATOR.\n");
-			}
+				handle_op(lnk, label);
 			else
 				ft_printerr("error excepted DOT or SYMBOL.\n");
 		}
