@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:32:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/06 17:18:47 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/06 20:51:40 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef VM_H
@@ -56,8 +56,10 @@ void		    options(t_vm *vm, int ac, char **av);
 
 void			load_players(t_vm *vm);
 
+void			arena_print(t_byte *arena, int col);
 void			vm_cursor_add(t_vm *vm, t_cursor *cursor);
 void			vm_init(t_vm *vm);
+void			load_code(t_vm *vm, t_cursor *cursor, t_player *player);
 
 int				corewar(int ac, char **av);
 
