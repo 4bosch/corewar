@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 17:01:08 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/05 21:15:21 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/06 20:14:04 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ void		dbg_cursor(t_cursor *cursor)
 
 	half = REG_NUMBER / 2;
 	i = 0;
+	ft_printf("PC  = % -10d carry = %08b\n",
+		cursor->registers[PC], cursor->carry);
 	while (++i <= half)
 		ft_printf("r%02d = % -10d r%02d = % -10d\n",
 			i, cursor->registers[i], i + half, cursor->registers[i + half]);
-
+	ft_printf("**************************************************\n");
 }
 
 void		dbg_player(t_player *player)
