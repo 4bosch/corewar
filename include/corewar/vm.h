@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:32:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/06 20:51:40 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/09 18:05:23 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef VM_H
@@ -15,7 +15,8 @@
 
 # include "op.h"
 
-# define PC 0
+# define NO_WINNER	0
+# define PC			0
 
 typedef struct	s_cursor
 {
@@ -38,6 +39,13 @@ typedef struct	s_settings
 	int			player_count;
 }				t_settings;
 
+typedef struct	s_stats
+{
+	int			cycle;
+	int			live_count;
+	int			winner;
+}				t_stats;
+
 typedef struct	s_vm
 {
 	int32_t		(*endian)(int32_t number);
@@ -45,6 +53,7 @@ typedef struct	s_vm
 	t_list		*cursors;
 	t_player	players[MAX_PLAYERS];
 	t_settings	settings;
+	t_stats		stats;
 }				t_vm;
 
 void			cursor_init(t_player *player, int pid,
