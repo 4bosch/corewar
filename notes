@@ -29,6 +29,12 @@ Lexer :
 
 convert "ld %15, r9" -> [symbol, "ld"] [%] [symbol, 15] [,] [symbol, r9]
 
+Parser :
+	same op args check :
+	- live, zjmp, fork, lfork -> arg1: DIR
+	- add, sub -> arg1,2,3: REG
+	- and, or, xor -> arg1,2: REG/DIR/IND arg3: REG
+	- ld, lld -> arg1: DIR/IND arg2: REG
 
 ┌──────────────────────────────────────────────────────────────────────────────╮
  ### VM
