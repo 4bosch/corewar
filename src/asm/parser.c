@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 16:28:49 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/09 20:11:07 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/10 14:57:47 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,33 @@ static void		handle_labeldef(t_list_link **lnk, t_list *label)
 	*lnk = (*lnk)->next;
 }
 
-static void		handle_op(t_list_link *lnk, t_list *label)
+static void		handle_op(t_list_link **lnk, t_list *label)
 {
+	char		*s;
+	
+	s = ((t_token*)(*lnk)->content)->content->buf;
+	if (ft_strcmp(s, "live") == 0 || ft_strcmp(s, "zjmp") == 0
+		|| ft_strcmp(s, "fork") == 0 ||ft_strcmp(s, "lfork") == 0)
+		;
+	else if (ft_strcmp(s, "add") == 0 || ft_strcmp(s, "sub") == 0)
+		;
+	else if (ft_strcmp(s, "and") == 0 || ft_strcmp(s, "xor") == 0
+		|| ft_strcmp(s, "or") == 0)
+		;
+	else if (ft_strcmp(s, "ld") == 0 || ft_strcmp(s, "lld") == 0)
+		;
+	else if (ft_strcmp(s, "st") == 0)
+		;
+	else if (ft_strcmp(s, "sti") == 0)
+		;
+	else if (ft_strcmp(s, "ldi") == 0)
+		;
+	else if (ft_strcmp(s, "lldi") == 0)
+		;
+	else if (ft_strcmp(s, "aff") == 0)
+		;
+	else
+		;
 }
 
 void			parser(t_list **tab, t_list *label, t_cmd *cmd)
@@ -92,7 +117,7 @@ void			parser(t_list **tab, t_list *label, t_cmd *cmd)
 			else if (tok->type == LABELDEF)
 				handle_labeldef(&lnk, label);
 			else if (tok->type == SYMBOL)
-				handle_op(lnk, label);
+				handle_op(&lnk, label);
 			else
 				ft_printerr("error excepted DOT or SYMBOL.\n");
 		}

@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:24:13 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/09 19:47:14 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/10 14:10:00 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ int			asmcore(int ac, char **av)
 	if ((label = ft_list_init()) == NULL)
 		ft_printerr("asm: asmcore(ft_list_init): %s\n", strerror(errno));
 	ft_bzero(&cmd, sizeof(t_cmd));
-//	parser(token_tab, label, &cmd);
+	parser(token_tab, label, &cmd);
 	//DEBUG
 //	ft_printf("name : |%s|\ncomment : |%s|\n", cmd.name, cmd.comment);
 //	ft_printf("%s\n",label->head->content);
