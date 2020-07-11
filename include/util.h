@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 20:04:22 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/09 20:11:58 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/11 12:01:12 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 */
 
 # define SEP		0
-# define IND		1
+# define DIR		1
 # define NEWLINE	2
 # define DOT		3
 # define SYMBOL		4
