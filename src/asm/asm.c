@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:24:13 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/10 14:10:00 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/11 14:01:53 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	print_token(void *content, size_t content_size, unsigned position, un
 		ft_printf("Label def|");
 	else if (tok->type == SEP)
 		ft_printf(",        |");
-	else if (tok->type == IND)
+	else if (tok->type == DIR)
 		ft_printf("%%        |");
 	else if (tok->type == SYMBOL)
 		ft_printf("Symbol   |");
@@ -110,6 +110,7 @@ static void	fill_tab(int len, t_list **tab, t_list *list)
 			j++;
 		}
 	}
+	ft_list_push(tab[j], ft_list_pop_front(list));
 	if (((t_token*)tab[j - 1]->head->prev->content)->type != NEWLINE)
 		ft_printerr(ENOLASTNL);
 }

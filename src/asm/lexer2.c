@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 12:52:10 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/09 19:48:12 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/11 14:25:44 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ void			handle_labelarg(t_lexargs *args)
 	ft_string_nappend(str, args->buf + args->i, i);
 	ft_list_push(args->toklist, ft_list_link_new(
 				token_new(&tok, LABELARG, str), sizeof(t_token)));
+	if (args->buf[i] == '\n')
+		ft_list_push(args->toklist, ft_list_link_new(
+					token_new(&tok, NEWLINE, NULL), sizeof(t_token)));
 }
 
 int				simple_case(t_lexargs *args)
@@ -59,7 +62,7 @@ int				simple_case(t_lexargs *args)
 					token_new(&tok, SEP, NULL), sizeof(t_token)));
 	else if (c == '%') 
 		ft_list_push(args->toklist, ft_list_link_new(
-					token_new(&tok, IND, NULL), sizeof(t_token)));
+					token_new(&tok, DIR, NULL), sizeof(t_token)));
 	else if (c == '\n') 
 		ft_list_push(args->toklist, ft_list_link_new(
 					token_new(&tok, NEWLINE, NULL), sizeof(t_token)));
