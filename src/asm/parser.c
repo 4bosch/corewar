@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 16:28:49 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/10 14:57:47 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/11 15:06:25 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char			*getTokenInfo(t_token *tok)
 {
 	if (tok->type == SEP)
 		return (",");
-	else if (tok->type == IND)
+	else if (tok->type == DIR)
 		return ("%");
 	else if (tok->type == NEWLINE)
 		return ("newline");
@@ -66,6 +66,68 @@ static void		handle_labeldef(t_list_link **lnk, t_list *label)
 	*lnk = (*lnk)->next;
 }
 
+void			check_lzflf(t_list_link **lnk)
+{
+	t_token		*tok;
+
+	tok = (*lnk)->next->content;
+	if (tok->type != DIR)
+		ft_printerr("asm: Expected a direct character "
+			"but had |%s|.\n", getTokenInfo(tok));
+	tok = (*lnk)->next->next->content;
+	if (tok->type != SYMBOL && tok->type != LABELARG)
+		ft_printerr("asm: Expected a symbol "
+			"but had |%s|.\n", getTokenInfo(tok));
+	if (tok->type == SYMBOL && ft_strisnumber(tok->content->buf) == 0)
+		ft_printerr("asm: Expected a number or a label argument "
+			"but had |%s|.\n", getTokenInfo(tok));
+	tok = (*lnk)->next->next->next->content;
+	if (tok->type != NEWLINE)
+		ft_printerr("asm: Expected a newline "
+			"but had |%s|.\n", getTokenInfo(tok));
+	*lnk = (*lnk)->next->next->next;
+}
+
+void			check_as(t_list_link **lnk)
+{
+
+}
+
+void			check_aox(t_list_link **lnk)
+{
+
+}
+
+void			check_lll(t_list_link **lnk)
+{
+
+}
+
+void			check_st(t_list_link **lnk)
+{
+
+}
+
+void			check_sti(t_list_link **lnk)
+{
+
+}
+
+void			check_ldi(t_list_link **lnk)
+{
+
+}
+
+void			check_lldi(t_list_link **lnk)
+{
+
+}
+
+void			check_aff(t_list_link **lnk)
+{
+
+}
+
 static void		handle_op(t_list_link **lnk, t_list *label)
 {
 	char		*s;
@@ -73,26 +135,26 @@ static void		handle_op(t_list_link **lnk, t_list *label)
 	s = ((t_token*)(*lnk)->content)->content->buf;
 	if (ft_strcmp(s, "live") == 0 || ft_strcmp(s, "zjmp") == 0
 		|| ft_strcmp(s, "fork") == 0 ||ft_strcmp(s, "lfork") == 0)
-		;
+		check_lzflf(lnk);
 	else if (ft_strcmp(s, "add") == 0 || ft_strcmp(s, "sub") == 0)
-		;
+		check_as(lnk);
 	else if (ft_strcmp(s, "and") == 0 || ft_strcmp(s, "xor") == 0
 		|| ft_strcmp(s, "or") == 0)
-		;
+		check_aox(lnk);
 	else if (ft_strcmp(s, "ld") == 0 || ft_strcmp(s, "lld") == 0)
-		;
+		check_lll(lnk);
 	else if (ft_strcmp(s, "st") == 0)
-		;
+		check_st(lnk);
 	else if (ft_strcmp(s, "sti") == 0)
-		;
+		check_sti(lnk);
 	else if (ft_strcmp(s, "ldi") == 0)
-		;
+		check_ldi(lnk);
 	else if (ft_strcmp(s, "lldi") == 0)
-		;
+		check_lldi(lnk);
 	else if (ft_strcmp(s, "aff") == 0)
-		;
+		check_aff(lnk);
 	else
-		;
+		ft_printerr("asm: |%s| isn't a valid operation.\n", s);
 }
 
 void			parser(t_list **tab, t_list *label, t_cmd *cmd)
