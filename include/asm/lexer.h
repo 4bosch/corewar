@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 17:05:02 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/09 19:40:48 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/11 14:58:57 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "op.h"
 # include "error.h"
 # include "libft.h"
+# include "tmplib.h"
 
 # define BUF_SIZE 5
 
