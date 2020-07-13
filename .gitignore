@@ -7,6 +7,7 @@ resources
 debug
 test.s
 .DS_Store
+tmp/
 
 # Prerequisites
 *.d
