@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 16:40:51 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/09 19:43:11 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/13 11:27:50 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void			handle_symbol(t_lexargs *args)
 		else
 			i++;
 	}
-	ft_string_nappend(str, args->buf + args->i, i);
+	ft_string_nappend(str, args->buf + args->i, i - args->i);
 	create_token(str, i, args);
 }
 
@@ -84,7 +84,7 @@ void			handle_string(t_lexargs *args)
 				return ;
 		}
 	}
-	ft_string_nappend(str, args->buf + args->i, i);
+	ft_string_nappend(str, args->buf + args->i, i - args->i);
 	args->i = i;
 	ft_list_push(args->toklist, ft_list_link_new(token_new(&tok, STRING, str),
 				sizeof(t_token)));
