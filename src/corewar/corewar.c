@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
+/*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:28:46 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/06 17:21:16 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/13 21:47:12 by weilin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ int				corewar(int ac, char **av)
 	options(&vm, ac, av);
 	checks(&vm);
 	load_players(&vm);
+	ft_fight(&vm);
 	return (EXIT_SUCCESS);
 }

@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.h                                            :+:      :+:    :+:   */
+/*   fight.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/10 17:06:17 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/13 18:32:15 by weilin           ###   ########.fr       */
+/*   Created: 2020/07/10 16:31:58 by weilin            #+#    #+#             */
+/*   Updated: 2020/07/13 21:45:18 by weilin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEBUG_H
-# define DEBUG_H
-# include "libft.h"
+#include "vm.h"
 
-# include "vm.h"
+void	ft_fight(t_vm *vm)
+{
+	int			i;
+	t_player	*curr;
 
-# define DEBUG 0
-
-# if DEBUG == 1
-#  define DF(...) ft_printf(__VA_ARGS__)
-# else
-#  define DF(...) /* Doesn't do anything in release builds */
-# endif
-
-void		dbg_cursor(t_cursor *cursor);
-void		dbg_player(t_player *player);
-void		ft_hexdump(const unsigned char arena[MEM_SIZE], int width);
-
-/*
-** DEBUG_H
-*/
-#endif
+	i = 0;
+	ft_printf("Introducing contestants...\n");
+	while (i < vm->settings.player_count)
+	{
+		curr = &vm->players[i];
+		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", i + 1
+		, curr->header.prog_size
+		, curr->header.prog_name
+		, curr->header.comment);
+		i++;
+	}
+}
