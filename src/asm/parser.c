@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 16:28:49 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/11 15:06:25 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/11 17:27:56 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,54 @@ void			check_lzflf(t_list_link **lnk)
 	*lnk = (*lnk)->next->next->next;
 }
 
+int				is_reg(const char *s)
+{
+	int		len;
+
+	len = ft_strlen(s);
+	if (len > 1 && len < 4)
+	{
+		if (len == 2)
+			if (s[0] != 'r' || !ft_isdigit(s[1]))
+				return (0);
+		if (len == 3)
+			if (s[0] != 'r' || !ft_isdigit(s[1]) || !ft_isdigit(s[2]))
+				return (0);
+		return (1);
+	}
+	else
+		return (0);
+}
+
 void			check_as(t_list_link **lnk)
 {
+	t_token		*tok;
 
+	tok = (*lnk)->next->content;
+	if (tok->type != SYMBOL || !is_reg(tok->content->buf))
+		ft_printerr("asm: Expected a register as first "
+			"argument but had |%s|.\n", getTokenInfo(tok));
+	tok = (*lnk)->next->next->content;
+	if (tok->type != SEP)
+		ft_printerr("asm: Expected a separator('%c') "
+			"but had |%s|.\n", SEPARATOR_CHAR, getTokenInfo(tok));
+	tok = (*lnk)->next->next->next->content;
+	if (tok->type != SYMBOL || !is_reg(tok->content->buf))
+		ft_printerr("asm: Expected a register as second "
+			"argument but had |%s|.\n", getTokenInfo(tok));
+	tok = (*lnk)->next->next->next->next->content;
+	if (tok->type != SEP)
+		ft_printerr("asm: Expected a separator('%c') "
+			"but had |%s|.\n", SEPARATOR_CHAR, getTokenInfo(tok));
+	tok = (*lnk)->next->next->next->next->next->content;
+	if (tok->type != SYMBOL || !is_reg(tok->content->buf))
+		ft_printerr("asm: Expected a register as third "
+			"argument but had |%s|.\n", getTokenInfo(tok));
+	tok = (*lnk)->next->next->next->next->next->next->content;
+	if (tok->type != NEWLINE)
+		ft_printerr("asm: Expected a newline "
+			"but had |%s|.\n", getTokenInfo(tok));
+	*lnk = (*lnk)->next->next->next->next->next->next;
 }
 
 void			check_aox(t_list_link **lnk)
