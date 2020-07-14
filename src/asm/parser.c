@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 16:28:49 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/11 17:27:56 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/14 15:36:25 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,44 +26,59 @@ char			*getTokenInfo(t_token *tok)
 		return (tok->content->buf);
 }
 
-static void		handle_cmd(t_list_link *lnk, t_cmd *cmd)
+int				is_reg(const char *s)
 {
-	t_token		*tok;
+	int		len;
 
-	tok = (t_token*)lnk->content;
-	if (tok->type != SYMBOL)
-		ft_printerr("asm: |%s| isn't a command(\"name\" or \"comment\").\n", 
-			getTokenInfo(tok));
-	if (ft_strcmp(tok->content->buf, "name") == 0)
+	len = ft_strlen(s);
+	if (len > 1 && len < 4)
 	{
-		if (cmd->name != NULL)
-			ft_printerr("asm: Command name has been already called.\n");
-		else if (((t_token*)lnk->next->content)->type != STRING)
-			ft_printerr("asm: A string is needed after a command.\n");
-		cmd->name = ((t_token*)lnk->next->content)->content->buf;
-	}
-	else if (ft_strcmp(tok->content->buf, "comment") == 0)
-	{
-		if (cmd->comment != NULL)
-			ft_printerr("asm: Command comment has been already called.\n");
-		else if (((t_token*)lnk->next->content)->type != STRING)
-			ft_printerr("asm: A string is needed after a command.\n");
-		cmd->comment = ((t_token*)lnk->next->content)->content->buf;
+		if (len == 2)
+			if (s[0] != 'r' || !ft_isdigit(s[1]))
+				return (0);
+		if (len == 3)
+			if (s[0] != 'r' || !ft_isdigit(s[1]) || !ft_isdigit(s[2]))
+				return (0);
+		return (1);
 	}
 	else
-		ft_printerr("asm: |%s| isn't a command(\"name\" or \"comment\").\n");
-	if (((t_token*)lnk->next->next->content)->type != NEWLINE)
-		ft_printerr("asm: Command \"%s\" isn't finished by a newline.\n", getTokenInfo(tok));
+		return (0);
 }
 
-static void		handle_labeldef(t_list_link **lnk, t_list *label)
+void			check_sep(t_token *tok)
 {
-	t_token	*tok;
+	if (tok->type != SEP)
+		ft_printerr("asm: Expected a separator('%c') "
+			"but had |%s|.\n", SEPARATOR_CHAR, getTokenInfo(tok));
+}
 
-	tok = (*lnk)->content;
-	ft_list_push(label, ft_list_link_new(
-		tok->content->buf, tok->content->len * sizeof(char)));
-	*lnk = (*lnk)->next;
+void			check_reg(t_token *tok)
+{
+	if (tok->type != SYMBOL || !is_reg(tok->content->buf))
+		ft_printerr("asm: Expected a register as "
+			"argument but had |%s|.\n", getTokenInfo(tok));
+}
+
+void			check_all_type(t_list_link *lnk)
+{
+	t_token *tok;
+
+	tok = lnk->content;
+	if (tok->type != SYMBOL || tok->type != DIR)
+		ft_printerr(ENOSYMDIR, DIRECT_CHA, getTokenInfo(tok));
+	if (tok->type == SYMBOL)
+	{
+		if (!is_reg(tok->content->buf) || !ft_strisnumber(tok->content->buf))
+			ft_printerr(ESYMREGIND);
+	}
+	else if (tok->type == DIR)
+	{
+		tok = lnk->next->content;
+		if (tok->type != SYMBOL)
+			ft_printerr(ENOSYM);
+		if (!ft_strisnumber(tok->content->buf))
+			ft_printerr(ENONUM);
+	}
 }
 
 void			check_lzflf(t_list_link **lnk)
@@ -88,59 +103,31 @@ void			check_lzflf(t_list_link **lnk)
 	*lnk = (*lnk)->next->next->next;
 }
 
-int				is_reg(const char *s)
-{
-	int		len;
-
-	len = ft_strlen(s);
-	if (len > 1 && len < 4)
-	{
-		if (len == 2)
-			if (s[0] != 'r' || !ft_isdigit(s[1]))
-				return (0);
-		if (len == 3)
-			if (s[0] != 'r' || !ft_isdigit(s[1]) || !ft_isdigit(s[2]))
-				return (0);
-		return (1);
-	}
-	else
-		return (0);
-}
-
 void			check_as(t_list_link **lnk)
 {
-	t_token		*tok;
+	int			i;
 
-	tok = (*lnk)->next->content;
-	if (tok->type != SYMBOL || !is_reg(tok->content->buf))
-		ft_printerr("asm: Expected a register as first "
-			"argument but had |%s|.\n", getTokenInfo(tok));
-	tok = (*lnk)->next->next->content;
-	if (tok->type != SEP)
-		ft_printerr("asm: Expected a separator('%c') "
-			"but had |%s|.\n", SEPARATOR_CHAR, getTokenInfo(tok));
-	tok = (*lnk)->next->next->next->content;
-	if (tok->type != SYMBOL || !is_reg(tok->content->buf))
-		ft_printerr("asm: Expected a register as second "
-			"argument but had |%s|.\n", getTokenInfo(tok));
-	tok = (*lnk)->next->next->next->next->content;
-	if (tok->type != SEP)
-		ft_printerr("asm: Expected a separator('%c') "
-			"but had |%s|.\n", SEPARATOR_CHAR, getTokenInfo(tok));
-	tok = (*lnk)->next->next->next->next->next->content;
-	if (tok->type != SYMBOL || !is_reg(tok->content->buf))
-		ft_printerr("asm: Expected a register as third "
-			"argument but had |%s|.\n", getTokenInfo(tok));
-	tok = (*lnk)->next->next->next->next->next->next->content;
-	if (tok->type != NEWLINE)
+	i = -1;
+	*lnk = (*lnk)->next;
+	while (++i < 2)
+	{
+		check_reg((*lnk)->content);
+		check_sep((*lnk)->next->content);
+		*lnk = (*lnk)->next->next;
+	}
+	check_reg((*lnk)->content);
+	*lnk = (*lnk)->next;
+	if (((t_token*)(*lnk)->content)->type != NEWLINE)
 		ft_printerr("asm: Expected a newline "
-			"but had |%s|.\n", getTokenInfo(tok));
-	*lnk = (*lnk)->next->next->next->next->next->next;
+			"but had |%s|.\n", getTokenInfo((t_token*)(*lnk)->content));
 }
 
 void			check_aox(t_list_link **lnk)
 {
+	t_token		*tok;
 
+	tok = (*lnk)->next->content;
+	
 }
 
 void			check_lll(t_list_link **lnk)
@@ -202,6 +189,36 @@ static void		handle_op(t_list_link **lnk, t_list *label)
 		ft_printerr("asm: |%s| isn't a valid operation.\n", s);
 }
 
+static void		handle_cmd(t_list_link *lnk, t_cmd *cmd)
+{
+	t_token		*tok;
+
+	tok = (t_token*)lnk->content;
+	if (tok->type != SYMBOL)
+		ft_printerr("asm: |%s| isn't a command(\"name\" or \"comment\").\n", 
+			getTokenInfo(tok));
+	if (ft_strcmp(tok->content->buf, "name") == 0)
+	{
+		if (cmd->name != NULL)
+			ft_printerr("asm: Command name has been already called.\n");
+		else if (((t_token*)lnk->next->content)->type != STRING)
+			ft_printerr("asm: A string is needed after a command.\n");
+		cmd->name = ((t_token*)lnk->next->content)->content->buf;
+	}
+	else if (ft_strcmp(tok->content->buf, "comment") == 0)
+	{
+		if (cmd->comment != NULL)
+			ft_printerr("asm: Command comment has been already called.\n");
+		else if (((t_token*)lnk->next->content)->type != STRING)
+			ft_printerr("asm: A string is needed after a command.\n");
+		cmd->comment = ((t_token*)lnk->next->content)->content->buf;
+	}
+	else
+		ft_printerr("asm: |%s| isn't a command(\"name\" or \"comment\").\n");
+	if (((t_token*)lnk->next->next->content)->type != NEWLINE)
+		ft_printerr("asm: Command \"%s\" isn't finished by a newline.\n", getTokenInfo(tok));
+}
+
 void			parser(t_list **tab, t_list *label, t_cmd *cmd)
 {
 	int			i; 
@@ -215,14 +232,14 @@ void			parser(t_list **tab, t_list *label, t_cmd *cmd)
 		while (lnk->next != tab[i]->head)
 		{
 			tok = lnk->content;
-			ft_printf("tok = %s\n", getTokenInfo(tok));
+			DF("tok = %s\n", getTokenInfo(tok));
 			if (tok->type == DOT)
 			{
 				handle_cmd(lnk->next, cmd);
 				break ;
 			}
 			else if (tok->type == LABELDEF)
-				handle_labeldef(&lnk, label);
+				lnk = lnk->next;
 			else if (tok->type == SYMBOL)
 				handle_op(&lnk, label);
 			else
