@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 16:40:51 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/13 11:27:50 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/14 14:39:43 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int				read_more(int *i, t_lexargs *args)
 	return (1);
 }
 
-static void		create_token(t_string *str, int i, t_lexargs *args)
+static void		create_symbol_token(t_string *str, int i, t_lexargs *args, t_list *label)
 {
 	t_token tok;
 
@@ -35,6 +35,8 @@ static void		create_token(t_string *str, int i, t_lexargs *args)
 		args->i = i;
 		ft_list_push(args->toklist, ft_list_link_new(token_new(&tok, LABELDEF, str),
 					sizeof(t_token)));
+		ft_list_push(label, ft_list_link_new(
+			tok.content->buf, tok.content->len * sizeof(char)));
 	}
 	else
 	{
@@ -44,7 +46,7 @@ static void		create_token(t_string *str, int i, t_lexargs *args)
 	}
 }
 
-void			handle_symbol(t_lexargs *args)
+void			handle_symbol(t_lexargs *args, t_list *label)
 {
 	t_string	*str;
 	int			i;
@@ -64,7 +66,7 @@ void			handle_symbol(t_lexargs *args)
 			i++;
 	}
 	ft_string_nappend(str, args->buf + args->i, i - args->i);
-	create_token(str, i, args);
+	create_symbol_token(str, i, args, label);
 }
 
 void			handle_string(t_lexargs *args)
@@ -90,7 +92,7 @@ void			handle_string(t_lexargs *args)
 				sizeof(t_token)));
 }
 
-void			lexer(t_list *toklist)
+void			lexer(t_list *toklist, t_list *label)
 {
 	char		buf[BUF_SIZE];
 	t_lexargs	args;
@@ -113,7 +115,7 @@ void			lexer(t_list *toklist)
 				handle_string(&args);
 			}
 			else if (ft_strchr(LABEL_CHARS, buf[args.i]) != NULL)
-				handle_symbol(&args);
+				handle_symbol(&args, label);
 			else
 				ft_printerr(EIC, buf[args.i]);
 	}

@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 17:05:02 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/11 14:58:57 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/14 14:40:32 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ int		read_more(int *i, t_lexargs *args);
 t_token	*token_new(t_token *tok, t_byte type, t_string *content);
 int		simple_case(t_lexargs *args);
 void	handle_comment(t_lexargs *args);
-void	lexer(t_list *token_list);
+void	lexer(t_list *token_list, t_list *label);
 
 #endif
