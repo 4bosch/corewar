@@ -6,7 +6,7 @@
 #    By: abaisago <adam_bai@protonmail.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 11:54:38 by abaisago          #+#    #+#              #
-#    Updated: 2020/07/11 14:59:33 by abosch           ###   ########.fr        #
+#    Updated: 2020/07/14 14:59:34 by abosch           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,9 +69,11 @@ RM             := /bin/rm
 
 SRC_PATH       := src
 
-SUB_ASM        := main.c asm.c lexer1.c lexer2.c parser.c
+SUB_ASM        := main.c asm.c lexer1.c lexer2.c parser.c dbg.c
 SUB_ASM        := $(addprefix asm/, $(SUB_ASM))
-SRC_NAME_ASM   := $(SUB_ASM) lib/ft_string_nappend.c lib/ft_strisnumber.c
+SUB_LIB		   := ft_string_nappend.c ft_strisnumber.c ft_list_count.c
+SUB_LIB        := $(addprefix lib/, $(SUB_LIB))
+SRC_NAME_ASM   := $(SUB_ASM) $(SUB_LIB) 
 SRC_ASM        := $(addprefix $(SRC_PATH)/,$(SRC_NAME_ASM))
 
 SUB_CW         := main.c corewar.c \
