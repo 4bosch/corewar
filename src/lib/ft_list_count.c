@@ -1,22 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tmplib.h                                           :+:      :+:    :+:   */
+/*   ft_list_count.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/11 14:54:42 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/14 14:47:43 by abosch           ###   ########.fr       */
+/*   Created: 2020/07/14 14:46:48 by abosch            #+#    #+#             */
+/*   Updated: 2020/07/14 14:48:52 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TMPLIB_H
-# define TMPLIB_H
+#include "tmplib.h"
+#include "util.h"
 
-# include "libft.h"
+/*
+**	Can be modified to use a function that returns an int in the if instruction
+*/
 
-void	ft_string_nappend(t_string *string, const char *text, size_t n);
-int		ft_strisnumber(const char *s);
-int		ft_list_count(t_list *list);
+int		ft_list_count(t_list *list)
+{
+	t_list_link		*link;
+	unsigned int	cnt;
+	int				i;
 
-#endif
+	cnt = -1;
+	i = 0;
+	link = list->head;
+	while (++cnt < list->len)
+	{
+		if (((t_token*)link->content)->type == NEWLINE)
+			i++;
+		link = link->next;
+	}
+	return (i);
+}
