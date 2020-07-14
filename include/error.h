@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 17:15:19 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/05 17:42:15 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/13 15:29:54 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@
 # define EIC		"asm: Illegal character |%c|\n"
 # define ENONL		"asm: The file doesn't have any newline.\n"
 # define ENOLASTNL	"asm: The file doesn't finish with a newline\n"
+# define EDIR		"asm: not only numbers after a direct char\n"
+# define ESYMREGIND "asm: error message when it is supposed to be only a number or a register\n"
+# define ENOSYMDIR	"asm: Expected a symbol or a direct character('%c') but had |%s|.\n"
+# define ENOSYM		"asm: error message when it is supposed to be a symbol.\n"
+# define ENONUM		"asm: error message when it is a symbol but not a number\n"
+# define ENOREG		"asm: error message when it is not a reg\n"
 
 
 /*
