@@ -6,7 +6,7 @@
 /*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:32:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/15 17:43:54 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/15 17:49:10 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@
 
 typedef struct	s_cursor
 {
+	int			exec_time;
 	int			last_live;
+	int			op_code;
 	int			pid;
 	t_byte		carry;
 	int32_t		registers[REG_NUMBER + 1];
