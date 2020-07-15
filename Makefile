@@ -6,7 +6,7 @@
 #    By: abaisago <adam_bai@protonmail.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 11:54:38 by abaisago          #+#    #+#              #
-#    Updated: 2020/07/14 14:59:34 by abosch           ###   ########.fr        #
+#    Updated: 2020/07/15 17:13:33 by abosch           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,11 @@ RM             := /bin/rm
 
 SRC_PATH       := src
 
-SUB_ASM        := main.c asm.c lexer1.c lexer2.c parser.c dbg.c
+SUB_ASM        := 	main.c asm.c	\
+					lexer1.c 		\
+					lexer2.c 		\
+					parser.c 		\
+					dbg.c
 SUB_ASM        := $(addprefix asm/, $(SUB_ASM))
 SUB_LIB		   := ft_string_nappend.c ft_strisnumber.c ft_list_count.c
 SUB_LIB        := $(addprefix lib/, $(SUB_LIB))
@@ -83,6 +87,7 @@ SUB_CW         := main.c corewar.c \
                   options.c        \
                   player.c         \
                   util.c           \
+				  fight.c		   \
                   vm.c
 SUB_CW         := $(addprefix corewar/, $(SUB_CW))
 SRC_NAME_CW    := $(SUB_CW)
