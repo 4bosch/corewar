@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 20:33:49 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/09 13:18:13 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/15 17:12:02 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,18 @@
 
 void			arena_print(t_byte *arena, int col)
 {
-	int			x;
-	int			y;
-	int			row;
-	int			last_row;
+	int		len;
 
-	if (col < 1)
-		return ;
-	row = MEM_SIZE / col;
-	last_row = col * row - col;
-	y = -1;
-	while (++y < row)
+	len = 0;
+	while (len < MEM_SIZE)
 	{
-		ft_printf("%08x: ", col * y);
-		x = -1;
-		while (++x < col && (y < row || last_row + x < MEM_SIZE))
-			ft_printf("%02x ", arena[y * col + x]);
-		x = -1;
-		/* while (++x < col && (y < row || last_row + x < MEM_SIZE)) */
-		/* 	ft_printf("%c", */
-		/* 		ft_isprint(arena[y * col + x]) ? arena[y * row + x] : '.'); */
-		ft_putchar('\n');
+		if (len % col == 0)
+			ft_printf("0x%.4x : ", len);
+		if ((len + 1) % col == 0)
+			ft_printf("%.2x\n", arena[len]);
+		else
+			ft_printf("%.2x ", arena[len]);
+		len++;
 	}
 }
 
