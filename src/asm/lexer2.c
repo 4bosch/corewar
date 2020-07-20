@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 12:52:10 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/13 11:32:15 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/20 15:10:25 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int				simple_case(t_lexargs *args)
 void			handle_comment(t_lexargs *args)
 {
 	int			cnt;
+	t_token		tok;
 
 	cnt = args->i; 
 	while (args->buf[cnt] != '\n')
@@ -91,4 +92,6 @@ void			handle_comment(t_lexargs *args)
 		cnt++;
 	}
 	args->i = cnt;
+	ft_list_push(args->toklist, ft_list_link_new(
+				token_new(&tok, NEWLINE, NULL), sizeof(t_token)));
 }
