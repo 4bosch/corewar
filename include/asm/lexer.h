@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 17:05:02 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/14 14:40:32 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/20 14:31:08 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "libft.h"
 # include "tmplib.h"
 
-# define BUF_SIZE 5
+# define BUF_SIZE 4096
 
 typedef struct	s_lexargs t_lexargs;
 

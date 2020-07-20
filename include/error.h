@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 17:15:19 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/13 15:29:54 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/20 15:11:14 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,19 @@
 
 # define ENCQ		"asm: Missing closing quote.\n"
 # define EIC		"asm: Illegal character |%c|\n"
-# define ENONL		"asm: The file doesn't have any newline.\n"
+# define ENONL		"asm: error when it is not a newline\n"
 # define ENOLASTNL	"asm: The file doesn't finish with a newline\n"
 # define EDIR		"asm: not only numbers after a direct char\n"
-# define ESYMREGIND "asm: error message when it is supposed to be only a number or a register\n"
-# define ENOSYMDIR	"asm: Expected a symbol or a direct character('%c') but had |%s|.\n"
-# define ENOSYM		"asm: error message when it is supposed to be a symbol.\n"
-# define ENONUM		"asm: error message when it is a symbol but not a number\n"
-# define ENOREG		"asm: error message when it is not a reg\n"
+# define ENOSYM		"asm: error when it is supposed to be a symbol.\n"
+# define ENONUM		"asm: error when it is a symbol but not a number\n"
+# define ENOREG		"asm: error when it is not a reg\n"
+# define ENODIR		"asm: error when it is not a dir\n"
+# define ENOREGDIR	"asm: error when it is not a reg and not a dir\n"
+# define ENOREGIND  "asm: error when it is not a indirect or a register\n"
+# define ENODIRIND	"asm: error when it is not a indirect or a direct\n"
+# define EBADDIR	"asm: error when a %% isn't followed by a number\n"
+# define ENOALL		"asm: error when it is not a valid arg(reg, dir or ind)\n"
+# define EINVLAB	"asm: error when the label doesn't exist\n"
 
 
 /*

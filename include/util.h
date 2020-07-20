@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 20:04:22 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/11 12:01:12 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/20 14:33:22 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define STRING		5
 # define LABELDEF	6
 # define LABELARG	7
+# define REG		8
 
 
 typedef struct	s_cmd t_cmd;

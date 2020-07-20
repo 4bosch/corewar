@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 16:28:49 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/14 15:36:25 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/20 15:07:13 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ char			*getTokenInfo(t_token *tok)
 		return (".");
 	else 
 		return (tok->content->buf);
+}
+
+int				is_valid_label(t_list *label, char *s)
+{
+	if (ft_list_find(label, s, &ft_strcmp) == NULL)
+		return (0);
+	return (1);
 }
 
 int				is_reg(const char *s)
@@ -57,107 +64,219 @@ void			check_reg(t_token *tok)
 	if (tok->type != SYMBOL || !is_reg(tok->content->buf))
 		ft_printerr("asm: Expected a register as "
 			"argument but had |%s|.\n", getTokenInfo(tok));
+	tok->type = REG;
 }
 
-void			check_all_type(t_list_link *lnk)
+void			check_dir(t_list *label, t_token *tok)
 {
-	t_token *tok;
-
-	tok = lnk->content;
-	if (tok->type != SYMBOL || tok->type != DIR)
-		ft_printerr(ENOSYMDIR, DIRECT_CHA, getTokenInfo(tok));
 	if (tok->type == SYMBOL)
 	{
-		if (!is_reg(tok->content->buf) || !ft_strisnumber(tok->content->buf))
-			ft_printerr(ESYMREGIND);
-	}
-	else if (tok->type == DIR)
-	{
-		tok = lnk->next->content;
-		if (tok->type != SYMBOL)
-			ft_printerr(ENOSYM);
 		if (!ft_strisnumber(tok->content->buf))
-			ft_printerr(ENONUM);
+			ft_printerr(EBADDIR);
 	}
+	else if (tok->type == LABELARG)
+	{
+		if (!is_valid_label(label, tok->content->buf))
+			ft_printerr(EINVLAB);
+	}
+	else
+		ft_printerr(EBADDIR);
 }
 
-void			check_lzflf(t_list_link **lnk)
+void			check_reg_ind(t_list *label, t_token *tok)
+{
+	int		reg;
+
+	if (tok->type == SYMBOL)
+	{
+		if ((reg = is_reg(tok->content->buf)) == 0
+			|| !ft_strisnumber(tok->content->buf))
+			ft_printerr(ENOREGIND);
+		else if (reg != 0)
+			tok->type = REG;
+	}
+	else if (tok->type == LABELARG)
+	{
+		if (!is_valid_label(label, tok->content->buf))
+			ft_printerr(EINVLAB);
+	}
+	else
+		ft_printerr(ENOREGIND);
+}
+
+void			check_reg_dir(t_list *label, t_list_link **lnk)
 {
 	t_token		*tok;
 
-	tok = (*lnk)->next->content;
-	if (tok->type != DIR)
-		ft_printerr("asm: Expected a direct character "
-			"but had |%s|.\n", getTokenInfo(tok));
-	tok = (*lnk)->next->next->content;
-	if (tok->type != SYMBOL && tok->type != LABELARG)
-		ft_printerr("asm: Expected a symbol "
-			"but had |%s|.\n", getTokenInfo(tok));
-	if (tok->type == SYMBOL && ft_strisnumber(tok->content->buf) == 0)
-		ft_printerr("asm: Expected a number or a label argument "
-			"but had |%s|.\n", getTokenInfo(tok));
-	tok = (*lnk)->next->next->next->content;
-	if (tok->type != NEWLINE)
-		ft_printerr("asm: Expected a newline "
-			"but had |%s|.\n", getTokenInfo(tok));
-	*lnk = (*lnk)->next->next->next;
+	tok = (*lnk)->content;
+	if (tok->type == SYMBOL)
+	{
+		if (!is_reg(tok->content->buf))
+			ft_printerr(ENOREG);
+		tok->type = REG;
+		*lnk = (*lnk)->next;
+	}
+	else if (tok->type == DIR)
+	{
+		check_dir(label, (*lnk)->next->content);
+		*lnk = (*lnk)->next->next;
+	}
+	else
+		ft_printerr(ENOREGDIR);
+}
+
+void		check_ind_dir(t_list *label, t_list_link **lnk)
+{
+	t_token	*tok;
+
+	tok = (*lnk)->content;
+	if (tok->type == SYMBOL)
+	{
+		if (!ft_strisnumber(tok->content->buf))
+			ft_printerr(ENONUM);
+		*lnk = (*lnk)->next;
+	}
+	else if (tok->type == LABELARG)
+	{
+		if (!is_valid_label(label, tok->content->buf))
+			ft_printerr(EINVLAB);
+		*lnk = (*lnk)->next;
+	}
+	else if (tok->type == DIR)
+	{
+		check_dir(label, (*lnk)->next->content);
+		*lnk = (*lnk)->next->next;
+	}
+	else
+		ft_printerr(ENODIRIND);
+}
+
+void			check_all_type(t_list *label, t_list_link **lnk)
+{
+	t_token *tok;
+	int		reg;
+
+	tok = (*lnk)->content;
+	if (tok->type == SYMBOL || tok->type == LABELARG)
+	{
+		if ((reg = is_reg(tok->content->buf)) == 0
+			&& !is_valid_label(label, tok->content->buf)
+			&& !ft_strisnumber(tok->content->buf))
+			ft_printerr(ENOREGIND);
+		if (reg != 0)
+			tok->type = REG;
+		*lnk = (*lnk)->next;
+	}
+	else if (tok->type == DIR)
+	{
+		check_dir(label, (*lnk)->next->content);
+		*lnk = (*lnk)->next->next;
+	}
+	else
+		ft_printerr(ENOALL);
+}
+
+void			check_lzflf(t_list *label, t_list_link **lnk)
+{
+	*lnk = (*lnk)->next;
+	if (((t_token*)(*lnk)->content)->type == DIR)
+		check_dir(label, (*lnk)->next->content);
+	else
+		ft_printerr(ENODIR);
+	*lnk = (*lnk)->next->next;
+	if (((t_token*)(*lnk)->content)->type != NEWLINE)
+		ft_printerr(ENONL);
 }
 
 void			check_as(t_list_link **lnk)
 {
-	int			i;
-
-	i = -1;
 	*lnk = (*lnk)->next;
-	while (++i < 2)
-	{
-		check_reg((*lnk)->content);
-		check_sep((*lnk)->next->content);
-		*lnk = (*lnk)->next->next;
-	}
+	check_reg((*lnk)->content);
+	check_sep((*lnk)->next->content);
+	check_reg((*lnk)->next->next->content);
+	check_sep((*lnk)->next->next->next->content);
+	check_reg((*lnk)->next->next->next->next->content);
+	*lnk = (*lnk)->next->next->next->next->next;
+	if (((t_token*)(*lnk)->content)->type != NEWLINE)
+		ft_printerr(ENONL);
+}
+
+void			check_aox(t_list *label, t_list_link **lnk)
+{
+	*lnk = (*lnk)->next;
+	check_all_type(label, lnk);
+	check_sep((*lnk)->content);
+	*lnk = (*lnk)->next;
+	check_all_type(label, lnk);
+	check_sep((*lnk)->content);
+	*lnk = (*lnk)->next;
+	check_all_type(label, lnk);
+	if (((t_token*)(*lnk)->content)->type != NEWLINE)
+		ft_printerr(ENONL);
+}
+
+void			check_ldlld(t_list *label, t_list_link **lnk)
+{
+	*lnk = (*lnk)->next;
+	check_ind_dir(label, lnk);
+	check_sep((*lnk)->content);
+	*lnk = (*lnk)->next;
 	check_reg((*lnk)->content);
 	*lnk = (*lnk)->next;
 	if (((t_token*)(*lnk)->content)->type != NEWLINE)
-		ft_printerr("asm: Expected a newline "
-			"but had |%s|.\n", getTokenInfo((t_token*)(*lnk)->content));
+		ft_printerr(ENONL);
 }
 
-void			check_aox(t_list_link **lnk)
+void			check_ldilldi(t_list *label, t_list_link **lnk)
 {
-	t_token		*tok;
-
-	tok = (*lnk)->next->content;
-	
+	*lnk = (*lnk)->next;
+	check_all_type(label, lnk);
+	check_sep((*lnk)->content);
+	*lnk = (*lnk)->next;
+	check_reg_dir(label, lnk);
+	check_sep((*lnk)->content);
+	*lnk = (*lnk)->next;
+	check_reg((*lnk)->content);
+	*lnk = (*lnk)->next;
+	if (((t_token*)(*lnk)->content)->type != NEWLINE)
+		ft_printerr(ENONL);
 }
 
-void			check_lll(t_list_link **lnk)
+void			check_st(t_list *label, t_list_link **lnk)
 {
-
+	*lnk = (*lnk)->next;
+	check_reg((*lnk)->content);
+	*lnk = (*lnk)->next;
+	check_sep((*lnk)->content);
+	*lnk = (*lnk)->next;
+	check_reg_ind(label, (*lnk)->content);
+	*lnk = (*lnk)->next;
+	if (((t_token*)(*lnk)->content)->type != NEWLINE)
+		ft_printerr(ENONL);
 }
 
-void			check_st(t_list_link **lnk)
+void			check_sti(t_list *label, t_list_link **lnk)
 {
-
-}
-
-void			check_sti(t_list_link **lnk)
-{
-
-}
-
-void			check_ldi(t_list_link **lnk)
-{
-
-}
-
-void			check_lldi(t_list_link **lnk)
-{
-
+	*lnk = (*lnk)->next;
+	check_reg((*lnk)->content);
+	*lnk = (*lnk)->next;
+	check_sep((*lnk)->content);
+	*lnk = (*lnk)->next;
+	check_all_type(label, lnk);
+	check_sep((*lnk)->content);
+	*lnk = (*lnk)->next;
+	check_reg_dir(label, lnk);
+	if (((t_token*)(*lnk)->content)->type != NEWLINE)
+		ft_printerr(ENONL);
 }
 
 void			check_aff(t_list_link **lnk)
 {
-
+	*lnk = (*lnk)->next;
+	check_reg((*lnk)->content);
+	*lnk = (*lnk)->next;
+	if (((t_token*)(*lnk)->content)->type != NEWLINE)
+		ft_printerr(ENONL);
 }
 
 static void		handle_op(t_list_link **lnk, t_list *label)
@@ -167,22 +286,20 @@ static void		handle_op(t_list_link **lnk, t_list *label)
 	s = ((t_token*)(*lnk)->content)->content->buf;
 	if (ft_strcmp(s, "live") == 0 || ft_strcmp(s, "zjmp") == 0
 		|| ft_strcmp(s, "fork") == 0 ||ft_strcmp(s, "lfork") == 0)
-		check_lzflf(lnk);
+		check_lzflf(label, lnk);
 	else if (ft_strcmp(s, "add") == 0 || ft_strcmp(s, "sub") == 0)
 		check_as(lnk);
 	else if (ft_strcmp(s, "and") == 0 || ft_strcmp(s, "xor") == 0
 		|| ft_strcmp(s, "or") == 0)
-		check_aox(lnk);
+		check_aox(label, lnk);
 	else if (ft_strcmp(s, "ld") == 0 || ft_strcmp(s, "lld") == 0)
-		check_lll(lnk);
+		check_ldlld(label, lnk);
+	else if (ft_strcmp(s, "ldi") == 0 || ft_strcmp(s, "lldi") == 0)
+		check_ldilldi(label, lnk);
 	else if (ft_strcmp(s, "st") == 0)
-		check_st(lnk);
+		check_st(label, lnk);
 	else if (ft_strcmp(s, "sti") == 0)
-		check_sti(lnk);
-	else if (ft_strcmp(s, "ldi") == 0)
-		check_ldi(lnk);
-	else if (ft_strcmp(s, "lldi") == 0)
-		check_lldi(lnk);
+		check_sti(label, lnk);
 	else if (ft_strcmp(s, "aff") == 0)
 		check_aff(lnk);
 	else
@@ -214,7 +331,7 @@ static void		handle_cmd(t_list_link *lnk, t_cmd *cmd)
 		cmd->comment = ((t_token*)lnk->next->content)->content->buf;
 	}
 	else
-		ft_printerr("asm: |%s| isn't a command(\"name\" or \"comment\").\n");
+		ft_printerr("asm: |%s| isn't a command(\"name\" or \"comment\").\n", tok->content->buf);
 	if (((t_token*)lnk->next->next->content)->type != NEWLINE)
 		ft_printerr("asm: Command \"%s\" isn't finished by a newline.\n", getTokenInfo(tok));
 }
