@@ -6,13 +6,21 @@
 /*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 16:31:58 by weilin            #+#    #+#             */
-/*   Updated: 2020/07/15 17:40:42 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/19 23:28:11 by weilin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void		introduce_players(t_vm *vm)
+static void			printcurs(t_list_link *elem)
+{
+	t_cursor	*curs;
+	
+	curs = (t_cursor *)(elem->content);	
+	ft_printf("pid = %d, PC=%d \n", curs->pid, curs->registers[0]);
+}
+
+void			introduce_players(t_vm *vm)
 {
 	int			i;
 	t_player	*curr;
@@ -29,4 +37,5 @@ static void		introduce_players(t_vm *vm)
 			curr->header.comment);
 		i++;
 	}
+	ft_list_iter(vm->cursors, &printcurs); // to observe pid and PC
 }
