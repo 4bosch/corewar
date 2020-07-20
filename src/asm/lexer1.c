@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 16:40:51 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/14 14:39:43 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/20 15:03:35 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static void		create_symbol_token(t_string *str, int i, t_lexargs *args, t_list *
 
 	if (args->buf[i] == ':')
 	{
+		if (str->buf[0] == '+' || str->buf[0] == '-')
+			ft_printerr("asm: Label begin with an illegal character : %c.\n", args->buf[i]);
 		args->i = i;
 		ft_list_push(args->toklist, ft_list_link_new(token_new(&tok, LABELDEF, str),
 					sizeof(t_token)));
@@ -53,6 +55,8 @@ void			handle_symbol(t_lexargs *args, t_list *label)
 
 	i = args->i;
 	str = ft_string_init();
+	if (args->buf[i] == '-' || args->buf[i] == '+')
+		++i;
 	while (ft_strchr(LABEL_CHARS, args->buf[i]) != NULL
 		&& args->buf[i] != '\n' && args->buf[i] != ':')
 	{
@@ -104,7 +108,7 @@ void			lexer(t_list *toklist, t_list *label)
 	{
 		buf[args.i] = '\0';
 		args.i = -1;
-		while (buf[++args.i] != '\0' && buf[args.i] != '#')
+		while (buf[++args.i] != '\0')
 			if (simple_case(&args))
 				continue ;
 			else if (buf[args.i] == '#')
@@ -114,7 +118,8 @@ void			lexer(t_list *toklist, t_list *label)
 				++args.i;
 				handle_string(&args);
 			}
-			else if (ft_strchr(LABEL_CHARS, buf[args.i]) != NULL)
+			else if (ft_strchr(LABEL_CHARS, buf[args.i]) != NULL
+				|| ft_strchr("+-" ,buf[args.i]) != NULL)
 				handle_symbol(&args, label);
 			else
 				ft_printerr(EIC, buf[args.i]);
