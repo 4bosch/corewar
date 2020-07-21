@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2020/07/05 16:58:39 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/21 21:51:10 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,18 @@ typedef struct		s_header
   int				prog_size;
   char				comment[COMMENT_LENGTH + 4];
 }					t_header;
+
+typedef struct		s_op
+{
+	char			name[6];
+	int				arg_num;
+	int				arg_types[MAX_ARGS_NUMBER];
+	int				opcode;
+	int				cycles;
+	char			description[37];
+	int				encoded;
+	int				label_size;
+}					t_op;
 
 /*
 **********
