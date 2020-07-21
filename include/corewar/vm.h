@@ -6,7 +6,7 @@
 /*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:32:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/15 17:49:10 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/21 21:19:57 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct	s_settings
 {
 	int			cycdump;
 	int			player_count;
+	int			verbose;
 }				t_settings;
 
 typedef struct	s_stats
