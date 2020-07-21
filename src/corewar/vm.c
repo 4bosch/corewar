@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 20:33:49 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/21 21:17:26 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/21 21:24:05 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 void			arena_print(t_byte *arena, int col)
 {
-	int		len;
+	int			len;
 
 	len = 0;
 	while (len < MEM_SIZE)
@@ -36,7 +36,7 @@ void			arena_print(t_byte *arena, int col)
 
 void			vm_cursor_add(t_vm *vm, t_cursor *cursor)
 {
-	t_list_link *link;
+	t_list_link	*link;
 
 	if ((link = ft_list_link_new(cursor, sizeof(*cursor))) == NULL)
 		ft_printerr("corewar: create_cursor(link): %s\n", strerror(errno));
@@ -48,6 +48,7 @@ void			vm_init(t_vm *vm)
 	*vm = (t_vm){0};
 	if ((vm->cursors = ft_list_init()) == NULL)
 		ft_printerr("corewar: vm_init(cursors): %s\n", strerror(errno));
+	vm->settings.cycdie = CYCLE_TO_DIE;
 	vm->settings.cycdump = -1;
 	vm->settings.verbose = 64;
 }

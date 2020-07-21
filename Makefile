@@ -84,11 +84,11 @@ SUB_CW         := main.c corewar.c \
                   checks.c         \
                   cursor.c         \
                   debug.c          \
+                  fight.c          \
                   op.c             \
                   options.c        \
                   player.c         \
                   util.c           \
-				  fight.c		   \
                   vm.c
 SUB_CW         := $(addprefix corewar/, $(SUB_CW))
 SRC_NAME_CW    := $(SUB_CW)

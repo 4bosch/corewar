@@ -6,7 +6,7 @@
 /*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 16:31:58 by weilin            #+#    #+#             */
-/*   Updated: 2020/07/19 23:28:11 by weilin           ###   ########.fr       */
+/*   Updated: 2020/07/21 21:41:28 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,16 @@ void			introduce_players(t_vm *vm)
 		i++;
 	}
 	ft_list_iter(vm->cursors, &printcurs); // to observe pid and PC
+}
+
+void			fight(t_vm *vm)
+{
+	introduce_players(vm);
+	while (STATS.winner == NO_WINNER
+		&& (!(FLAGS & F_DUMP) || STATS.cycle != SETTINGS.cycdump))
+	{
+		++STATS.cycle;
+	}
+	if (FLAGS & F_DUMP)
+		arena_print(ARENA, 32);
 }

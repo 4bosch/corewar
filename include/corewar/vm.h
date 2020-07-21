@@ -6,7 +6,7 @@
 /*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:32:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/21 21:19:57 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/21 21:26:01 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 # include "libft.h"
 
 # include "op.h"
+
+# define ARENA		vm->arena
+# define FLAGS		vm->settings.flags
+# define SETTINGS	vm->settings
+# define STATS		vm->stats
+
+# define F_DUMP		0x01
 
 # define NO_WINNER	0
 # define PC			0
@@ -38,6 +45,8 @@ typedef struct	s_player
 
 typedef struct	s_settings
 {
+	t_byte		flags;
+	int			cycdie;
 	int			cycdump;
 	int			player_count;
 	int			verbose;
@@ -46,6 +55,7 @@ typedef struct	s_settings
 typedef struct	s_stats
 {
 	int			cycle;
+	int			check_count;
 	int			live_count;
 	int			winner;
 }				t_stats;
@@ -73,6 +83,8 @@ void			arena_print(t_byte *arena, int col);
 void			vm_cursor_add(t_vm *vm, t_cursor *cursor);
 void			vm_init(t_vm *vm);
 void			load_code(t_vm *vm, t_cursor *cursor, t_player *player);
+
+void			fight(t_vm *vm);
 
 int				corewar(int ac, char **av);
 
