@@ -6,7 +6,7 @@
 /*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:32:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/21 21:26:01 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/21 22:46:06 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,27 @@ typedef struct	s_player
 typedef struct	s_settings
 {
 	t_byte		flags;
-	int			cycdie;
 	int			cycdump;
 	int			player_count;
 	int			verbose;
 }				t_settings;
 
+/*
+** s_stats
+** -------
+** cycdie:	cycles until cycle_to_die check		(default: CYCLE_TO_DIE)
+** cycle:	cycle since last cycle_to_die		(max: CYCLE_TO_DIE)
+** check:	cycle_to_die checks counter			(max: MAX_CHECKS)
+** live:	lives since last cycle_to_die		(max: NBR_LIVE)
+** winner:	winner's player id at game's end
+*/
+
 typedef struct	s_stats
 {
+	int			cycdie;
 	int			cycle;
-	int			check_count;
-	int			live_count;
+	int			check;
+	int			live;
 	int			winner;
 }				t_stats;
 

@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 20:33:49 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/21 21:24:05 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/24 20:58:28 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void			vm_init(t_vm *vm)
 	*vm = (t_vm){0};
 	if ((vm->cursors = ft_list_init()) == NULL)
 		ft_printerr("corewar: vm_init(cursors): %s\n", strerror(errno));
-	vm->settings.cycdie = CYCLE_TO_DIE;
 	vm->settings.cycdump = -1;
 	vm->settings.verbose = 64;
+	vm->stats.cycdie = CYCLE_TO_DIE;
 }
 
 void			load_code(t_vm *vm, t_cursor *cursor, t_player *player)
