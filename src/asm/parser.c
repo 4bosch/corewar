@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 16:28:49 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/20 15:07:13 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/25 17:57:51 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void			check_reg_ind(t_list *label, t_token *tok)
 	if (tok->type == SYMBOL)
 	{
 		if ((reg = is_reg(tok->content->buf)) == 0
-			|| !ft_strisnumber(tok->content->buf))
+			&& !ft_strisnumber(tok->content->buf))
 			ft_printerr(ENOREGIND);
 		else if (reg != 0)
 			tok->type = REG;
