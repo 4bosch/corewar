@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 16:40:51 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/20 15:03:35 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/27 15:53:46 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int				read_more(int *i, t_lexargs *args)
 static void		create_symbol_token(t_string *str, int i, t_lexargs *args, t_list *label)
 {
 	t_token tok;
+	t_label	lab;
 
 	if (args->buf[i] == ':')
 	{
@@ -38,7 +39,7 @@ static void		create_symbol_token(t_string *str, int i, t_lexargs *args, t_list *
 		ft_list_push(args->toklist, ft_list_link_new(token_new(&tok, LABELDEF, str),
 					sizeof(t_token)));
 		ft_list_push(label, ft_list_link_new(
-			tok.content->buf, tok.content->len * sizeof(char)));
+			new_label(tok.content->buf, &lab), sizeof(t_label)));
 	}
 	else
 	{
@@ -96,15 +97,15 @@ void			handle_string(t_lexargs *args)
 				sizeof(t_token)));
 }
 
-void			lexer(t_list *toklist, t_list *label)
+void			lexer(t_list *toklist, t_list *label, int fd)
 {
 	char		buf[BUF_SIZE];
 	t_lexargs	args;
 
-	args.fd = 0;
+	args.fd = fd;
 	args.toklist = toklist;
 	args.buf = buf;
-	while ((args.i = read(0, buf, BUF_SIZE - 1)) > 0)
+	while ((args.i = read(fd, buf, BUF_SIZE - 1)) > 0)
 	{
 		buf[args.i] = '\0';
 		args.i = -1;
