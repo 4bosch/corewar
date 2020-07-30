@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 17:15:19 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/20 15:11:14 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/25 18:30:27 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 # define EBADDIR	"asm: error when a %% isn't followed by a number\n"
 # define ENOALL		"asm: error when it is not a valid arg(reg, dir or ind)\n"
 # define EINVLAB	"asm: error when the label doesn't exist\n"
-
+# define ASMUSAGE	"usage: asm CHAMPION.s.\n"
 
 /*
 *************
