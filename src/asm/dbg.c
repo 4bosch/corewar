@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 14:43:58 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/14 15:24:48 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/29 17:48:28 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ int			print_token(void *cont, size_t c_s, unsigned pos, unsigned to)
 
 int			print_label(void *cont, size_t c_s, unsigned pos, unsigned to)
 {
-	ft_printf("| %3d / %-7s |\n", pos, (char*)cont);
+	t_label *lab;
+
+	lab = cont;
+	ft_printf("| %3d / %-7s : %-5d |\n", pos, lab->name, lab->addr);
 	return (1);
 }
 

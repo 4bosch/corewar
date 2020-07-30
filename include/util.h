@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 20:04:22 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/31 17:41:50 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/31 17:43:10 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 # include "libft.h"
 
 # include <stdint.h>
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
 /*
 ** ASM
@@ -38,6 +42,7 @@
 
 typedef struct	s_cmd t_cmd;
 typedef struct	s_token t_token;
+typedef struct	s_label t_label;
 
 struct			s_token
 {
@@ -49,6 +54,12 @@ struct			s_cmd
 {
 	char		*name;
 	char		*comment;
+};
+
+struct			s_label
+{
+	char		*name;
+	int			addr;
 };
 
 /*
