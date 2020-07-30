@@ -6,12 +6,11 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:24:13 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/14 15:06:45 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/29 17:45:23 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-#include "parser.h"
 
 #include "debug.h"
 
@@ -68,18 +67,33 @@ t_list		**list2tab(t_list *token_list)
 	return (ret);
 }
 
+int			handle_open(int ac, char **av)
+{
+	int		fd;
+
+	if (ac != 2)
+		ft_printerr(ASMUSAGE);
+	else if (ft_strequ(av[1] + (ft_strlen(av[1]) - 2), ".s") == 0)
+		ft_printerr(ASMUSAGE);
+	if ((fd = open(av[1], O_RDONLY)) == -1)
+		ft_printerr("asm: Open failed: %s.\n", strerror(errno));
+	return (fd);
+}
+
 int			asmcore(int ac, char **av)
 {
 	t_list	*token_list;
 	t_list	**token_tab;
 	t_list	*label;
 	t_cmd	cmd;
+	int		fd;
 
 	if ((token_list = ft_list_init()) == NULL)
 		ft_printerr("asm: asmcore(ft_list_init): %s\n", strerror(errno));
 	if ((label = ft_list_init()) == NULL)
 		ft_printerr("asm: asmcore(ft_list_init): %s\n", strerror(errno));
-	lexer(token_list, label);
+	fd = handle_open(ac, av);
+	lexer(token_list, label, fd);
 	DF("----- TOKEN LIST -----\n");
 	ft_list_print(token_list, &print_token); //DELETE
 	DF("\n----- LABEL LIST ------\n");
@@ -90,5 +104,8 @@ int			asmcore(int ac, char **av)
 		print_tab(token_tab); //DELETE
 	ft_bzero(&cmd, sizeof(t_cmd));
 	parser(token_tab, label, &cmd);
+	translator(token_tab, label);
+	if (close(fd) == -1)
+		ft_printerr("asm: Close failed: %s.\n", strerror(errno));
 	return (EXIT_SUCCESS);
 }
