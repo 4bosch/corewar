@@ -6,7 +6,7 @@
 #    By: abaisago <adam_bai@protonmail.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 11:54:38 by abaisago          #+#    #+#              #
-#    Updated: 2020/07/31 19:19:11 by abaisago         ###   ########.fr        #
+#    Updated: 2020/08/01 22:34:58 by abosch           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,8 @@ SUB_ASM        := 	main.c asm.c	\
                     lexer1.c 		\
                     lexer2.c 		\
                     parser.c 		\
+					translator.c	\
+					tools1.c		\
                     dbg.c
 SUB_ASM        := $(addprefix asm/, $(SUB_ASM))
 SUB_LIB        := ft_string_nappend.c ft_strisnumber.c ft_list_count.c
