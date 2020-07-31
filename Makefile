@@ -6,7 +6,7 @@
 #    By: abaisago <adam_bai@protonmail.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 11:54:38 by abaisago          #+#    #+#              #
-#    Updated: 2020/07/31 17:33:06 by abaisago         ###   ########.fr        #
+#    Updated: 2020/07/31 19:19:11 by abaisago         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -297,8 +297,6 @@ fclean: libfclean thisclean thiscleandbg binclean bincleandbg
 #------------------------------------------------#
 #                  EXTRA-RULES                   |
 #------------------------------------------------#
-
-behead:
 
 soft: thisclean all
 softdbg: thiscleandbg dbg
