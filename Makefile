@@ -6,7 +6,7 @@
 #    By: abaisago <adam_bai@protonmail.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 11:54:38 by abaisago          #+#    #+#              #
-#    Updated: 2020/07/21 22:10:34 by abaisago         ###   ########.fr        #
+#    Updated: 2020/07/31 12:21:31 by abaisago         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,19 +80,43 @@ SUB_LIB        := $(addprefix lib/, $(SUB_LIB))
 SRC_NAME_ASM   := $(SUB_ASM) $(SUB_LIB)
 SRC_ASM        := $(addprefix $(SRC_PATH)/,$(SRC_NAME_ASM))
 
+#------------------------------------------------#
+
+SUB_CW_OP      := add.c   \
+                  aff.c   \
+                  and.c   \
+                  fork.c  \
+                  ld.c    \
+                  ldi.c   \
+                  lfork.c \
+                  live.c  \
+                  lld.c   \
+                  lldi.c  \
+                  nop.c   \
+                  or.c    \
+                  st.c    \
+                  sti.c   \
+                  sub.c   \
+                  xor.c   \
+                  zjmp.c
+SUB_CW_OP      := $(addprefix op/, $(SUB_CW_OP))
+
 SUB_CW         := main.c corewar.c \
                   checks.c         \
                   cursor.c         \
                   debug.c          \
                   fight.c          \
-                  op.c             \
                   options.c        \
                   player.c         \
                   util.c           \
-                  vm.c
+                  vm.c             \
+                  $(SUB_CW_OP)
 SUB_CW         := $(addprefix corewar/, $(SUB_CW))
+
 SRC_NAME_CW    := $(SUB_CW)
 SRC_CW         := $(addprefix $(SRC_PATH)/,$(SRC_NAME_CW))
+
+#------------------------------------------------#
 
 OBJ_PATH       := obj
 OBJ_NAME_ASM   := $(SRC_NAME_ASM:.c=.o)

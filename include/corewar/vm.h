@@ -6,7 +6,7 @@
 /*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:32:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/21 22:46:06 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/31 12:19:03 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 
 # define ARENA		vm->arena
 # define FLAGS		vm->settings.flags
+# define CURSORS	vm->cursors
+# define PLAYERS	vm->players
 # define SETTINGS	vm->settings
 # define STATS		vm->stats
 
@@ -54,20 +56,22 @@ typedef struct	s_settings
 /*
 ** s_stats
 ** -------
-** cycdie:	cycles until cycle_to_die check		(default: CYCLE_TO_DIE)
-** cycle:	cycle since last cycle_to_die		(max: CYCLE_TO_DIE)
-** check:	cycle_to_die checks counter			(max: MAX_CHECKS)
-** live:	lives since last cycle_to_die		(max: NBR_LIVE)
-** winner:	winner's player id at game's end
+** cycdie:		cycles until cycle_to_die check		(default: CYCLE_TO_DIE)
+** cycle:		cycle since last cycle_to_die		(max: CYCLE_TO_DIE)
+** cycle_total:	total number of cycles				(max: CYCLE_TO_DIE)
+** check:		cycle_to_die checks counter			(max: MAX_CHECKS)
+** live:		lives since last cycle_to_die		(max: NBR_LIVE)
+** winner:		winner's player id at game's end
 */
 
 typedef struct	s_stats
 {
 	int			cycdie;
 	int			cycle;
+	int			cycle_total;
 	int			check;
+	int			last_live_id;
 	int			live;
-	int			winner;
 }				t_stats;
 
 typedef struct	s_vm
@@ -75,13 +79,17 @@ typedef struct	s_vm
 	int32_t		(*endian)(int32_t number);
 	t_byte		arena[MEM_SIZE];
 	t_list		*cursors;
+	void		(*operations[18])(struct s_vm*, t_cursor*);
 	t_player	players[MAX_PLAYERS];
 	t_settings	settings;
 	t_stats		stats;
 }				t_vm;
 
+void			cursor_del(void *content, size_t size);
 void			cursor_init(t_player *player, int pid,
 					int player_count, t_cursor *cursor);
+int				cursor_life(t_list_link *link, void *input);
+void			cursor_update(t_list_link *link, void *input);
 
 void			checks(t_vm *vm);
 

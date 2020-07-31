@@ -3,21 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   add.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/19 19:43:34 by weilin            #+#    #+#             */
-/*   Updated: 2020/07/19 22:52:54 by weilin           ###   ########.fr       */
+/*   Created: 2020/07/31 11:49:03 by abaisago          #+#    #+#             */
+/*   Updated: 2020/07/31 11:52:46 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "operations.h"
 
-void		op_add(t_vm *vm, t_cursor *cursor)
+void	op_add(t_vm* vm, t_cursor* cursor)
 {
-	int32_t	add;
 
-	add = cursor->registers[vm->args[0][0]];
-	add += cursor->registers[vm->args[1][0]];
-	cursor->registers[vm->args[2][0]] = add;
-	cursor->carry = (add == 0 ? 1 : 0);
 }

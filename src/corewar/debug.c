@@ -6,7 +6,7 @@
 /*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 17:01:08 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/15 17:26:47 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/31 17:25:57 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 #include "op.h"
 #include "vm.h"
 
-void		dbg_cursor(t_cursor *cursor)
+void			dbg_cursor(t_cursor *cursor)
 {
-	int		i;
-	int		half;
+	int			i;
+	int			half;
 
 	half = REG_NUMBER / 2;
 	i = 0;
@@ -29,6 +29,14 @@ void		dbg_cursor(t_cursor *cursor)
 		ft_printf("r%02d = % -10d r%02d = % -10d\n",
 			i, cursor->registers[i], i + half, cursor->registers[i + half]);
 	ft_printf("**************************************************\n");
+}
+
+void			dbgf_cursors(t_list_link *elem, void *input)
+{
+	t_cursor	*curs;
+
+	curs = (t_cursor *)(elem->content);
+	ft_printf("pid = % -d, PC=%- d \n", curs->pid, curs->registers[0]);
 }
 
 void		dbg_player(t_player *player)

@@ -6,7 +6,7 @@
 /*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 17:06:17 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/15 17:13:30 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/31 08:10:43 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int			print_label(void *cont, size_t c_s, unsigned pos, unsigned to);
 
 void		dbg_cursor(t_cursor *cursor);
 void		dbg_player(t_player *player);
+void		dbgf_cursors(t_list_link *elem, void *input);
 
 /*
 ** DEBUG_H
