@@ -6,7 +6,7 @@
 #    By: abaisago <adam_bai@protonmail.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 11:54:38 by abaisago          #+#    #+#              #
-#    Updated: 2020/08/01 22:34:58 by abosch           ###   ########.fr        #
+#    Updated: 2020/08/01 22:35:48 by abosch           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,7 @@ SUB_ASM        := 	main.c asm.c	\
 					translator.c	\
 					tools1.c		\
                     dbg.c
-SUB_ASM        := $(addprefix asm/, $(SUB_ASM))
+SUB_ASM        := $(addprefix asm/, $(SUB_ASM)) corewar/util.c
 SUB_LIB        := ft_string_nappend.c ft_strisnumber.c ft_list_count.c
 SUB_LIB        := $(addprefix lib/, $(SUB_LIB))
 SRC_NAME_ASM   := $(SUB_ASM) $(SUB_LIB)
