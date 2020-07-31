@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 20:09:45 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/31 17:38:50 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/31 17:47:37 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include <stdint.h>
 
-int32_t					byte_swap_16(const int32_t num)
+int16_t					byte_swap_16(const int16_t num)
 {
 	return (((num >> 8) & 0xff)
 			| ((num << 8) & 0xff00));

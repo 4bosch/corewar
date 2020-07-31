@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 20:04:22 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/31 17:43:10 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/31 17:49:08 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 */
 
 # include "libft.h"
+# include "op.h"
 
 # include <stdint.h>
 # include <unistd.h>
@@ -52,8 +53,8 @@ struct			s_token
 
 struct			s_cmd
 {
-	char		*name;
-	char		*comment;
+	char		name[PROG_NAME_LENGTH];
+	char		comment[COMMENT_LENGTH];
 };
 
 struct			s_label
@@ -69,8 +70,8 @@ struct			s_label
 # define ENDIAN_BIG		0
 # define ENGIAN_LITTLE	1
 
-int		byte_swap_16(const int32_t num);
-int		byte_swap_32(const int32_t num);
+int16_t	byte_swap_16(const int16_t num);
+int32_t	byte_swap_32(const int32_t num);
 int		get_endianness(void);
 int		return_self(const int num);
 

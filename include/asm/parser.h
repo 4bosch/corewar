@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 16:52:42 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/14 15:08:31 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/30 16:01:36 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "tmplib.h"
 # include "op.h"
 # include "error.h"
+# include "tools.h"
 
 # include "debug.h" ///////////// DELETE
 

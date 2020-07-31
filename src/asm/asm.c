@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:24:13 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/29 17:45:23 by abosch           ###   ########.fr       */
+/*   Updated: 2020/07/31 15:35:20 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,17 +94,18 @@ int			asmcore(int ac, char **av)
 		ft_printerr("asm: asmcore(ft_list_init): %s\n", strerror(errno));
 	fd = handle_open(ac, av);
 	lexer(token_list, label, fd);
-	DF("----- TOKEN LIST -----\n");
+	DF("----- TOKEN LIST -----\n");		//DELETE
 	ft_list_print(token_list, &print_token); //DELETE
-	DF("\n----- LABEL LIST ------\n");
+	DF("\n----- LABEL LIST ------\n");	//DELETE
 	ft_list_print(label, &print_label); //DELETE
-	DF("\n");
+	DF("\n");		//DELETE
 	token_tab = list2tab(token_list);
-	if (DEBUG)
+	if (DEBUG)		//DELETE
 		print_tab(token_tab); //DELETE
-	ft_bzero(&cmd, sizeof(t_cmd));
+	ft_bzero(cmd.name, PROG_NAME_LENGTH);
+	ft_bzero(cmd.comment, COMMENT_LENGTH);
 	parser(token_tab, label, &cmd);
-	translator(token_tab, label);
+	translator(token_tab, label, av[1], cmd);
 	if (close(fd) == -1)
 		ft_printerr("asm: Close failed: %s.\n", strerror(errno));
 	return (EXIT_SUCCESS);
