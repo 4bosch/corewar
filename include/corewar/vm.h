@@ -6,7 +6,7 @@
 /*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:32:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/31 12:19:03 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/31 17:32:01 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void			vm_cursor_add(t_vm *vm, t_cursor *cursor);
 void			vm_init(t_vm *vm);
 void			load_code(t_vm *vm, t_cursor *cursor, t_player *player);
 
-void			fight(t_vm *vm);
+void			play_game(t_vm *vm);
 
 int				corewar(int ac, char **av);
 

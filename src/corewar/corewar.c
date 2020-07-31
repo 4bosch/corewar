@@ -6,7 +6,7 @@
 /*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:28:46 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/31 10:30:19 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/31 17:36:30 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ int				corewar(int ac, char **av)
 	options(&vm, ac, av);
 	checks(&vm);
 	load_players(&vm);
-	fight(&vm);
+	play_game(&vm);
 	return (EXIT_SUCCESS);
 }

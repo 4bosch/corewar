@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fight.c                                            :+:      :+:    :+:   */
+/*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/10 16:31:58 by weilin            #+#    #+#             */
-/*   Updated: 2020/07/31 13:00:11 by abaisago         ###   ########.fr       */
+/*   Created: 2020/07/31 17:29:34 by abaisago          #+#    #+#             */
+/*   Updated: 2020/07/31 17:29:36 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void			show_winner(t_vm *vm)
 	ft_printf("(%s) won\n", PLAYERS[STATS.last_live_id - 1].header.prog_name);
 }
 
-void			fight(t_vm *vm)
+void			play_game(t_vm *vm)
 {
 	introduce_players(vm);
 	while (CURSORS->head != NULL

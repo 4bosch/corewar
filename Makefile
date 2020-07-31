@@ -6,7 +6,7 @@
 #    By: abaisago <adam_bai@protonmail.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 11:54:38 by abaisago          #+#    #+#              #
-#    Updated: 2020/07/31 12:21:31 by abaisago         ###   ########.fr        #
+#    Updated: 2020/07/31 17:33:06 by abaisago         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -105,7 +105,7 @@ SUB_CW         := main.c corewar.c \
                   checks.c         \
                   cursor.c         \
                   debug.c          \
-                  fight.c          \
+                  game.c           \
                   options.c        \
                   player.c         \
                   util.c           \
