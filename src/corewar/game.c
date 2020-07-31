@@ -6,33 +6,13 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 17:29:34 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/31 17:29:36 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/31 17:36:11 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
 #include "debug.h"
-
-static void		introduce_players(t_vm *vm)
-{
-	int			i;
-	t_player	*curr;
-
-	ft_printf("Introducing contestants...\n");
-	i = 0;
-	while (i < vm->settings.player_count)
-	{
-		curr = vm->players + i;
-		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
-			i + 1,
-			curr->header.prog_size,
-			curr->header.prog_name,
-			curr->header.comment);
-		i++;
-	}
-	ft_list_iter(vm->cursors, &dbgf_cursors, NULL); // to observe pid and PC
-}
 
 static void		remove_dead_cursors(t_vm *vm)
 {
@@ -66,7 +46,6 @@ void			show_winner(t_vm *vm)
 
 void			play_game(t_vm *vm)
 {
-	introduce_players(vm);
 	while (CURSORS->head != NULL
 		&& (!(FLAGS & F_DUMP) || STATS.cycle != SETTINGS.cycdump))
 	{

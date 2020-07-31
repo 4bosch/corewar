@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 17:17:21 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/09 17:04:55 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/07/31 17:31:14 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,3 +84,24 @@ void			load_players(t_vm *vm)
 		close(fd);
 	}
 }
+
+void		show_players(t_vm *vm)
+{
+	int			i;
+	t_player	*curr;
+
+	ft_printf("Introducing contestants...\n");
+	i = 0;
+	while (i < vm->settings.player_count)
+	{
+		curr = vm->players + i;
+		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
+			i + 1,
+			curr->header.prog_size,
+			curr->header.prog_name,
+			curr->header.comment);
+		i++;
+	}
+	ft_list_iter(vm->cursors, &dbgf_cursors, NULL); // to observe pid and PC
+}
+

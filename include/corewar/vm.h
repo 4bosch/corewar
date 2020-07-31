@@ -101,6 +101,7 @@ void			arena_print(t_byte *arena, int col);
 void			vm_cursor_add(t_vm *vm, t_cursor *cursor);
 void			vm_init(t_vm *vm);
 void			load_code(t_vm *vm, t_cursor *cursor, t_player *player);
+void			show_players(t_vm *vm);
 
 void			play_game(t_vm *vm);
 
