@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:44:41 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/31 17:59:48 by abosch           ###   ########.fr       */
+/*   Updated: 2020/08/01 22:31:44 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ void	skip_command(t_list **tab, int *i)
 {
 	t_token	*tok;
 
+	*i = -1;
 	while (tab[++*i] != NULL)
 	{
 		tok = tab[*i]->head->content;
@@ -177,39 +178,73 @@ int		get_label_addr(t_list **tab, t_list *label)
 	return (addr);
 }
 
-void		write_li_zj_fo_lf(t_list_link *lnk, t_list *label, char op, int fd)
+void		write_li_zj_fo_lf(t_list_link *lnk, t_list *label, char op, int fd, int addr)
 {
 	int32_t	int32;
 	int16_t	int16;
+	t_token	*tok;
 
 	if (write(fd, &op, sizeof(char)) == -1)
 		ft_printerr("asm: write_li_zj_fo_lf(write): %s\n", strerror(errno));
+	tok = lnk->content;
 	if (op == 1)
 	{
-		int32 = byte_swap_32(ft_atoi(((t_token*)lnk->content)->content->buf));
+		if (tok->type == SYMBOL)
+			int32 = byte_swap_32(ft_atoi(tok->content->buf));
+		else if (tok->type == LABELARG)
+			int32 = byte_swap_32(ft_atoi(tok->content->buf) - addr);
 		if (write(fd, &int32, sizeof(int32)) == -1)
 			ft_printerr("asm: write_li_zj_fo_lf(write): %s\n", strerror(errno));
 	}
 	else
 	{
-		int16 = byte_swap_16(ft_atoi(((t_token*)lnk->content)->content->buf));
+		if (tok->type == SYMBOL)
+			int16 = byte_swap_16(ft_atoi(tok->content->buf));
+		else if (tok->type == LABELARG)
+			int16 = byte_swap_16(ft_atoi(tok->content->buf) - addr);
 		if (write(fd, &int16, sizeof(int16)) == -1)
 			ft_printerr("asm: write_li_zj_fo_lf(write): %s\n", strerror(errno));
 	}
 }
 
-void		check_op(t_list_link *lnk, t_list *label, int fd)
+void		check_op(t_list_link *lnk, t_list *label, int fd, int addr)
 {
 	char	*name;
 
 	name = ((t_token*)lnk->content)->content->buf;
 	lnk = lnk->next->next;
-	if (ft_strequ(name, "zjmp"))
-		write_li_zj_fo_lf(lnk, label, 9, fd);
+	if (ft_strequ(name, "live"))
+		write_li_zj_fo_lf(lnk, label, 1, fd, addr);
+	else if (ft_strequ(name, "zjmp"))
+		write_li_zj_fo_lf(lnk, label, 9, fd, addr);
 	else if (ft_strequ(name, "fork"))
-		write_li_zj_fo_lf(lnk, label, 12, fd);
+		write_li_zj_fo_lf(lnk, label, 12, fd, addr);
 	else if (ft_strequ(name, "lfork"))
-		write_li_zj_fo_lf(lnk, label, 15, fd);
+		write_li_zj_fo_lf(lnk, label, 15, fd, addr);
+}
+
+void		write_ops(t_list **tab, int i, t_list *label, int fd)
+{
+	t_list_link	*lnk;
+	int			addr;
+
+	i--;
+	addr = 0;
+	while (tab[++i] != NULL)
+	{
+		lnk = tab[i]->head;
+		while (lnk->next != tab[i]->head)
+		{
+			while (((t_token*)lnk->content)->type == LABELDEF)
+				lnk = lnk->next;
+			if (((t_token*)lnk->content)->type != NEWLINE)
+			{
+				check_op(lnk, label, fd, addr);
+				increment_addr(lnk, &addr);
+				lnk = tab[i]->head->prev;
+			}
+		}
+	}
 }
 
 void	write_commands(int fd, t_cmd cmd, int prog_size)
@@ -248,6 +283,7 @@ void	translator(t_list **tab, t_list *label, char *name, t_cmd cmd)
 	free(prog_name);
 	prog_size = get_label_addr(tab, label);
 	ft_list_print(label, &print_label); //DELETE
-	i = 0;
 	write_commands(fd, cmd, prog_size);
+	skip_command(tab, &i);
+	write_ops(tab, i, label, fd);
 }
