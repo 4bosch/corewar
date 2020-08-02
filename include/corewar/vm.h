@@ -6,7 +6,7 @@
 /*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:32:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/31 17:49:56 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/08/01 13:02:14 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,18 @@
 
 # define NO_WINNER	0
 # define PC			0
+
+/*
+** s_cursor
+** --------
+** exec_time:	cycles left to execute operation
+** last_live:	last cycle of live instruction
+** op_code:		current op_code to be executed
+** pid:			player id of the process owner (for visualizer)
+** carry:		carry flag
+** registers:	all registers from 1-REG_NUMBER
+**				registers[0] is the program counter (PC)
+*/
 
 typedef struct	s_cursor
 {
