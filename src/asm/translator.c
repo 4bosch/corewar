@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:44:41 by abosch            #+#    #+#             */
-/*   Updated: 2020/08/01 22:31:44 by abosch           ###   ########.fr       */
+/*   Updated: 2020/08/02 11:33:57 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,32 @@ int		get_label_addr(t_list **tab, t_list *label)
 	return (addr);
 }
 
+void		write_encoding_byte(t_list_link *lnk, int fd, int nb_args)
+{
+	t_byte	byte;
+	t_token	*tok;
+	int		i;
+	int		pow;
+
+	i = -1;
+	pow = 6;
+	byte = 0;
+	while (++i < nb_args)
+	{
+		tok = lnk->content;
+		if (tok->type == REG)
+			byte += 1 * ft_power(2, pow);
+		else if (tok->type == DIR)
+			byte += 2 * ft_power(2, pow);
+		else if (tok->type == SYMBOL || tok->type == LABELARG)
+			byte += 3 * ft_power(2, pow);
+		lnk = lnk->next->next;
+		pow -= 2;
+	}
+	if (write(fd, &byte, sizeof(byte)) == -1)
+		ft_printerr("asm: write_encoding_byte(write): %s\n", strerror(errno));
+}
+
 void		write_li_zj_fo_lf(t_list_link *lnk, t_list *label, char op, int fd, int addr)
 {
 	int32_t	int32;
@@ -286,4 +312,6 @@ void	translator(t_list **tab, t_list *label, char *name, t_cmd cmd)
 	write_commands(fd, cmd, prog_size);
 	skip_command(tab, &i);
 	write_ops(tab, i, label, fd);
+	if (close(fd) == -1)
+		ft_printerr("asm: translator(close): %s\n", strerror(errno));
 }
