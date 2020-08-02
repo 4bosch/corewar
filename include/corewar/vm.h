@@ -6,7 +6,7 @@
 /*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:32:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/08/01 13:02:14 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/08/02 19:37:26 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define FLAGS		vm->settings.flags
 # define CURSORS	vm->cursors
 # define PLAYERS	vm->players
+# define REGISTERS	cursor->registers
 # define SETTINGS	vm->settings
 # define STATS		vm->stats
 
@@ -96,6 +97,13 @@ typedef struct	s_vm
 	t_settings	settings;
 	t_stats		stats;
 }				t_vm;
+
+void			builtin_argtypes(t_cursor *cursor, t_arg_type *type);
+int				builtin_load(t_vm *vm, t_cursor *cursor, int offset);
+int				builtin_load_long(t_vm *vm, t_cursor *cursor, int offset);
+void			builtin_set(t_vm *vm, t_cursor *cursor, int offset, int value);
+void			builtin_set_long(t_vm *vm, t_cursor *cursor, int offset,
+					int value);
 
 void			cursor_del(void *content, size_t size);
 void			cursor_init(t_player *player, int pid,
