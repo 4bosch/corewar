@@ -3,16 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   aff.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
+/*   By: ariperez <ariperez@student.42.fr           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/31 11:46:40 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/31 11:53:37 by abaisago         ###   ########.fr       */
+/*   Created: 2020/07/19 19:43:34 by ariperez          #+#    #+#             */
+/*   Updated: 2020/07/19 22:52:54 by ariperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "operations.h"
+#include "vm.h"
 
-void	op_aff(t_vm* vm, t_cursor* cursor)
+void		op_aff(t_vm *vm, t_cursor *cursor)
 {
+	t_opmem		mem;
 
+	mem = (t_opmem){0};
+	mem.ocp = ARENA[REGISTERS[PC] + 1];
+	mem.count = 2;
+	mem.type[0] = (mem.ocp & 0xc0) >> 6;
+	mem.type[1] = (mem.ocp & 0x30) >> 4;
+	mem.type[2] = (mem.ocp & 0x0c) >> 2;
+	if (is_reg(vm, cursor, &mem, 0))
+	{
+		mem.arg[0] %= 256;
+		write(1, &mem.arg[0], 1);
+		cursor->carry = (REGISTERS[mem.arg[0]] == 0 ? 1 : 0);
+		REGISTERS[PC] += mem.count;
+		//cycle += 2;
+	}
+	else
+		REGISTERS[PC]++;
 }
