@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 16:28:49 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/31 15:34:29 by abosch           ###   ########.fr       */
+/*   Updated: 2020/08/18 17:13:32 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,18 +316,22 @@ static void		handle_cmd(t_list_link *lnk, t_cmd *cmd)
 			getTokenInfo(tok));
 	if (ft_strcmp(tok->content->buf, "name") == 0)
 	{
-		if (cmd->name[0] != 0)
+		if (cmd->name[0] != '\0')
 			ft_printerr("asm: Command name has been already called.\n");
 		else if (((t_token*)lnk->next->content)->type != STRING)
 			ft_printerr("asm: A string is needed after a command.\n");
+		if (((t_token*)lnk->next->content)->content->len > 2048)
+			ft_printerr("Champion name too long (Max length 128)\n");
 		ft_strcat(cmd->name, ((t_token*)lnk->next->content)->content->buf);
 	}
 	else if (ft_strcmp(tok->content->buf, "comment") == 0)
 	{
-		if (cmd->comment[0] != 0)
+		if (cmd->comment[0] != '\0')
 			ft_printerr("asm: Command comment has been already called.\n");
 		else if (((t_token*)lnk->next->content)->type != STRING)
 			ft_printerr("asm: A string is needed after a command.\n");
+		if (((t_token*)lnk->next->content)->content->len > 2048)
+			ft_printerr("Champion comment too long (Max length 2048)\n");
 		ft_strcat(cmd->comment, ((t_token*)lnk->next->content)->content->buf);
 	}
 	else
@@ -354,6 +358,9 @@ void			parser(t_list **tab, t_list *label, t_cmd *cmd)
 				handle_cmd(lnk->next, cmd);
 				break ;
 			}
+			else if (cmd->name[0] == '\0' || cmd->comment[0] == '\0')
+				ft_printerr("asm: Missing the command \"name\" or \"comment\""
+					" at the top of the file.\n");
 			else if (tok->type == LABELDEF)
 				lnk = lnk->next;
 			else if (tok->type == SYMBOL)
