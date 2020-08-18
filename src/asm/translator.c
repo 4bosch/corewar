@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:44:41 by abosch            #+#    #+#             */
-/*   Updated: 2020/08/18 16:47:25 by abosch           ###   ########.fr       */
+/*   Updated: 2020/08/18 18:05:10 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,7 +278,7 @@ void		write_all(t_list_link **lnk, t_list *label, int fd, int addr)
 		write_dir_ind(lnk, label, fd, addr);
 }
 
-void		write_li_zj_fo_lf(t_list_link *lnk, t_list *label, char op, int fd, int addr)
+void		write_li_zj_fo_lf(t_list_link *lnk, t_list *label, char op, int addr, int fd)
 {
 	if (write(fd, &op, sizeof(char)) == -1)
 		ft_printerr("asm: write_li_zj_fo_lf(write): %s\n", strerror(errno));
@@ -325,13 +325,13 @@ void		write_and_or_xor(t_list_link *lnk, t_list *label, int addr, int fd, char o
 	write_reg(&lnk, fd);
 }
 
-void		write_st(t_list_link *lnk, t_list *label, int fd, int addr)
+void		write_st(t_list_link *lnk, t_list *label, int addr, int fd)
 {
 	char	op;
 
 	op = 3;
 	if (write(fd, &op, sizeof(char)) == -1)
-		ft_printerr("asm: write_ld_lld(write): %s\n", strerror(errno));
+		ft_printerr("asm: write_st(write): %s\n", strerror(errno));
 	write_encoding_byte(lnk, fd, 2);
 	write_reg(&lnk, fd);
 	if (((t_token*)lnk->content)->type == REG)
@@ -340,10 +340,10 @@ void		write_st(t_list_link *lnk, t_list *label, int fd, int addr)
 		write_ind(lnk->content, label, fd, addr);
 }
 
-void		write_ldi_lldi(t_list_link *lnk, t_list *label, int fd, int addr, char op)
+void		write_ldi_lldi(t_list_link *lnk, t_list *label, int addr, int fd, char op)
 {
 	if (write(fd, &op, sizeof(char)) == -1)
-		ft_printerr("asm: write_ld_lld(write): %s\n", strerror(errno));
+		ft_printerr("asm: write_ldi_lldi(write): %s\n", strerror(errno));
 	write_encoding_byte(lnk, fd, 3);
 	write_all(&lnk, label, fd, addr);
 	if (((t_token*)lnk->content)->type == REG)
@@ -356,13 +356,13 @@ void		write_ldi_lldi(t_list_link *lnk, t_list *label, int fd, int addr, char op)
 	write_reg(&lnk, fd);
 }
 
-void		write_sti(t_list_link *lnk, t_list *label, int fd, int addr)
+void		write_sti(t_list_link *lnk, t_list *label, int addr, int fd) 
 {
 	char	op;
 
 	op = 11;
 	if (write(fd, &op, sizeof(char)) == -1)
-		ft_printerr("asm: write_ld_lld(write): %s\n", strerror(errno));
+		ft_printerr("asm: write_sti(write): %s\n", strerror(errno));
 	write_encoding_byte(lnk, fd, 3);
 	write_reg(&lnk, fd);
 	write_all(&lnk, label, fd, addr);
@@ -379,13 +379,13 @@ void		forest_op(t_list_link *lnk, t_list *label, int fd, int addr)
 	name = ((t_token*)lnk->content)->content->buf;
 	lnk = lnk->next;
 	if (ft_strequ(name, "live"))
-		write_li_zj_fo_lf(lnk, label, 1, fd, addr);
+		write_li_zj_fo_lf(lnk, label, 1, addr, fd);
 	else if (ft_strequ(name, "zjmp"))
-		write_li_zj_fo_lf(lnk, label, 9, fd, addr);
+		write_li_zj_fo_lf(lnk, label, 9, addr, fd);
 	else if (ft_strequ(name, "fork"))
-		write_li_zj_fo_lf(lnk, label, 12, fd, addr);
+		write_li_zj_fo_lf(lnk, label, 12, addr, fd);
 	else if (ft_strequ(name, "lfork"))
-		write_li_zj_fo_lf(lnk, label, 15, fd, addr);
+		write_li_zj_fo_lf(lnk, label, 15, addr, fd);
 	else if	 (ft_strequ(name, "aff"))
 		write_aff(lnk, fd, 16);
 	else if (ft_strequ(name, "add"))
@@ -399,13 +399,17 @@ void		forest_op(t_list_link *lnk, t_list *label, int fd, int addr)
 	else if (ft_strequ(name, "or"))
 		write_and_or_xor(lnk, label, addr, fd, 7);
 	else if (ft_strequ(name, "st"))
-		write_st(lnk, label, fd, addr);
+		write_st(lnk, label, addr, fd);
 	else if (ft_strequ(name, "ldi"))
 		write_ldi_lldi(lnk, label, addr, fd, 10);
 	else if (ft_strequ(name, "lldi"))
 		write_ldi_lldi(lnk, label, addr, fd, 14);
 	else if (ft_strequ(name, "sti"))
 		write_sti(lnk, label, addr, fd);
+	else if (ft_strequ(name, "ld"))
+		write_ld_lld(lnk, label, addr, fd, 2);
+	else if (ft_strequ(name, "lld"))
+		write_ld_lld(lnk, label, addr, fd, 13);
 }
 
 void		write_ops(t_list **tab, int i, t_list *label, int fd)
