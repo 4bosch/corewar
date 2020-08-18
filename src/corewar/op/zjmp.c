@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "../../../include/corewar/vm.h"
 
 void		op_zjmp(t_vm *vm, t_cursor *cursor)
 {
@@ -18,7 +18,7 @@ void		op_zjmp(t_vm *vm, t_cursor *cursor)
 
 	mem = (t_opmem){0};
 	mem.count = 1;
-	if (cursor->carry && is_dir2(vm, cursor, &mem, 0))
+	if (cursor->carry && op_is_dir2(vm, cursor, &mem, 0))
 	{
 		REGISTERS[PC] += mem.arg[0] % IDX_MOD;
 		REGISTERS[PC] += mem.count;

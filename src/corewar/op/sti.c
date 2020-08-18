@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "../../../include/corewar/vm.h"
 
 void		op_sti(t_vm *vm, t_cursor *cursor)
 {
@@ -24,16 +24,16 @@ void		op_sti(t_vm *vm, t_cursor *cursor)
 	mem.type[1] = (mem.ocp & 0x30) >> 4;
 	mem.type[2] = (mem.ocp & 0x0c) >> 2;
     mem.modulo = 0;
-	if (is_reg(vm, cursor, &mem, 0) &&
-		(is_reg(vm, cursor, &mem, 1) || is_ind(vm, cursor, &mem, 1) ||
-		is_dir_2(vm, cursor, &mem, 1)) &&
-		(is_ind(vm, cursor, &mem, 1) || is_dir_2(vm, cursor, &mem, 1)))
+	if (op_is_reg(vm, cursor, &mem, 0) &&
+		(op_is_reg(vm, cursor, &mem, 1) || op_is_ind(vm, cursor, &mem, 1) ||
+		op_is_dir2(vm, cursor, &mem, 1)) &&
+		(op_is_ind(vm, cursor, &mem, 1) || op_is_dir2(vm, cursor, &mem, 1)))
 	{
 		addr = (mem.arg[1] + mem.arg[2]) % IDX_MOD;
-		ARENA[REGISTERS[PC] + addr + 3] = mem.arg[0] & (256 << 0);
-		ARENA[REGISTERS[PC] + addr + 2] = mem.arg[0] & (256 << 8);
-		ARENA[REGISTERS[PC] + addr + 1] = mem.arg[0] & (256 << 16);
-		ARENA[REGISTERS[PC] + addr + 0] = mem.arg[0] & (256 << 24);
+		ARENA[REGISTERS[PC] + addr + 3] = mem.arg[0] & (255 << 0);
+		ARENA[REGISTERS[PC] + addr + 2] = mem.arg[0] & (255 << 8);
+		ARENA[REGISTERS[PC] + addr + 1] = mem.arg[0] & (255 << 16);
+		ARENA[REGISTERS[PC] + addr + 0] = mem.arg[0] & (255 << 24);
 		cursor->carry = (REGISTERS[mem.arg[0]] ? 0 : 1);
 		REGISTERS[PC] += mem.count;
 	}

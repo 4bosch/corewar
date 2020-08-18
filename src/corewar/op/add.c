@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "../../../include/corewar/vm.h"
 
 void		op_add(t_vm *vm, t_cursor *cursor)
 {
@@ -22,9 +22,9 @@ void		op_add(t_vm *vm, t_cursor *cursor)
 	mem.type[0] = (mem.ocp & 0xc0) >> 6;
 	mem.type[1] = (mem.ocp & 0x30) >> 4;
 	mem.type[2] = (mem.ocp & 0x0c) >> 2;
-	if (is_reg(vm, cursor, &mem, 0) &&
-		is_reg(vm, cursor, &mem, 1) &&
-		is_reg(vm, cursor, &mem, 2))
+	if (op_is_reg(vm, cursor, &mem, 0) &&
+		op_is_reg(vm, cursor, &mem, 1) &&
+		op_is_reg(vm, cursor, &mem, 2))
 	{
 		REGISTERS[mem.pos[2]] = mem.arg[0] + mem.arg[1];
 		cursor->carry = (REGISTERS[mem.pos[2]] == 0 ? 1 : 0);

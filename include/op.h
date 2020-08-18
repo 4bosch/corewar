@@ -90,21 +90,6 @@ typedef struct		s_op
 
 extern t_op			op_tab[18];
 
-typedef struct	s_opmem
-{
-	t_byte		ocp;
-	t_arg_type	type[3];
-	int32_t		pos[3];
-	int32_t		arg[3];
-	int32_t		count;
-	t_byte		modulo;
-}				t_opmem;
-
-int		is_reg(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg);
-int		is_dir_2(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg);
-int		is_dir_4(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg);
-int		is_ind(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg);
-
 /*
 **********
 ** OP_H **

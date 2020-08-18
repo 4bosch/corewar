@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "../../../include/corewar/vm.h"
 
 void		op_aff(t_vm *vm, t_cursor *cursor)
 {
@@ -22,10 +22,10 @@ void		op_aff(t_vm *vm, t_cursor *cursor)
 	mem.type[0] = (mem.ocp & 0xc0) >> 6;
 	mem.type[1] = (mem.ocp & 0x30) >> 4;
 	mem.type[2] = (mem.ocp & 0x0c) >> 2;
-	if (is_reg(vm, cursor, &mem, 0))
+	if (op_is_reg(vm, cursor, &mem, 0))
 	{
 		mem.arg[0] %= 256;
-		write(1, &mem.arg[0], 1);
+		ft_printf("%c", mem.arg[0]);
 		cursor->carry = (REGISTERS[mem.arg[0]] == 0 ? 1 : 0);
 		REGISTERS[PC] += mem.count;
 		//cycle += 2;

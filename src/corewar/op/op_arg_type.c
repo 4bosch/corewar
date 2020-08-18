@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "../../../include/corewar/vm.h"
 
-int		is_reg(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg)
+int		op_is_reg(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg)
 {
 	if (mem->type[narg] == T_REG)
 	{
@@ -25,7 +25,7 @@ int		is_reg(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg)
 	return (0);
 }
 
-int		is_dir_4(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg)
+int		op_is_dir4(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg)
 {
 	if (mem->type[narg] == T_DIR)
 	{
@@ -39,7 +39,7 @@ int		is_dir_4(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg)
 	return (0);
 }
 
-int		is_dir_2(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg)
+int		op_is_dir2(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg)
 {
 	if (mem->type[narg] == T_DIR)
 	{
@@ -51,7 +51,7 @@ int		is_dir_2(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg)
 	return (0);
 }
 
-int		is_ind(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg)
+int		op_is_ind(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg)
 {
 	if (mem->type[narg] == T_IND)
 	{
@@ -67,4 +67,22 @@ int		is_ind(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg)
 		return (1);
 	}
 	return (0);
+}
+
+void		op_copy_cursor(t_vm *vm, t_cursor *cursor, int fork_pos)
+{
+	t_list_link	new;
+	t_cursor	fork;
+
+	fork.carry = cursor->carry;
+	fork.exec_time = cursor->exec_time;
+	fork.last_live = cursor->last_live;
+	fork.op_code = cursor->op_code;
+	fork.pid = cursor->pid;
+	//fork.registers = cursor->registers; //copy_tab
+	fork.registers[PC] += fork_pos;
+	new.content = &fork;
+	new.next = vm->cursors->head;	//fonction pour rendre ca plus propre ?
+	vm->cursors->head->prev = &new; //content_size ?
+	vm->cursors->head = &new;
 }

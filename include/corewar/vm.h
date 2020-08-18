@@ -98,6 +98,22 @@ typedef struct	s_vm
 	t_stats		stats;
 }				t_vm;
 
+typedef struct	s_opmem
+{
+	t_byte		ocp;
+	t_arg_type	type[3];
+	int32_t		pos[3];
+	int32_t		arg[3];
+	int32_t		count;
+	t_byte		modulo;
+}				t_opmem;
+
+int				op_is_reg(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg);
+int				op_is_dir2(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg);
+int				op_is_dir4(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg);
+int				op_is_ind(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg);
+void			op_copy_cursor(t_vm *vm, t_cursor *cursor, int fork_pos);
+
 void			builtin_argtypes(t_cursor *cursor, t_arg_type *type);
 int				builtin_load(t_vm *vm, t_cursor *cursor, int offset);
 int				builtin_load_long(t_vm *vm, t_cursor *cursor, int offset);

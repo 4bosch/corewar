@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "../../../include/corewar/vm.h"
 
 void		op_st(t_vm *vm, t_cursor *cursor)
 {
@@ -23,20 +23,20 @@ void		op_st(t_vm *vm, t_cursor *cursor)
 	mem.type[1] = (mem.ocp & 0x30) >> 4;
 	mem.type[2] = (mem.ocp & 0x0c) >> 2;
     mem.modulo = 1;
-	if (is_reg(vm, cursor, &mem, 0))
+	if (op_is_reg(vm, cursor, &mem, 0))
 	{
-		if (is_reg(vm, cursor, &mem, 1))
+		if (op_is_reg(vm, cursor, &mem, 1))
 		{
 			REGISTERS[mem.arg[1]] = mem.arg[0];
 			cursor->carry = (REGISTERS[mem.arg[0]] ? 0 : 1);
 			REGISTERS[PC] += mem.count;
 		}
-		else if (is_ind(vm, cursor, &mem, 1))
+		else if (op_is_ind(vm, cursor, &mem, 1))
 		{
-			ARENA[REGISTERS[PC] + mem.arg[1] + 3] = mem.arg[0] & (256 << 0);
-			ARENA[REGISTERS[PC] + mem.arg[1] + 2] = mem.arg[0] & (256 << 8);
-			ARENA[REGISTERS[PC] + mem.arg[1] + 1] = mem.arg[0] & (256 << 16);
-			ARENA[REGISTERS[PC] + mem.arg[1] + 0] = mem.arg[0] & (256 << 24);
+			ARENA[REGISTERS[PC] + mem.arg[1] + 3] = mem.arg[0] & (255 << 0);
+			ARENA[REGISTERS[PC] + mem.arg[1] + 2] = mem.arg[0] & (255 << 8);
+			ARENA[REGISTERS[PC] + mem.arg[1] + 1] = mem.arg[0] & (255 << 16);
+			ARENA[REGISTERS[PC] + mem.arg[1] + 0] = mem.arg[0] & (255 << 24);
 			cursor->carry = (REGISTERS[mem.arg[0]] ? 0 : 1);
 			REGISTERS[PC] += mem.count;
 		}

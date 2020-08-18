@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "../../../include/corewar/vm.h"
 
 void		op_lldi(t_vm *vm, t_cursor *cursor)
 {
@@ -24,10 +24,10 @@ void		op_lldi(t_vm *vm, t_cursor *cursor)
 	mem.type[1] = (mem.ocp & 0x30) >> 4;
 	mem.type[2] = (mem.ocp & 0x0c) >> 2;
 	mem.modulo = 1;
-	if ((is_reg(vm, cursor, &mem, 0) || is_dir2(vm, cursor, &mem, 0) ||
-		is_ind(vm, cursor, &mem, 0)) &&
-		(is_reg(vm, cursor, &mem, 1) || is_dir2(vm, cursor, &mem, 1)) &&
-		is_reg(vm, cursor, &mem, 2))
+	if ((op_is_reg(vm, cursor, &mem, 0) || op_is_dir2(vm, cursor, &mem, 0) ||
+		op_is_ind(vm, cursor, &mem, 0)) &&
+		(op_is_reg(vm, cursor, &mem, 1) || op_is_dir2(vm, cursor, &mem, 1)) &&
+		op_is_reg(vm, cursor, &mem, 2))
 	{
 		addr = (mem.arg[1] + mem.arg[2]);
 		REGISTERS[mem.arg[2]] = ARENA[REGISTERS[PC] + addr + 3] << 0;

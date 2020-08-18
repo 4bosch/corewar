@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "../../../include/corewar/vm.h"
 
 void		op_ld(t_vm *vm, t_cursor *cursor)
 {
@@ -23,8 +23,8 @@ void		op_ld(t_vm *vm, t_cursor *cursor)
 	mem.type[1] = (mem.ocp & 0x30) >> 4;
 	mem.type[2] = (mem.ocp & 0x0c) >> 2;
     mem.modulo = 1;
-	if ((is_dir4(vm, cursor, &mem, 0) || is_ind(vm, cursor, &mem, 0)) &&
-		is_reg(vm, cursor, &mem, 1))
+	if ((op_is_dir4(vm, cursor, &mem, 0) || op_is_ind(vm, cursor, &mem, 0)) &&
+		op_is_reg(vm, cursor, &mem, 1))
 	{
 		REGISTERS[mem.pos[1]] = mem.arg[0];
 		cursor->carry = (REGISTERS[mem.pos[1]] ? 0 : 1);
