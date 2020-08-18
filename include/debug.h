@@ -6,7 +6,7 @@
 /*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 17:06:17 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/31 08:10:43 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/08/18 16:45:39 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # include "vm.h"
 
-# define DEBUG 1
+# define DEBUG 0
 
 # if DEBUG == 1
 #  define DF(...) ft_printf(__VA_ARGS__)
