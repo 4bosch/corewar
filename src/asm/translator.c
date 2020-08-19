@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:44:41 by abosch            #+#    #+#             */
-/*   Updated: 2020/08/18 18:05:10 by abosch           ###   ########.fr       */
+/*   Updated: 2020/08/19 16:48:44 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,12 +192,20 @@ void		write_encoding_byte(t_list_link *lnk, int fd, int nb_args)
 	{
 		tok = lnk->content;
 		if (tok->type == REG)
+		{
 			byte += 1 * ft_power(2, pow);
+			lnk = lnk->next->next;
+		}
 		else if (tok->type == DIR)
+		{
 			byte += 2 * ft_power(2, pow);
+			lnk = lnk->next->next->next;
+		}
 		else if (tok->type == SYMBOL || tok->type == LABELARG)
+		{
 			byte += 3 * ft_power(2, pow);
-		lnk = lnk->next->next;
+			lnk = lnk->next->next;
+		}
 		pow -= 2;
 	}
 	if (write(fd, &byte, sizeof(byte)) == -1)
