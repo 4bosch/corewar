@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 16:40:51 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/27 15:53:46 by abosch           ###   ########.fr       */
+/*   Updated: 2020/08/19 14:57:13 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ void			lexer(t_list *toklist, t_list *label, int fd)
 			else
 				ft_printerr(EIC, buf[args.i]);
 	}
+	if (((t_token*)toklist->head->prev->content)->type != NEWLINE)
+		ft_printerr(ENOLASTNL);
 	if (args.i == -1)
 		ft_printerr("asm: lexer(read): %s\n", strerror(errno));
 }

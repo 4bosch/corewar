@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:24:13 by abaisago          #+#    #+#             */
-/*   Updated: 2020/08/18 16:46:43 by abosch           ###   ########.fr       */
+/*   Updated: 2020/08/19 14:58:17 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ static void	fill_tab(int len, t_list **tab, t_list *list)
 		}
 	}
 	ft_list_push(tab[j], ft_list_pop_front(list));
-	if (((t_token*)tab[j - 1]->head->prev->content)->type != NEWLINE)
-		ft_printerr(ENOLASTNL);
 }
 
 t_list		**list2tab(t_list *token_list)
