@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:24:13 by abaisago          #+#    #+#             */
-/*   Updated: 2020/08/19 14:58:17 by abosch           ###   ########.fr       */
+/*   Updated: 2020/08/19 15:26:17 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ int			asmcore(int ac, char **av)
 	if (DEBUG) print_tab(token_tab); //DELETE
 	ft_bzero(cmd.name, PROG_NAME_LENGTH);
 	ft_bzero(cmd.comment, COMMENT_LENGTH);
+	cmd.name[0] = -1;
+	cmd.comment[0] = -1;
 	parser(token_tab, label, &cmd);
 	translator(token_tab, label, av[1], cmd);
 	if (close(fd) == -1)
