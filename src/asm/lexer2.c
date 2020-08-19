@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 12:52:10 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/20 15:10:25 by abosch           ###   ########.fr       */
+/*   Updated: 2020/08/19 15:59:42 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,12 @@ int				simple_case(t_lexargs *args)
 		ft_list_push(args->toklist, ft_list_link_new(
 					token_new(&tok, SEP, NULL), sizeof(t_token)));
 	else if (c == '%') 
+	{
+		if (args->buf[args->i + 1] == ' ')
+			ft_printerr("asm: There is a space after a direct character ('%c').\n", DIRECT_CHA);
 		ft_list_push(args->toklist, ft_list_link_new(
 					token_new(&tok, DIR, NULL), sizeof(t_token)));
+	}
 	else if (c == '\n') 
 		ft_list_push(args->toklist, ft_list_link_new(
 					token_new(&tok, NEWLINE, NULL), sizeof(t_token)));
