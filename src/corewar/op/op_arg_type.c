@@ -3,73 +3,79 @@
 /*                                                        :::      ::::::::   */
 /*   op_arg_type.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ariperez <ariperez@student.42.fr           +#+  +:+       +#+        */
+/*   By: ariperez <ariperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 19:43:34 by ariperez          #+#    #+#             */
 /*   Updated: 2020/07/19 22:52:54 by ariperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/corewar/vm.h"
+#include "vm.h"
 
-int		op_is_reg(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg)
+int		op_is_reg(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg)
 {
-	if (mem->type[narg] == T_REG)
+	if (m->type[narg] == T_REG)
 	{
-		mem->pos[narg] = (ARENA[REGISTERS[PC] + mem->count]);
-		mem->count += 1;
-		if (1 <= mem->pos[narg] && mem->pos[narg] <= REG_NUMBER &&
-		((mem->arg[narg] = REGISTERS[mem->pos[narg]]) || 1))
+		m->pos[narg] = (ARENA[(REGISTERS[PC] + m->count % MEM_SIZE)]);
+		m->count += 1;
+		if (1 <= m->pos[narg] && m->pos[narg] <= REG_NUMBER &&
+		((m->arg[narg] = REGISTERS[m->pos[narg]]) || 1))
 			return (1);
 	}
 	return (0);
 }
 
-int		op_is_dir4(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg)
+int		op_is_dir4(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg)
 {
-	if (mem->type[narg] == T_DIR)
+	int		s;
+
+	s = MEM_SIZE;
+	if (m->type[narg] == T_DIR)
 	{
-		mem->arg[narg] = (ARENA[REGISTERS[PC] + mem->count + 3]) << 0;
-		mem->arg[narg] |= (ARENA[REGISTERS[PC] + mem->count + 2]) << 8;
-		mem->arg[narg] |= (ARENA[REGISTERS[PC] + mem->count + 1]) << 16;
-		mem->arg[narg] |= (ARENA[REGISTERS[PC] + mem->count + 0]) << 24;
-		mem->count += 4;
+		m->arg[narg] = (ARENA[(REGISTERS[PC] + m->count + 3 % s)]) << 0;
+		m->arg[narg] |= (ARENA[(REGISTERS[PC] + m->count + 2 % s)]) << 8;
+		m->arg[narg] |= (ARENA[(REGISTERS[PC] + m->count + 1 % s)]) << 16;
+		m->arg[narg] |= (ARENA[(REGISTERS[PC] + m->count + 0 % s)]) << 24;
+		m->count += 4;
 		return (1);
 	}
 	return (0);
 }
 
-int		op_is_dir2(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg)
+int		op_is_dir2(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg)
 {
-	if (mem->type[narg] == T_DIR)
+	if (m->type[narg] == T_DIR)
 	{
-		mem->arg[narg] = (ARENA[REGISTERS[PC] + mem->count + 3]) << 0;
-		mem->arg[narg] |= (ARENA[REGISTERS[PC] + mem->count + 2]) << 8;
-		mem->count += 2;
+		m->arg[narg] = (ARENA[(REGISTERS[PC] + m->count + 3 % MEM_SIZE)]) << 0;
+		m->arg[narg] |= (ARENA[(REGISTERS[PC] + m->count + 2 % MEM_SIZE)]) << 8;
+		m->count += 2;
 		return (1);
 	}
 	return (0);
 }
 
-int		op_is_ind(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg)
+int		op_is_ind(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg)
 {
-	if (mem->type[narg] == T_IND)
+	int		s;
+
+	s = MEM_SIZE;
+	if (m->type[narg] == T_IND)
 	{
-		mem->pos[narg] = (ARENA[REGISTERS[PC] + mem->count + 1]) << 0;
-		mem->pos[narg] |= (ARENA[REGISTERS[PC] + mem->count + 0]) << 8;
-		mem->count += 2;
-        if (mem->modulo)
-            mem->pos[narg] = mem->pos[narg] % IDX_MOD;
-		mem->arg[narg] = (ARENA[REGISTERS[PC] + mem->pos[narg] + 3]) << 0;
-		mem->arg[narg] |= (ARENA[REGISTERS[PC] + mem->pos[narg] + 2]) << 8;
-		mem->arg[narg] |= (ARENA[REGISTERS[PC] + mem->pos[narg] + 1]) << 16;
-		mem->arg[narg] |= (ARENA[REGISTERS[PC] + mem->pos[narg] + 0]) << 24;
+		m->pos[narg] = (ARENA[(REGISTERS[PC] + m->count + 1 % MEM_SIZE)]) << 0;
+		m->pos[narg] |= (ARENA[(REGISTERS[PC] + m->count + 0 % MEM_SIZE)]) << 8;
+		m->count += 2;
+		if (m->modulo)
+			m->pos[narg] = m->pos[narg] % IDX_MOD;
+		m->arg[narg] = (ARENA[(REGISTERS[PC] + m->pos[narg] + 3 % s)]) << 0;
+		m->arg[narg] |= (ARENA[(REGISTERS[PC] + m->pos[narg] + 2 % s)]) << 8;
+		m->arg[narg] |= (ARENA[(REGISTERS[PC] + m->pos[narg] + 1 % s)]) << 16;
+		m->arg[narg] |= (ARENA[(REGISTERS[PC] + m->pos[narg] + 0 % s)]) << 24;
 		return (1);
 	}
 	return (0);
 }
 
-void		op_copy_cursor(t_vm *vm, t_cursor *cursor, int fork_pos)
+void	op_copy_cursor(t_vm *vm, t_cursor *cursor, int fork_pos)
 {
 	t_list_link	new;
 	t_cursor	fork;

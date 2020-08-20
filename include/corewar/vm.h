@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:32:56 by abaisago          #+#    #+#             */
 /*   Updated: 2020/08/02 19:37:26 by abaisago         ###   ########.fr       */
@@ -108,10 +108,10 @@ typedef struct	s_opmem
 	t_byte		modulo;
 }				t_opmem;
 
-int				op_is_reg(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg);
-int				op_is_dir2(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg);
-int				op_is_dir4(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg);
-int				op_is_ind(t_vm *vm, t_cursor *cursor, t_opmem *mem, int narg);
+int				op_is_reg(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg);
+int				op_is_dir2(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg);
+int				op_is_dir4(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg);
+int				op_is_ind(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg);
 void			op_copy_cursor(t_vm *vm, t_cursor *cursor, int fork_pos);
 
 void			builtin_argtypes(t_cursor *cursor, t_arg_type *type);

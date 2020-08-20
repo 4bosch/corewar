@@ -100,7 +100,8 @@ SUB_CW_OP      := add.c   \
                   sti.c   \
                   sub.c   \
                   xor.c   \
-                  zjmp.c
+                  zjmp.c   \
+				  op_arg_type.c
 SUB_CW_OP      := $(addprefix op/, $(SUB_CW_OP))
 
 SUB_CW         := main.c corewar.c \
