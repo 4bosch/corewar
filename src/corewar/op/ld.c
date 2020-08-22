@@ -17,7 +17,7 @@ void		op_ld(t_vm *vm, t_cursor *cursor)
 	t_opmem		m;
 
 	m = (t_opmem){0};
-	m.ocp = ARENA[(REGISTERS[PC] + 1 % MEM_SIZE)];
+	m.ocp = ARENA[(REGISTERS[PC] + 1) % MEM_SIZE];
 	m.count = 2;
 	m.type[0] = (m.ocp & 0xc0) >> 6;
 	m.type[1] = (m.ocp & 0x30) >> 4;

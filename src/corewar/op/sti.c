@@ -30,10 +30,10 @@ void		op_sti(t_vm *vm, t_cursor *cursor)
 		(op_is_ind(vm, cursor, &m, 1) || op_is_dir2(vm, cursor, &m, 1)))
 	{
 		addr = (m.arg[1] + m.arg[2]) % IDX_MOD;
-		ARENA[(REGISTERS[PC] + addr + 3 % MEM_SIZE)] = m.arg[0] & (255 << 0);
-		ARENA[(REGISTERS[PC] + addr + 2 % MEM_SIZE)] = m.arg[0] & (255 << 8);
-		ARENA[(REGISTERS[PC] + addr + 1 % MEM_SIZE)] = m.arg[0] & (255 << 16);
-		ARENA[(REGISTERS[PC] + addr + 0 % MEM_SIZE)] = m.arg[0] & (255 << 24);
+		ARENA[(REGISTERS[PC] + addr + 3) % MEM_SIZE] = (m.arg[0] >> 0) & 255;
+		ARENA[(REGISTERS[PC] + addr + 2) % MEM_SIZE] = (m.arg[0] >> 8) & 255;
+		ARENA[(REGISTERS[PC] + addr + 1) % MEM_SIZE] = (m.arg[0] >> 16) & 255;
+		ARENA[(REGISTERS[PC] + addr + 0) % MEM_SIZE] = (m.arg[0] >> 24) & 255;
 		cursor->carry = (REGISTERS[m.arg[0]] ? 0 : 1);
 		REGISTERS[PC] += m.count;
 	}

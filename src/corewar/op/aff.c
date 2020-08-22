@@ -17,7 +17,7 @@ void		op_aff(t_vm *vm, t_cursor *cursor)
 	t_opmem		m;
 
 	m = (t_opmem){0};
-	m.ocp = ARENA[(REGISTERS[PC] + 1 % MEM_SIZE)];
+	m.ocp = ARENA[(REGISTERS[PC] + 1) % MEM_SIZE];
 	m.count = 2;
 	m.type[0] = (m.ocp & 0xc0) >> 6;
 	m.type[1] = (m.ocp & 0x30) >> 4;
@@ -26,7 +26,7 @@ void		op_aff(t_vm *vm, t_cursor *cursor)
 	{
 		m.arg[0] %= 256;
 		ft_printf("%c", m.arg[0]);
-		cursor->carry = (REGISTERS[m.arg[0]] == 0 ? 1 : 0);
+		cursor->carry = (REGISTERS[m.pos[0]] == 0 ? 1 : 0);
 		REGISTERS[PC] += m.count;
 	}
 	else
