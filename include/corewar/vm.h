@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:32:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/08/02 19:37:26 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/08/23 16:07:03 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void			builtin_set_long(t_vm *vm, t_cursor *cursor, int offset,
 					int value);
 
 void			cursor_del(void *content, size_t size);
+void			cursor_fork(t_vm *vm, t_cursor *cursor, int fork_pos);
 void			cursor_init(t_player *player, int pid,
 					int player_count, t_cursor *cursor);
 int				cursor_life(t_list_link *link, void *input);
