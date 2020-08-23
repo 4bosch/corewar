@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 18:57:30 by abaisago          #+#    #+#             */
-/*   Updated: 2020/08/23 16:11:12 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/08/23 19:15:05 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void			cursor_init(t_player *player, int pid,
 					int player_count, t_cursor *cursor)
 {
 	*cursor = (t_cursor){0};
+	cursor->op_code = -1;
 	cursor->pid = pid;
 	cursor->registers[PC] = (MEM_SIZE / player_count) * (pid - 1);
 	cursor->registers[1] = -pid;
@@ -64,7 +65,7 @@ void			cursor_update(t_list_link *link, void *input)
 
 	cursor = link->content;
 	vm = input;
-	if (cursor->op_code == 0)
+	if (cursor->op_code == -1)
 	{
 		cursor->op_code = vm->arena[cursor->registers[PC]];
 		if (cursor->op_code < 0 || cursor->op_code > 16)
@@ -74,7 +75,7 @@ void			cursor_update(t_list_link *link, void *input)
 	if (cursor->exec_time == 0)
 	{
 		vm->operations[cursor->op_code](vm, cursor);
-		cursor->op_code = 0;
+		cursor->op_code = -1;
 	}
 	--cursor->exec_time;
 }
