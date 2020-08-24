@@ -12,24 +12,6 @@
 
 #include "vm.h"
 
-static int	to_make_alive(t_vm *vm, int player)
-{
-	t_list_link	*list;
-	t_cursor	*tmp;
-
-	list = vm->cursors->head;
-	while (list)
-	{
-		tmp = list->content;
-		if (tmp->pid == player)
-			break ;
-		list = list->next;
-	}
-	if (list && (tmp->last_live = 1)) //nb cycle, not 1
-		return (1);
-	return (0);
-}
-
 void		op_live(t_vm *vm, t_cursor *cursor)
 {
 	t_opmem		m;
@@ -37,10 +19,18 @@ void		op_live(t_vm *vm, t_cursor *cursor)
 	m = (t_opmem){0};
 	m.type[0] = 2;
 	m.count = 1;
-	if (op_is_dir4(vm, cursor, &m, 0) &&
-		m.arg[0] <= SETTINGS.player_count &&
-		to_make_alive(vm, m.arg[0]))
+	if (op_is_dir4(vm, cursor, &m, 0))
+	{
+		cursor->last_live = STATS.cycle;
+		STATS.live++;
+		if (-m.arg[0] <= SETTINGS.player_count) //number of player not in order with -n ?
+			{
+				STATS.last_live_id = -m.arg[0];
+				ft_printf("Player %d (%s) is announced alive by a process\n",
+						-m.arg[0], PLAYERS[-m.arg[0]].header.prog_name);
+			}
 		REGISTERS[PC] += m.count;
+	}
 	else
 		REGISTERS[PC]++;
 }

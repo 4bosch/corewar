@@ -26,7 +26,7 @@ void		op_st(t_vm *vm, t_cursor *cursor)
 	size = MEM_SIZE;
 	if (op_is_reg(vm, cursor, &m, 0) &&
 		(op_is_reg(vm, cursor, &m, 1) || !(m.count = 2)))
-		REGISTERS[m.arg[1]] = m.arg[0];
+		REGISTERS[m.pos[1]] = m.arg[0];
 	else if (op_is_reg(vm, cursor, &m, 0) && op_is_ind(vm, cursor, &m, 1))
 	{
 		ARENA[(REGISTERS[PC] + m.pos[1] + 3) % size] = (m.arg[0] >> 0) & 255;

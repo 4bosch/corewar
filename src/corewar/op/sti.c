@@ -34,7 +34,7 @@ void		op_sti(t_vm *vm, t_cursor *cursor)
 		ARENA[(REGISTERS[PC] + addr + 2) % MEM_SIZE] = (m.arg[0] >> 8) & 255;
 		ARENA[(REGISTERS[PC] + addr + 1) % MEM_SIZE] = (m.arg[0] >> 16) & 255;
 		ARENA[(REGISTERS[PC] + addr + 0) % MEM_SIZE] = (m.arg[0] >> 24) & 255;
-		cursor->carry = (REGISTERS[m.arg[0]] ? 0 : 1);
+		cursor->carry = (REGISTERS[m.pos[0]] ? 0 : 1);
 		REGISTERS[PC] += m.count;
 	}
 	else

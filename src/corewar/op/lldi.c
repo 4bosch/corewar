@@ -29,12 +29,12 @@ void		op_lldi(t_vm *vm, t_cursor *cursor)
 		(op_is_reg(vm, cursor, &m, 1) || op_is_dir2(vm, cursor, &m, 1)) &&
 		op_is_reg(vm, cursor, &m, 2))
 	{
-		a = (m.arg[1] + m.arg[2]);
+		a = m.arg[1] + m.arg[2];
 		REGISTERS[m.arg[2]] = ARENA[(REGISTERS[PC] + a + 3) % MEM_SIZE] << 0;
 		REGISTERS[m.arg[2]] |= ARENA[(REGISTERS[PC] + a + 2) % MEM_SIZE] << 8;
 		REGISTERS[m.arg[2]] |= ARENA[(REGISTERS[PC] + a + 1) % MEM_SIZE] << 16;
 		REGISTERS[m.arg[2]] |= ARENA[(REGISTERS[PC] + a + 0) % MEM_SIZE] << 24;
-		cursor->carry = (REGISTERS[m.arg[2]] ? 0 : 1);
+		cursor->carry = (REGISTERS[m.pos[2]] ? 0 : 1);
 		REGISTERS[PC] += m.count;
 	}
 	else

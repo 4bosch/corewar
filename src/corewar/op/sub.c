@@ -26,8 +26,8 @@ void		op_sub(t_vm *vm, t_cursor *cursor)
 		op_is_reg(vm, cursor, &m, 1) &&
 		op_is_reg(vm, cursor, &m, 2))
 	{
-		REGISTERS[m.arg[2]] = REGISTERS[m.arg[0]] - REGISTERS[m.arg[1]];
-		cursor->carry = (REGISTERS[m.arg[2]] == 0 ? 1 : 0);
+		REGISTERS[m.pos[2]] = m.arg[0] - m.arg[1];
+		cursor->carry = (REGISTERS[m.pos[2]] == 0 ? 1 : 0);
 		REGISTERS[PC] += m.count;
 	}
 	else

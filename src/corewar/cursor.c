@@ -26,14 +26,13 @@ void			cursor_del(void *content, size_t size)
 	return ;
 }
 
-
 void			cursor_fork(t_vm *vm, t_cursor *cursor, int fork_pos)
 {
 	t_cursor	fork;
 	t_list_link	*new;
 
 	ft_memcpy(cursor, &fork, sizeof(fork));
-	fork.registers[PC] += fork_pos;
+	fork.registers[PC] = (fork.registers[PC] + fork_pos) % MEM_SIZE;
 	if ((new = ft_list_link_new(&fork, sizeof(*new))) == NULL)
 		ft_printerr("corewar: cursor_fork(link_new): %s\n", strerror(errno));
 	ft_list_push_front(vm->cursors, new);

@@ -20,7 +20,6 @@ void		op_fork(t_vm *vm, t_cursor *cursor)
 	m.count = 1;
 	if (op_is_dir2(vm, cursor, &m, 0))
 	{
-		// % MEM_SIZE needs to be added somwhere
 		cursor_fork(vm, cursor, m.arg[0] % IDX_MOD);
 		REGISTERS[PC] += m.count;
 	}
