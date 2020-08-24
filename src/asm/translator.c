@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:44:41 by abosch            #+#    #+#             */
-/*   Updated: 2020/08/19 16:48:44 by abosch           ###   ########.fr       */
+/*   Updated: 2020/08/24 11:55:30 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,20 @@ void	give_labeldef_addr(t_list_link **lnk, t_list_link *head, t_list *label, int
 	}
 }
 
-void	increment_all_type(t_token *tok, int *addr, int dir_size)
+void	increment_all_type(t_list_link **lnk, int *addr, int dir_size)
 {
+	t_token	*tok;
+
+	tok = (*lnk)->content;
 	if (tok->type == REG)
 		*addr += 1;
 	else if (tok->type == SYMBOL || tok->type == LABELARG)
 		*addr += IND_SIZE;
 	else if (tok->type == DIR)
+	{
 		*addr += dir_size;
+		*lnk = (*lnk)->next;
+	}
 }
 
 void	increment_dir_ind(t_token *tok, int *addr, int dir_size)
@@ -54,10 +60,16 @@ void	increment_dir_ind(t_token *tok, int *addr, int dir_size)
 		*addr += IND_SIZE;
 }
 
-void	increment_reg_dir(t_token *tok, int *addr, int dir_size)
+void	increment_reg_dir(t_list_link **lnk, int *addr, int dir_size)
 {
+	t_token	*tok;
+
+	tok = (*lnk)->content;
 	if (tok->type == DIR)
+	{
 		*addr += dir_size;
+		*lnk = (*lnk)->next;
+	}
 	else
 		*addr += 1;
 }
@@ -74,11 +86,11 @@ void	compute_and_or_xor(t_list_link *lnk, int *addr)
 {
 	*addr += 1 + 1;
 	lnk = lnk->next;
-	increment_all_type(lnk->content, addr, 4);
+	increment_all_type(&lnk, addr, 4);
 	lnk = lnk->next->next;
-	increment_all_type(lnk->content, addr, 4);
+	increment_all_type(&lnk, addr, 4);
 	lnk = lnk->next->next;
-	increment_all_type(lnk->content, addr, 4);
+	increment_all_type(&lnk, addr, 4);
 }
 
 void	compute_ld_lld(t_list_link *lnk, int *addr)
@@ -94,9 +106,9 @@ void	compute_ldi_lldi(t_list_link *lnk, int *addr)
 {
 	*addr += 1 + 1;
 	lnk = lnk->next;
-	increment_all_type(lnk->content, addr, 2);
+	increment_all_type(&lnk, addr, 2);
 	lnk = lnk->next->next;
-	increment_reg_dir(lnk->content, addr, 2);
+	increment_reg_dir(&lnk, addr, 2);
 	lnk = lnk->next->next;
 	*addr += 1;
 }
@@ -112,9 +124,9 @@ void	compute_sti(t_list_link *lnk, int *addr)
 {
 	*addr += 1 + 1 + 1;
 	lnk = lnk->next->next->next;
-	increment_all_type(lnk->content, addr, 2);
+	increment_all_type(&lnk, addr, 2);
 	lnk = lnk->next->next;
-	increment_reg_dir(lnk->content, addr, 2);
+	increment_reg_dir(&lnk, addr, 2);
 }
 
 void	increment_addr(t_list_link *lnk, int *addr)
@@ -234,7 +246,8 @@ void		write_dir(t_token *tok, t_list *label, int fd, int addr, char byte)
 		if (tok->type == SYMBOL)
 			int32 = byte_swap_32(ft_atoi(tok->content->buf));
 		else if (tok->type == LABELARG)
-			int32 = byte_swap_32(ft_atoi(tok->content->buf) - addr);
+			int32 = byte_swap_32(((t_label*)ft_list_find(label,
+				tok->content->buf, &cmp_label)->content)->addr - addr);
 		if (write(fd, &int32, sizeof(int32)) == -1)
 			ft_printerr("asm: write_li_zj_fo_lf(write): %s\n", strerror(errno));
 	}
@@ -243,7 +256,8 @@ void		write_dir(t_token *tok, t_list *label, int fd, int addr, char byte)
 		if (tok->type == SYMBOL)
 			int16 = byte_swap_16(ft_atoi(tok->content->buf));
 		else if (tok->type == LABELARG)
-			int16 = byte_swap_16(ft_atoi(tok->content->buf) - addr);
+			int16 = byte_swap_16(((t_label*)ft_list_find(label,
+				tok->content->buf, &cmp_label)->content)->addr - addr);
 		if (write(fd, &int16, sizeof(int16)) == -1)
 			ft_printerr("asm: write_li_zj_fo_lf(write): %s\n", strerror(errno));
 	}
@@ -256,19 +270,20 @@ void		write_ind(t_token *tok, t_list *label, int fd, int addr)
 	if (tok->type == SYMBOL)
 		int16 = byte_swap_16(ft_atoi(tok->content->buf));
 	else if (tok->type == LABELARG)
-		int16 = byte_swap_16(ft_atoi(tok->content->buf) - addr);
+		int16 = byte_swap_16(((t_label*)ft_list_find(label,
+			tok->content->buf, &cmp_label)->content)->addr - addr);
 	if (write(fd, &int16, sizeof(int16)) == -1)
 		ft_printerr("asm: write_li_zj_fo_lf(write): %s\n", strerror(errno));
 }
 
-void		write_dir_ind(t_list_link **lnk, t_list *label, int fd, int addr)
+void		write_dir_ind(t_list_link **lnk, t_list *label, int fd, int addr, t_byte byte)
 {
 	t_token	*tok;
 
 	tok = (*lnk)->content;
 	if (tok->type == DIR)
 	{
-		write_dir((*lnk)->next->content, label, fd, addr, 32);
+		write_dir((*lnk)->next->content, label, fd, addr, byte);
 		*lnk = (*lnk)->next->next->next;
 	}
 	else
@@ -278,12 +293,12 @@ void		write_dir_ind(t_list_link **lnk, t_list *label, int fd, int addr)
 	}
 }
 
-void		write_all(t_list_link **lnk, t_list *label, int fd, int addr)
+void		write_all(t_list_link **lnk, t_list *label, int fd, int addr, t_byte byte)
 {
 	if (((t_token*)(*lnk)->content)->type == REG)
 		write_reg(lnk, fd);
 	else 
-		write_dir_ind(lnk, label, fd, addr);
+		write_dir_ind(lnk, label, fd, addr, byte);
 }
 
 void		write_li_zj_fo_lf(t_list_link *lnk, t_list *label, char op, int addr, int fd)
@@ -319,7 +334,7 @@ void		write_ld_lld(t_list_link *lnk, t_list *label, int addr, int fd, char op)
 	if (write(fd, &op, sizeof(char)) == -1)
 		ft_printerr("asm: write_ld_lld(write): %s\n", strerror(errno));
 	write_encoding_byte(lnk, fd, 2);
-	write_dir_ind(&lnk, label, fd, addr);
+	write_dir_ind(&lnk, label, fd, addr, 32);
 	write_reg(&lnk, fd);
 }
 
@@ -328,8 +343,8 @@ void		write_and_or_xor(t_list_link *lnk, t_list *label, int addr, int fd, char o
 	if (write(fd, &op, sizeof(char)) == -1)
 		ft_printerr("asm: write_and_or_xor(write): %s\n", strerror(errno));
 	write_encoding_byte(lnk, fd, 3);
-	write_all(&lnk, label, fd, addr);
-	write_all(&lnk, label, fd, addr);
+	write_all(&lnk, label, fd, addr, 32);
+	write_all(&lnk, label, fd, addr, 32);
 	write_reg(&lnk, fd);
 }
 
@@ -353,12 +368,12 @@ void		write_ldi_lldi(t_list_link *lnk, t_list *label, int addr, int fd, char op)
 	if (write(fd, &op, sizeof(char)) == -1)
 		ft_printerr("asm: write_ldi_lldi(write): %s\n", strerror(errno));
 	write_encoding_byte(lnk, fd, 3);
-	write_all(&lnk, label, fd, addr);
+	write_all(&lnk, label, fd, addr, 16);
 	if (((t_token*)lnk->content)->type == REG)
 		write_reg(&lnk, fd);
 	else
 	{
-		write_dir(lnk->next->content, label, fd, addr, 32);
+		write_dir(lnk->next->content, label, fd, addr, 16);
 		lnk = lnk->next->next->next;
 	}
 	write_reg(&lnk, fd);
@@ -373,11 +388,11 @@ void		write_sti(t_list_link *lnk, t_list *label, int addr, int fd)
 		ft_printerr("asm: write_sti(write): %s\n", strerror(errno));
 	write_encoding_byte(lnk, fd, 3);
 	write_reg(&lnk, fd);
-	write_all(&lnk, label, fd, addr);
+	write_all(&lnk, label, fd, addr, 16);
 	if (((t_token*)lnk->content)->type == REG)
 		write_reg(&lnk, fd);
 	else
-		write_dir(lnk->content, label, fd, addr, 32);
+		write_dir(lnk->next->content, label, fd, addr, 16);
 }
 
 void		forest_op(t_list_link *lnk, t_list *label, int fd, int addr)
