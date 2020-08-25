@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:32:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/08/23 16:07:03 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/08/25 20:00:28 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int				op_is_dir4(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg);
 int				op_is_ind(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg);
 void			op_copy_cursor(t_vm *vm, t_cursor *cursor, int fork_pos);
 
-void			builtin_argtypes(t_cursor *cursor, t_arg_type *type);
+void			builtin_argtypes(t_vm *vm, t_cursor *cursor, t_arg_type *type);
 int				builtin_load(t_vm *vm, t_cursor *cursor, int offset);
 int				builtin_load_long(t_vm *vm, t_cursor *cursor, int offset);
 void			builtin_set(t_vm *vm, t_cursor *cursor, int offset, int value);

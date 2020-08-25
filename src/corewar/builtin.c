@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 10:49:31 by abaisago          #+#    #+#             */
-/*   Updated: 2020/08/02 19:37:18 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/08/25 20:00:18 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** 0x0c = 0000 1100
 */
 
-void		builtin_argtypes(t_cursor *cursor, t_arg_type *type)
+void		builtin_argtypes(t_vm *vm, t_cursor *cursor, t_arg_type *type)
 {
 	t_byte	encoder;
 
