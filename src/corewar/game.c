@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 17:29:34 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/31 19:24:36 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/08/25 19:25:31 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@
 
 void			show_winner(t_vm *vm)
 {
-	ft_printf("Player %d (%s) won\n", STATS.last_live_id,
-		PLAYERS[STATS.last_live_id - 1].header.prog_name);
+	if (FLAGS & F_DUMP)
+		arena_print(ARENA, 32);
+	if (CURSORS->head == NULL)
+		ft_printf("Player %d (%s) won\n", STATS.last_live_id,
+			PLAYERS[STATS.last_live_id - 1].header.prog_name);
 }
 
 static void		remove_dead_cursors(t_vm *vm)
@@ -59,6 +62,4 @@ void			play_game(t_vm *vm)
 		++STATS.cycle;
 		++STATS.cycle_total;
 	}
-	if (FLAGS & F_DUMP)
-		arena_print(ARENA, 32);
 }
