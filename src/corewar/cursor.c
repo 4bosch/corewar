@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 18:57:30 by abaisago          #+#    #+#             */
-/*   Updated: 2020/08/23 19:15:05 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/08/25 03:38:06 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void			cursor_init(t_player *player, int pid,
 {
 	*cursor = (t_cursor){0};
 	cursor->op_code = -1;
-	cursor->pid = pid;
+	cursor->pid = -pid;
 	cursor->registers[PC] = (MEM_SIZE / player_count) * (pid - 1);
 	cursor->registers[1] = -pid;
 }
