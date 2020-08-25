@@ -6,7 +6,7 @@
 #    By: abaisago <adam_bai@protonmail.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 11:54:38 by abaisago          #+#    #+#              #
-#    Updated: 2020/08/01 22:35:48 by abosch           ###   ########.fr        #
+#    Updated: 2020/08/23 19:50:13 by abaisago         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -105,6 +105,7 @@ SUB_CW_OP      := add.c   \
 SUB_CW_OP      := $(addprefix op/, $(SUB_CW_OP))
 
 SUB_CW         := main.c corewar.c \
+                  builtin.c        \
                   checks.c         \
                   cursor.c         \
                   debug.c          \
