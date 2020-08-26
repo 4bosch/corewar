@@ -69,12 +69,23 @@ RM             := /bin/rm
 
 SRC_PATH       := src
 
-SUB_ASM        := 	main.c asm.c	\
-                    lexer1.c 		\
-                    lexer2.c 		\
-                    parser.c 		\
-					translator.c	\
-					tools1.c		\
+SUB_ASM_LEX	   :=	lexer.c				\
+					handle_lexer.c 
+SUB_ASM_LEX    := $(addprefix lexer/, $(SUB_ASM_LEX))
+
+SUB_ASM_PAR    :=	check_arg1.c		\
+					check_arg2.c		\
+					check_op1.c			\
+					check_op2.c			\
+					handle_parser.c		\
+					parser.c				
+SUB_ASM_PAR	   := $(addprefix parser/, $(SUB_ASM_PAR))
+
+SUB_ASM        := 	main.c asm.c		\
+					$(SUB_ASM_LEX)		\
+					$(SUB_ASM_PAR)		\
+					translator.c		\
+					tools1.c			\
                     dbg.c
 SUB_ASM        := $(addprefix asm/, $(SUB_ASM)) corewar/util.c
 SUB_LIB        := ft_string_nappend.c ft_strisnumber.c ft_list_count.c

@@ -37,10 +37,12 @@ struct s_lexargs
 	t_list	*toklist;
 };
 
-int		read_more(int *i, t_lexargs *args);
-t_token	*token_new(t_token *tok, t_byte type, t_string *content);
-int		simple_case(t_lexargs *args);
-void	handle_comment(t_lexargs *args);
-void	lexer(t_list *token_list, t_list *label, int fd);
+int			read_more(int *i, t_lexargs *args);
+t_list_link	*token_new(t_byte type, t_string *content);
+void		handle_comment(t_lexargs *args);
+void		handle_string(t_lexargs *args);
+void		handle_symbol(t_lexargs *args, t_list *label);
+void		handle_labelarg(t_lexargs *args);
+void		lexer(t_list *token_list, t_list *label, int fd);
 
 #endif
