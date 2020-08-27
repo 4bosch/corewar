@@ -6,7 +6,7 @@
 #    By: abaisago <adam_bai@protonmail.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 11:54:38 by abaisago          #+#    #+#              #
-#    Updated: 2020/08/23 19:50:13 by abaisago         ###   ########.fr        #
+#    Updated: 2020/08/27 14:47:56 by abosch           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,10 +81,20 @@ SUB_ASM_PAR    :=	check_arg1.c		\
 					parser.c				
 SUB_ASM_PAR	   := $(addprefix parser/, $(SUB_ASM_PAR))
 
+SUB_ASM_TRANS  := 	translator.c		\
+					compute.c			\
+					increment.c			\
+					handle_label.c		\
+					write_tool1.c		\
+					write_tool2.c		\
+					write_op1.c			\
+					write_op2.c
+SUB_ASM_TRANS  := $(addprefix translator/, $(SUB_ASM_TRANS))
+
 SUB_ASM        := 	main.c asm.c		\
 					$(SUB_ASM_LEX)		\
 					$(SUB_ASM_PAR)		\
-					translator.c		\
+					$(SUB_ASM_TRANS)	\
 					tools1.c			\
                     dbg.c
 SUB_ASM        := $(addprefix asm/, $(SUB_ASM)) corewar/util.c
