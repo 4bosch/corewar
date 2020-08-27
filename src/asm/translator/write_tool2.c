@@ -6,16 +6,35 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 14:46:26 by abosch            #+#    #+#             */
-/*   Updated: 2020/08/27 14:46:42 by abosch           ###   ########.fr       */
+/*   Updated: 2020/08/27 16:33:09 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "translator.h"
 
+static void	write_enbyte_helper(t_token *tok, t_list_link **lnk, t_byte *byte,
+	int pow)
+{
+	if (tok->type == REG)
+	{
+		*byte += 1 * ft_power(2, pow);
+		*lnk = (*lnk)->next->next;
+	}
+	else if (tok->type == DIR)
+	{
+		*byte += 2 * ft_power(2, pow);
+		*lnk = (*lnk)->next->next->next;
+	}
+	else if (tok->type == SYMBOL || tok->type == LABELARG)
+	{
+		*byte += 3 * ft_power(2, pow);
+		*lnk = (*lnk)->next->next;
+	}
+}
+
 void		write_encoding_byte(t_list_link *lnk, int fd, int nb_args)
 {
 	t_byte	byte;
-	t_token	*tok;
 	int		i;
 	int		pow;
 
@@ -24,43 +43,20 @@ void		write_encoding_byte(t_list_link *lnk, int fd, int nb_args)
 	byte = 0;
 	while (++i < nb_args)
 	{
-		tok = lnk->content;
-		if (tok->type == REG)
-		{
-			byte += 1 * ft_power(2, pow);
-			lnk = lnk->next->next;
-		}
-		else if (tok->type == DIR)
-		{
-			byte += 2 * ft_power(2, pow);
-			lnk = lnk->next->next->next;
-		}
-		else if (tok->type == SYMBOL || tok->type == LABELARG)
-		{
-			byte += 3 * ft_power(2, pow);
-			lnk = lnk->next->next;
-		}
+		write_enbyte_helper(lnk->content, &lnk, &byte, pow);
 		pow -= 2;
 	}
 	if (write(fd, &byte, sizeof(byte)) == -1)
 		ft_printerr("asm: write_encoding_byte(write): %s\n", strerror(errno));
 }
 
-void		forest_op(t_list_link *lnk, t_list *label, int fd, int addr)
+static void	forest_op_helper(t_list_link *lnk, t_list *label, int fd, int addr)
 {
 	char	*name;
 
 	name = ((t_token*)lnk->content)->content->buf;
 	lnk = lnk->next;
-	if (ft_strequ(name, "live"))
-		write_li_zj_fo_lf(lnk, label, 1, addr, fd);
-	else if (ft_strequ(name, "zjmp"))
-		write_li_zj_fo_lf(lnk, label, 9, addr, fd);
-	else if (ft_strequ(name, "fork"))
-		write_li_zj_fo_lf(lnk, label, 12, addr, fd);
-	else if (ft_strequ(name, "lfork"))
-		write_li_zj_fo_lf(lnk, label, 15, addr, fd);
-	else if	 (ft_strequ(name, "aff"))
+	if (ft_strequ(name, "aff"))
 		write_aff(lnk, fd, 16);
 	else if (ft_strequ(name, "add"))
 		write_add_sub(lnk, fd, 4);
@@ -84,4 +80,22 @@ void		forest_op(t_list_link *lnk, t_list *label, int fd, int addr)
 		write_ld_lld(lnk, label, addr, fd, 2);
 	else if (ft_strequ(name, "lld"))
 		write_ld_lld(lnk, label, addr, fd, 13);
+}
+
+void		forest_op(t_list_link *lnk, t_list *label, int fd, int addr)
+{
+	char	*name;
+
+	name = ((t_token*)lnk->content)->content->buf;
+	if (ft_strequ(name, "live"))
+		write_li_zj_fo_lf(lnk->next, label, 1, addr, fd);
+	else if (ft_strequ(name, "zjmp"))
+		write_li_zj_fo_lf(lnk->next, label, 9, addr, fd);
+	else if (ft_strequ(name, "fork"))
+		write_li_zj_fo_lf(lnk->next, label, 12, addr, fd);
+	else if (ft_strequ(name, "lfork"))
+		write_li_zj_fo_lf(lnk->next, label, 15, addr, fd);
+
+	else
+		forest_op_helper(lnk, label, fd, addr);
 }

@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 14:22:13 by abosch            #+#    #+#             */
-/*   Updated: 2020/08/27 14:33:30 by abosch           ###   ########.fr       */
+/*   Updated: 2020/08/27 16:35:03 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ void	increment_addr(t_list_link *lnk, int *addr)
 	op = ((t_token*)lnk->content)->content->buf;
 	if (ft_strequ(op, "live"))
 		*addr += 1 + 4;
-	else if (ft_strequ(op, "zjmp") || ft_strequ(op, "fork") || ft_strequ(op, "lfork"))
+	else if (ft_strequ(op, "zjmp") || ft_strequ(op, "fork")
+		|| ft_strequ(op, "lfork"))
 		*addr += 1 + 2;
 	else if (ft_strequ(op, "aff"))
 		*addr += 1 + 1 + 1;

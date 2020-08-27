@@ -6,13 +6,14 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 14:35:18 by abosch            #+#    #+#             */
-/*   Updated: 2020/08/27 14:35:33 by abosch           ###   ########.fr       */
+/*   Updated: 2020/08/27 16:33:52 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "translator.h"
 
-void	give_labeldef_addr(t_list_link **lnk, t_list_link *head, t_list *label, int addr)
+void	give_labeldef_addr(t_list_link **lnk, t_list_link *head, t_list *label,
+	int addr)
 {
 	t_label	*lab;
 	t_token	*tok;
