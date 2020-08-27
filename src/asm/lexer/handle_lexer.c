@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 14:18:12 by abosch            #+#    #+#             */
-/*   Updated: 2020/08/27 14:18:14 by abosch           ###   ########.fr       */
+/*   Updated: 2020/08/27 15:32:48 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void			handle_string(t_lexargs *args)
 	t_string	*str;
 	int			i;
 
-	i = args->i++ - 1;
+	i = ++args->i;
 	str = ft_string_init();
 	while (args->buf[++i] != '"')
 	{
