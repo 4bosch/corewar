@@ -16,21 +16,22 @@
 
 void		write_ops(t_list **tab, int i, t_list *label, int fd)
 {
-	t_list_link	*lnk;
-	int			addr;
+	t_targs	args;
 
 	i--;
-	addr = 0;
+	args.addr = 0;
+	args.fd = fd;
+	args.label = label;
 	while (tab[++i] != NULL)
 	{
-		lnk = tab[i]->head;
-		while (((t_token*)lnk->content)->type == LABELDEF)
-			lnk = lnk->next;
-		if (((t_token*)lnk->content)->type != NEWLINE)
+		args.lnk = tab[i]->head;
+		while (((t_token*)args.lnk->content)->type == LABELDEF)
+			args.lnk = args.lnk->next;
+		if (((t_token*)args.lnk->content)->type != NEWLINE)
 		{
-			forest_op(lnk, label, fd, addr);
-			increment_addr(lnk, &addr);
-			lnk = tab[i]->head->prev;
+			forest_op(&args);
+			increment_addr(args.lnk, &args.addr);
+			args.lnk = tab[i]->head->prev;
 		}
 	}
 }
@@ -66,7 +67,8 @@ void		translator(t_list **tab, t_list *label, char *name, t_cmd cmd)
 		ft_printerr("asm: translator(malloc): %s\n", strerror(errno));
 	ft_strncpy(prog_name, name, ft_strlen(name) - 2);
 	ft_strcat(prog_name, ".cor");
-	if ((fd = open(prog_name, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR)) < 0)
+	if ((fd = open(prog_name, O_WRONLY | O_CREAT
+		| O_TRUNC, S_IRUSR | S_IWUSR)) < 0)
 		ft_printerr("asm: translator(open): %s\n", strerror(errno));
 	free(prog_name);
 	prog_size = get_label_addr(tab, label);

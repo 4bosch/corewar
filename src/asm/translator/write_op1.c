@@ -12,54 +12,73 @@
 
 #include "translator.h"
 
-void		write_aff(t_list_link *lnk, int fd, char op)
+void		write_aff(t_targs *args, char op)
 {
-	if (write(fd, &op, sizeof(char)) == -1)
+	t_list_link	*lnk;
+
+	lnk = args->lnk;
+	if (write(args->fd, &op, sizeof(char)) == -1)
 		ft_printerr("asm: write_aff(write): %s\n", strerror(errno));
-	write_encoding_byte(lnk, fd, 1);
-	write_reg(&lnk, fd);
+	write_encoding_byte(args->lnk, args->fd, 1);
+	write_reg(args);
+	args->lnk = lnk;
 }
 
-void		write_add_sub(t_list_link *lnk, int fd, char op)
+void		write_add_sub(t_targs *args, char op)
 {
-	if (write(fd, &op, sizeof(char)) == -1)
+	t_list_link	*lnk;
+
+	lnk = args->lnk;
+	if (write(args->fd, &op, sizeof(char)) == -1)
 		ft_printerr("asm: write_add_sub(write): %s\n", strerror(errno));
-	write_encoding_byte(lnk, fd, 3);
-	write_reg(&lnk, fd);
-	write_reg(&lnk, fd);
-	write_reg(&lnk, fd);
+	write_encoding_byte(args->lnk, args->fd, 3);
+	write_reg(args);
+	write_reg(args);
+	write_reg(args);
+	args->lnk = lnk;
 }
 
-void		write_ld_lld(t_list_link *lnk, t_list *label, int addr, int fd, char op)
+void		write_ld_lld(t_targs *args, char op)
 {
-	if (write(fd, &op, sizeof(char)) == -1)
+	t_list_link	*lnk;
+
+	lnk = args->lnk;
+	if (write(args->fd, &op, sizeof(char)) == -1)
 		ft_printerr("asm: write_ld_lld(write): %s\n", strerror(errno));
-	write_encoding_byte(lnk, fd, 2);
-	write_dir_ind(&lnk, label, fd, addr, 32);
-	write_reg(&lnk, fd);
+	write_encoding_byte(args->lnk, args->fd, 2);
+	write_dir_ind(args, 32);
+	write_reg(args);
+	args->lnk = lnk;
 }
 
-void		write_and_or_xor(t_list_link *lnk, t_list *label, int addr, int fd, char op)
+void		write_and_or_xor(t_targs *args, char op)
 {
-	if (write(fd, &op, sizeof(char)) == -1)
+	t_list_link	*lnk;
+
+	lnk = args->lnk;
+	if (write(args->fd, &op, sizeof(char)) == -1)
 		ft_printerr("asm: write_and_or_xor(write): %s\n", strerror(errno));
-	write_encoding_byte(lnk, fd, 3);
-	write_all(&lnk, label, fd, addr, 32);
-	write_all(&lnk, label, fd, addr, 32);
-	write_reg(&lnk, fd);
+	write_encoding_byte(args->lnk, args->fd, 3);
+	write_all(args, 32);
+	write_all(args, 32);
+	write_reg(args);
+	args->lnk = lnk;
 }
 
-void		write_st(t_list_link *lnk, t_list *label, int addr, int fd)
+void		write_st(t_targs *args)
 {
-	char	op;
+	char		op;
+	t_list_link	*lnk;
 
+	lnk = args->lnk;
 	op = 3;
-	if (write(fd, &op, sizeof(char)) == -1)
+	if (write(args->fd, &op, sizeof(char)) == -1)
 		ft_printerr("asm: write_st(write): %s\n", strerror(errno));
-	write_encoding_byte(lnk, fd, 2);
-	write_reg(&lnk, fd);
-	if (((t_token*)lnk->content)->type == REG)
-		write_reg(&lnk, fd);
+	write_encoding_byte(args->lnk, args->fd, 2);
+	write_reg(args);
+	if (((t_token*)args->lnk->content)->type == REG)
+		write_reg(args);
 	else
-		write_ind(lnk->content, label, fd, addr);
+		write_ind(args);
+	args->lnk = lnk;
 }

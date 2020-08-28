@@ -12,44 +12,51 @@
 
 #include "translator.h"
 
-void		write_li_zj_fo_lf(t_list_link *lnk, t_list *label, char op, int addr, int fd)
+void		write_li_zj_fo_lf(t_targs *args, char op)
 {
-	if (write(fd, &op, sizeof(char)) == -1)
+	if (write(args->fd, &op, sizeof(char)) == -1)
 		ft_printerr("asm: write_li_zj_fo_lf(write): %s\n", strerror(errno));
 	if (op == 1)
-		write_dir(lnk->next->content, label, fd, addr, 32);
+		write_dir(args, args->lnk->content, 32);
 	else
-		write_dir(lnk->next->content, label, fd, addr, 16);
+		write_dir(args, args->lnk->content, 16);
 }
 
-void		write_ldi_lldi(t_list_link *lnk, t_list *label, int addr, int fd, char op)
+void		write_ldi_lldi(t_targs *args, char op)
 {
-	if (write(fd, &op, sizeof(char)) == -1)
+	t_list_link	*lnk;
+
+	lnk = args->lnk;
+	if (write(args->fd, &op, sizeof(char)) == -1)
 		ft_printerr("asm: write_ldi_lldi(write): %s\n", strerror(errno));
-	write_encoding_byte(lnk, fd, 3);
-	write_all(&lnk, label, fd, addr, 16);
-	if (((t_token*)lnk->content)->type == REG)
-		write_reg(&lnk, fd);
+	write_encoding_byte(args->lnk, args->fd, 3);
+	write_all(args, 16);
+	if (((t_token*)args->lnk->content)->type == REG)
+		write_reg(args);
 	else
 	{
-		write_dir(lnk->next->content, label, fd, addr, 16);
-		lnk = lnk->next->next->next;
+		write_dir(args, args->lnk->content, 16);
+		args->lnk = args->lnk->next->next->next;
 	}
-	write_reg(&lnk, fd);
+	write_reg(args);
+	args->lnk = lnk;
 }
 
-void		write_sti(t_list_link *lnk, t_list *label, int addr, int fd) 
+void		write_sti(t_targs *args)
 {
-	char	op;
+	char		op;
+	t_list_link	*lnk;
 
 	op = 11;
-	if (write(fd, &op, sizeof(char)) == -1)
+	lnk = args->lnk;
+	if (write(args->fd, &op, sizeof(char)) == -1)
 		ft_printerr("asm: write_sti(write): %s\n", strerror(errno));
-	write_encoding_byte(lnk, fd, 3);
-	write_reg(&lnk, fd);
-	write_all(&lnk, label, fd, addr, 16);
-	if (((t_token*)lnk->content)->type == REG)
-		write_reg(&lnk, fd);
+	write_encoding_byte(args->lnk, args->fd, 3);
+	write_reg(args);
+	write_all(args, 16);
+	if (((t_token*)args->lnk->content)->type == REG)
+		write_reg(args);
 	else
-		write_dir(lnk->next->content, label, fd, addr, 16);
+		write_dir(args, args->lnk->content, 16);
+	args->lnk = lnk;
 }

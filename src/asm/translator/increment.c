@@ -72,7 +72,8 @@ void	increment_addr(t_list_link *lnk, int *addr)
 		*addr += 1 + 1 + 1;
 	else if (ft_strequ(op, "add") || ft_strequ(op, "sub"))
 		*addr += 1 + 1 + 3;
-	else if (ft_strequ(op, "and") || ft_strequ(op, "or") || ft_strequ(op, "xor"))
+	else if (ft_strequ(op, "and") || ft_strequ(op, "or")
+		|| ft_strequ(op, "xor"))
 		compute_and_or_xor(lnk, addr);
 	else if (ft_strequ(op, "ld") || ft_strequ(op, "lld"))
 		compute_ld_lld(lnk, addr);

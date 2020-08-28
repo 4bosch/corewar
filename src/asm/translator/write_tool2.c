@@ -50,52 +50,49 @@ void		write_encoding_byte(t_list_link *lnk, int fd, int nb_args)
 		ft_printerr("asm: write_encoding_byte(write): %s\n", strerror(errno));
 }
 
-static void	forest_op_helper(t_list_link *lnk, t_list *label, int fd, int addr)
+static void	forest_op_helper(t_targs *args, char *name)
 {
-	char	*name;
-
-	name = ((t_token*)lnk->content)->content->buf;
-	lnk = lnk->next;
 	if (ft_strequ(name, "aff"))
-		write_aff(lnk, fd, 16);
+		write_aff(args, 16);
 	else if (ft_strequ(name, "add"))
-		write_add_sub(lnk, fd, 4);
+		write_add_sub(args, 4);
 	else if (ft_strequ(name, "sub"))
-		write_add_sub(lnk, fd, 5);
+		write_add_sub(args, 5);
 	else if (ft_strequ(name, "and"))
-		write_and_or_xor(lnk, label, addr, fd, 6);
+		write_and_or_xor(args, 6);
 	else if (ft_strequ(name, "xor"))
-		write_and_or_xor(lnk, label, addr, fd, 8);
+		write_and_or_xor(args, 8);
 	else if (ft_strequ(name, "or"))
-		write_and_or_xor(lnk, label, addr, fd, 7);
+		write_and_or_xor(args, 7);
 	else if (ft_strequ(name, "st"))
-		write_st(lnk, label, addr, fd);
+		write_st(args);
 	else if (ft_strequ(name, "ldi"))
-		write_ldi_lldi(lnk, label, addr, fd, 10);
+		write_ldi_lldi(args, 10);
 	else if (ft_strequ(name, "lldi"))
-		write_ldi_lldi(lnk, label, addr, fd, 14);
+		write_ldi_lldi(args, 14);
 	else if (ft_strequ(name, "sti"))
-		write_sti(lnk, label, addr, fd);
+		write_sti(args);
 	else if (ft_strequ(name, "ld"))
-		write_ld_lld(lnk, label, addr, fd, 2);
+		write_ld_lld(args, 2);
 	else if (ft_strequ(name, "lld"))
-		write_ld_lld(lnk, label, addr, fd, 13);
+		write_ld_lld(args, 13);
 }
 
-void		forest_op(t_list_link *lnk, t_list *label, int fd, int addr)
+void		forest_op(t_targs *args)
 {
 	char	*name;
 
-	name = ((t_token*)lnk->content)->content->buf;
+	name = ((t_token*)args->lnk->content)->content->buf;
+	args->lnk = args->lnk->next;
 	if (ft_strequ(name, "live"))
-		write_li_zj_fo_lf(lnk->next, label, 1, addr, fd);
+		write_li_zj_fo_lf(args, 1);
 	else if (ft_strequ(name, "zjmp"))
-		write_li_zj_fo_lf(lnk->next, label, 9, addr, fd);
+		write_li_zj_fo_lf(args, 9);
 	else if (ft_strequ(name, "fork"))
-		write_li_zj_fo_lf(lnk->next, label, 12, addr, fd);
+		write_li_zj_fo_lf(args, 12);
 	else if (ft_strequ(name, "lfork"))
-		write_li_zj_fo_lf(lnk->next, label, 15, addr, fd);
-
+		write_li_zj_fo_lf(args, 15);
 	else
-		forest_op_helper(lnk, label, fd, addr);
+		forest_op_helper(args, name);
+	args->lnk = args->lnk->prev;
 }

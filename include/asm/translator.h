@@ -21,6 +21,16 @@
 # include "tools.h"
 # include "error.h"
 
+typedef struct s_targs t_targs;
+
+struct s_targs
+{
+	t_list_link	*lnk;
+	t_list		*label;
+	int			fd;
+	int			addr;
+};
+
 void	compute_and_or_xor(t_list_link *lnk, int *addr);
 void	compute_ld_lld(t_list_link *lnk, int *addr);
 void	compute_ldi_lldi(t_list_link *lnk, int *addr);
@@ -34,21 +44,21 @@ void	increment_addr(t_list_link *lnk, int *addr);
 void	give_labeldef_addr(t_list_link **lnk, t_list_link *head, t_list *label, int addr);
 void	skip_command(t_list **tab, int *i);
 int		get_label_addr(t_list **tab, t_list *label);
-void	write_reg(t_list_link **lnk, int fd);
-void	write_dir(t_token *tok, t_list *label, int fd, int addr, char byte);
-void	write_ind(t_token *tok, t_list *label, int fd, int addr);
-void	write_dir_ind(t_list_link **lnk, t_list *label, int fd, int addr, t_byte byte);
-void	write_all(t_list_link **lnk, t_list *label, int fd, int addr, t_byte byte);
-void	write_aff(t_list_link *lnk, int fd, char op);
-void	write_add_sub(t_list_link *lnk, int fd, char op);
-void	write_ld_lld(t_list_link *lnk, t_list *label, int addr, int fd, char op);
-void	write_and_or_xor(t_list_link *lnk, t_list *label, int addr, int fd, char op);
-void	write_st(t_list_link *lnk, t_list *label, int addr, int fd);
-void	write_li_zj_fo_lf(t_list_link *lnk, t_list *label, char op, int addr, int fd);
-void	write_ldi_lldi(t_list_link *lnk, t_list *label, int addr, int fd, char op);
-void	write_sti(t_list_link *lnk, t_list *label, int addr, int fd);
+void	write_reg(t_targs *args);
+void	write_dir(t_targs *args, t_token *tok, char byte);
+void	write_ind(t_targs *args);
+void	write_dir_ind(t_targs *args, t_byte byte);
+void	write_all(t_targs *args, t_byte byte);
+void	write_aff(t_targs *args, char op);
+void	write_add_sub(t_targs *args, char op);
+void	write_ld_lld(t_targs *args, char op);
+void	write_and_or_xor(t_targs *args, char op);
+void	write_st(t_targs *args);
+void	write_li_zj_fo_lf(t_targs *args, char op);
+void	write_ldi_lldi(t_targs *args, char op);
+void	write_sti(t_targs *args);
 void	write_encoding_byte(t_list_link *lnk, int fd, int nb_args);
-void	forest_op(t_list_link *lnk, t_list *label, int fd, int addr);
+void	forest_op(t_targs *args);
 void	translator(t_list **tab, t_list *label, char *name, t_cmd cmd);
 
 #endif
