@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:44:41 by abosch            #+#    #+#             */
-/*   Updated: 2020/08/27 14:46:18 by abosch           ###   ########.fr       */
+/*   Updated: 2020/09/02 16:07:13 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void		translator(t_list **tab, t_list *label, char *name, t_cmd cmd)
 	int		i;
 	int		prog_size;
 
-	if (!(prog_name = (char*)malloc(sizeof(char) * (ft_strlen(name) + 2))))
+	if (!(prog_name = (char*)malloc(sizeof(char) * (ft_strlen(name) + 3))))
 		ft_printerr("asm: translator(malloc): %s\n", strerror(errno));
 	ft_strncpy(prog_name, name, ft_strlen(name) - 2);
 	ft_strcat(prog_name, ".cor");
