@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 20:04:22 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/31 17:49:08 by abosch           ###   ########.fr       */
+/*   Updated: 2020/09/02 15:57:14 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "libft.h"
 # include "op.h"
 
+# include <stdlib.h>
 # include <stdint.h>
 # include <unistd.h>
 # include <sys/types.h>
@@ -62,6 +63,9 @@ struct			s_label
 	char		*name;
 	int			addr;
 };
+
+void	free_token(void *token, size_t useless);
+void	free_label(void *label, size_t useless);
 
 /*
 ** VM

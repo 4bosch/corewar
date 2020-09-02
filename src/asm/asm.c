@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:24:13 by abaisago          #+#    #+#             */
-/*   Updated: 2020/08/19 15:26:17 by abosch           ###   ########.fr       */
+/*   Updated: 2020/09/02 15:54:08 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 #include <stdlib.h>
 
-static void	init_tab(int len, t_list **tab)
+static void		init_tab(int len, t_list **tab)
 {
-	int	i;
+	int			i;
 
 	i = -1;
 	while (++i < len)
@@ -27,10 +27,10 @@ static void	init_tab(int len, t_list **tab)
 	tab[len] = NULL;
 }
 
-static void	fill_tab(int len, t_list **tab, t_list *list)
+static void		fill_tab(int len, t_list **tab, t_list *list)
 {
-	t_list_link		*link;
-	int				j;
+	t_list_link	*link;
+	int			j;
 
 	init_tab(len, tab);
 	j = 0;
@@ -52,10 +52,10 @@ static void	fill_tab(int len, t_list **tab, t_list *list)
 	ft_list_push(tab[j], ft_list_pop_front(list));
 }
 
-t_list		**list2tab(t_list *token_list)
+static t_list	**list2tab(t_list *token_list)
 {
-	t_list	**ret;
-	int		len;
+	t_list		**ret;
+	int			len;
 
 	if ((len = ft_list_count(token_list)) == 0)
 		ft_printerr(ENONL);
@@ -65,9 +65,9 @@ t_list		**list2tab(t_list *token_list)
 	return (ret);
 }
 
-int			handle_open(int ac, char **av)
+static int		handle_open(int ac, char **av)
 {
-	int		fd;
+	int			fd;
 
 	if (ac != 2)
 		ft_printerr(ASMUSAGE);
@@ -78,7 +78,22 @@ int			handle_open(int ac, char **av)
 	return (fd);
 }
 
-int			asmcore(int ac, char **av)
+void			final_asm_free(t_list **tab, t_list **lst, t_list **label)
+{
+	t_list		**save;
+
+	ft_list_del(lst, &free_token);
+	ft_list_del(label, &free_label);
+	save = tab;
+	while (*tab != NULL)
+	{
+		ft_list_del(tab, &free_token);
+		tab++;
+	}
+	free(save);
+}
+
+int				asmcore(int ac, char **av)
 {
 	t_list	*token_list;
 	t_list	**token_tab;
@@ -107,5 +122,6 @@ int			asmcore(int ac, char **av)
 	translator(token_tab, label, av[1], cmd);
 	if (close(fd) == -1)
 		ft_printerr("asm: Close failed: %s.\n", strerror(errno));
+	final_asm_free(token_tab, &token_list, &label);
 	return (EXIT_SUCCESS);
 }
