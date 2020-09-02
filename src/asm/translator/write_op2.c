@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 14:42:54 by abosch            #+#    #+#             */
-/*   Updated: 2020/08/27 14:43:46 by abosch           ###   ########.fr       */
+/*   Updated: 2020/09/02 15:31:10 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void		write_li_zj_fo_lf(t_targs *args, char op)
 	if (write(args->fd, &op, sizeof(char)) == -1)
 		ft_printerr("asm: write_li_zj_fo_lf(write): %s\n", strerror(errno));
 	if (op == 1)
-		write_dir(args, args->lnk->content, 32);
+		write_dir(args, args->lnk->next->content, 32);
 	else
-		write_dir(args, args->lnk->content, 16);
+		write_dir(args, args->lnk->next->content, 16);
 }
 
 void		write_ldi_lldi(t_targs *args, char op)
@@ -35,7 +35,7 @@ void		write_ldi_lldi(t_targs *args, char op)
 		write_reg(args);
 	else
 	{
-		write_dir(args, args->lnk->content, 16);
+		write_dir(args, args->lnk->next->content, 16);
 		args->lnk = args->lnk->next->next->next;
 	}
 	write_reg(args);
@@ -57,6 +57,6 @@ void		write_sti(t_targs *args)
 	if (((t_token*)args->lnk->content)->type == REG)
 		write_reg(args);
 	else
-		write_dir(args, args->lnk->content, 16);
+		write_dir(args, args->lnk->next->content, 16);
 	args->lnk = lnk;
 }
