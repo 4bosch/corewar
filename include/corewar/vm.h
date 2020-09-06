@@ -112,7 +112,7 @@ int				op_is_reg(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg);
 int				op_is_dir2(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg);
 int				op_is_dir4(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg);
 int				op_is_ind(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg);
-void			op_copy_cursor(t_vm *vm, t_cursor *cursor, int fork_pos);
+int				c_mod(int nbr, int mod, int mem);
 
 void			builtin_argtypes(t_vm *vm, t_cursor *cursor, t_arg_type *type);
 int				builtin_load(t_vm *vm, t_cursor *cursor, int offset);

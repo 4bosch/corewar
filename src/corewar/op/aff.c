@@ -27,8 +27,6 @@ void		op_aff(t_vm *vm, t_cursor *cursor)
 		m.arg[0] %= 256;
 		ft_printf("%c", m.arg[0]);
 		cursor->carry = (REGISTERS[m.pos[0]] == 0 ? 1 : 0);
-		REGISTERS[PC] += m.count;
 	}
-	else
-		REGISTERS[PC]++;
+	REGISTERS[PC] += m.count;
 }

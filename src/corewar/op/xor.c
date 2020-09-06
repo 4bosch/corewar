@@ -22,16 +22,15 @@ void		op_xor(t_vm *vm, t_cursor *cursor)
 	m.type[0] = (m.ocp & 0xc0) >> 6;
 	m.type[1] = (m.ocp & 0x30) >> 4;
 	m.type[2] = (m.ocp & 0x0c) >> 2;
+	m.modulo = 1;
 	if ((op_is_reg(vm, cursor, &m, 0) || op_is_dir4(vm, cursor, &m, 0) ||
-		op_is_ind(vm, cursor, &m, 0)) &&
+		op_is_ind(vm, cursor, &m, 0)) +
 		(op_is_reg(vm, cursor, &m, 1) || op_is_dir4(vm, cursor, &m, 1) ||
-		op_is_ind(vm, cursor, &m, 1)) &&
-		op_is_reg(vm, cursor, &m, 2))
+		op_is_ind(vm, cursor, &m, 1)) +
+		op_is_reg(vm, cursor, &m, 2) == 3)
 	{
 		REGISTERS[m.pos[2]] = m.arg[0] ^ m.arg[1];
 		cursor->carry = (REGISTERS[m.pos[2]] ? 0 : 1);
-		REGISTERS[PC] += m.count;
 	}
-	else
-		REGISTERS[PC]++;
+	REGISTERS[PC] += m.count;
 }

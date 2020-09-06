@@ -25,18 +25,17 @@ void		op_lldi(t_vm *vm, t_cursor *cursor)
 	m.type[2] = (m.ocp & 0x0c) >> 2;
 	m.modulo = 1;
 	if ((op_is_reg(vm, cursor, &m, 0) || op_is_dir2(vm, cursor, &m, 0) ||
-		op_is_ind(vm, cursor, &m, 0)) &&
-		(op_is_reg(vm, cursor, &m, 1) || op_is_dir2(vm, cursor, &m, 1)) &&
-		op_is_reg(vm, cursor, &m, 2))
+		op_is_ind(vm, cursor, &m, 0)) +
+		(op_is_reg(vm, cursor, &m, 1) || op_is_dir2(vm, cursor, &m, 1)) +
+		op_is_reg(vm, cursor, &m, 2) == 3)
 	{
-		a = m.arg[1] + m.arg[2];
-		REGISTERS[m.arg[2]] = ARENA[(REGISTERS[PC] + a + 3) % MEM_SIZE] << 0;
-		REGISTERS[m.arg[2]] |= ARENA[(REGISTERS[PC] + a + 2) % MEM_SIZE] << 8;
-		REGISTERS[m.arg[2]] |= ARENA[(REGISTERS[PC] + a + 1) % MEM_SIZE] << 16;
-		REGISTERS[m.arg[2]] |= ARENA[(REGISTERS[PC] + a + 0) % MEM_SIZE] << 24;
+		a = m.arg[0] + m.arg[1];
+		ft_printf("LLDI : %i, %i\n", m.arg[0], m.arg[1]);
+		REGISTERS[m.pos[2]] = ARENA[c_mod(REGISTERS[PC] + a + 3, 0, 1)] << 0;
+		REGISTERS[m.pos[2]] |= ARENA[c_mod(REGISTERS[PC] + a + 2, 0, 1)] << 8;
+		REGISTERS[m.pos[2]] |= ARENA[c_mod(REGISTERS[PC] + a + 1, 0, 1)] << 16;
+		REGISTERS[m.pos[2]] |= ARENA[c_mod(REGISTERS[PC] + a + 0, 0, 1)] << 24;
 		cursor->carry = (REGISTERS[m.pos[2]] ? 0 : 1);
-		REGISTERS[PC] += m.count;
 	}
-	else
-		REGISTERS[PC]++;
+	REGISTERS[PC] += m.count;
 }
