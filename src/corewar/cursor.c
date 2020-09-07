@@ -6,7 +6,8 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 18:57:30 by abaisago          #+#    #+#             */
-/*   Updated: 2020/09/10 16:12:46 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/10 18:04:56 by abosch           ###   ########.fr       */
+>>>>>>> 0a49091... feat(corewar): do not execute instruction if memory has been overwritten
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +78,17 @@ void			cursor_update(t_list_link *link, void *input)
     vm = input;
     if (cursor->op_code == -1)
     {
-        cursor->op_code = ARENA[REGISTERS[PC]];
-        if (cursor->op_code < 0 || cursor->op_code > 16)
-            cursor->op_code = 0;
-        cursor->exec_time = op_tab[cursor->op_code].cycles;
+		cursor->op_code = ARENA[REGISTERS[PC]];
+		if (cursor->op_code < 0 || cursor->op_code > 16)
+			cursor->op_code = 0;
+		cursor->exec_time = op_tab[cursor->op_code].cycles;
     }
     --cursor->exec_time;
     if (cursor->exec_time == 0)
     {
-		if (cursor->op_code != 0)
-			verbose(vm, "P %4d | %s",
-				cursor->cid, op_tab[cursor->op_code].name);
-        vm->operations[cursor->op_code](vm, cursor);
-		if (cursor->op_code != 0) // XXX: two temporary lines
-			verbose(vm, "\n", PLAYERS[-cursor->pid - 1].header.prog_name);
-        cursor->op_code = -1;
+		if (ARENA[REGISTERS[PC]] != cursor->op_code)
+			cursor->op_code = 0;
+		vm->operations[cursor->op_code](vm, cursor);
+		cursor->op_code = -1;
     }
 }
