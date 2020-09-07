@@ -29,5 +29,5 @@ void		op_live(t_vm *vm, t_cursor *cursor)
 		STATS.live++;
 		STATS.last_live_id = -m.arg[0];
 	}
-	REGISTERS[PC] += m.count;
+	REGISTERS[PC] += next_pc(vm, cursor, &m);
 }

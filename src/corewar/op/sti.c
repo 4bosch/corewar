@@ -27,15 +27,14 @@ void		op_sti(t_vm *vm, t_cursor *cursor)
 	if (op_is_reg(vm, cursor, &m, 0) +
 		(op_is_reg(vm, cursor, &m, 1) || op_is_ind(vm, cursor, &m, 1) ||
 		op_is_dir2(vm, cursor, &m, 1)) +
-		(op_is_reg(vm, cursor, &m, 2) || op_is_ind(vm, cursor, &m, 2) ||
-		op_is_dir2(vm, cursor, &m, 2)) == 3)
+		(op_is_reg(vm, cursor, &m, 2) || op_is_dir2(vm, cursor, &m, 2)) == 3)
 	{
 		addr = c_mod(m.arg[1] + m.arg[2], 1, 0);
 		ARENA[c_mod(REGISTERS[PC] + addr + 3, 0, 1)] = (m.arg[0] >> 0) & 255;
 		ARENA[c_mod(REGISTERS[PC] + addr + 2, 0, 1)] = (m.arg[0] >> 8) & 255;
 		ARENA[c_mod(REGISTERS[PC] + addr + 1, 0, 1)] = (m.arg[0] >> 16) & 255;
 		ARENA[c_mod(REGISTERS[PC] + addr + 0, 0, 1)] = (m.arg[0] >> 24) & 255;
-		cursor->carry = (REGISTERS[m.pos[0]] ? 0 : 1);
 	}
-	REGISTERS[PC] += m.count;
+	REGISTERS[PC] += next_pc(vm, cursor, &m);
+	ft_printf("STI : %i\n", REGISTERS[PC]);
 }

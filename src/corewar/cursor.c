@@ -33,7 +33,8 @@ void			cursor_fork(t_vm *vm, t_cursor *cursor, int fork_pos)
 
 	ft_memcpy(&fork, cursor, sizeof(fork));
 	fork.registers[PC] = c_mod(REGISTERS[PC] + fork_pos, 0, 1);
-	if ((new = ft_list_link_new(&fork, sizeof(*new))) == NULL)
+	fork.op_code = -1;
+	if ((new = ft_list_link_new(&fork, sizeof(fork))) == NULL)
 		ft_printerr("corewar: cursor_fork(link_new): %s\n", strerror(errno));
 	ft_list_push_front(vm->cursors, new);
 }

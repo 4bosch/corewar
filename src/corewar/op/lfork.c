@@ -21,5 +21,5 @@ void		op_lfork(t_vm *vm, t_cursor *cursor)
 	m.type[0] = DIR_CODE;
 	if (op_is_dir2(vm, cursor, &m, 0))
 		cursor_fork(vm, cursor, m.arg[0]);
-	REGISTERS[PC] += m.count;
+	REGISTERS[PC] += next_pc(vm, cursor, &m);
 }

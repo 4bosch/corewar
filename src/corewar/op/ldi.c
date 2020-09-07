@@ -29,12 +29,12 @@ void		op_ldi(t_vm *vm, t_cursor *cursor)
 		(op_is_reg(vm, cursor, &m, 1) || op_is_dir2(vm, cursor, &m, 1)) +
 		op_is_reg(vm, cursor, &m, 2) == 3)
 	{
-		a = c_mod(m.arg[0] + m.arg[1], 1, 0);
+		a = c_mod(m.arg[0] + m.arg[1], 1, 1);
+		ft_printf("LDI : %i, %i, %i\n", m.arg[0], m.arg[1], a);
 		REGISTERS[m.pos[2]] = ARENA[c_mod(REGISTERS[PC] + a + 3, 0, 1)] << 0;
 		REGISTERS[m.pos[2]] |= ARENA[c_mod(REGISTERS[PC] + a + 2, 0, 1)] << 8;
 		REGISTERS[m.pos[2]] |= ARENA[c_mod(REGISTERS[PC] + a + 1, 0, 1)] << 16;
 		REGISTERS[m.pos[2]] |= ARENA[c_mod(REGISTERS[PC] + a + 0, 0, 1)] << 24;
-		cursor->carry = (REGISTERS[m.pos[2]] ? 0 : 1);
 	}
-	REGISTERS[PC] += m.count;
+	REGISTERS[PC] += next_pc(vm, cursor, &m);
 }

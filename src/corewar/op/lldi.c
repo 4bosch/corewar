@@ -37,5 +37,5 @@ void		op_lldi(t_vm *vm, t_cursor *cursor)
 		REGISTERS[m.pos[2]] |= ARENA[c_mod(REGISTERS[PC] + a + 0, 0, 1)] << 24;
 		cursor->carry = (REGISTERS[m.pos[2]] ? 0 : 1);
 	}
-	REGISTERS[PC] += m.count;
+	REGISTERS[PC] += next_pc(vm, cursor, &m);
 }
