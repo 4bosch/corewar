@@ -18,8 +18,8 @@ void			show_winner(t_vm *vm)
 {
 	if (FLAGS & F_DUMP)
 		arena_print(ARENA, 32);
-	if (CURSORS->head == NULL)
-		ft_printf("Player %d (%s) won\n", STATS.last_live_id,
+	if (!(FLAGS & F_DUMP) && CURSORS->head == NULL)
+		ft_printf("Contestant %d, \"%s\", has won !\n", STATS.last_live_id,
 			PLAYERS[STATS.last_live_id - 1].header.prog_name);
 }
 
@@ -35,7 +35,7 @@ static void		update_cursors(t_vm *vm)
 
 static void		update_stats(t_vm *vm)
 {
-	if (STATS.live > NBR_LIVE || STATS.check == MAX_CHECKS)
+	if (STATS.live >= NBR_LIVE || STATS.check == MAX_CHECKS)
 	{
 		STATS.cycdie -= CYCLE_DELTA;
 		STATS.check = 0;

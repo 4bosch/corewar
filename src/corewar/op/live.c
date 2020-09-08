@@ -19,15 +19,16 @@ void		op_live(t_vm *vm, t_cursor *cursor)
 	m = (t_opmem){0};
 	m.type[0] = DIR_CODE;
 	m.count = 1;
-	if (op_is_dir4(vm, cursor, &m, 0)
-		&& -m.arg[0] > 0
-		&& -m.arg[0] <= SETTINGS.player_count)
+	if (op_is_dir4(vm, cursor, &m, 0))
 	{
+		if (0 < -m.arg[0] && -m.arg[0] <= SETTINGS.player_count)
+		{
+			//ft_printf("Player %d (%s) is announced alive by a process\n",
+				//-m.arg[0], PLAYERS[-m.arg[0] - 1].header.prog_name);
+			STATS.last_live_id = -m.arg[0];
+		}
 		cursor->last_live = STATS.cycle;
-		ft_printf("Player %d (%s) is announced alive by a process\n",
-			-m.arg[0], PLAYERS[-m.arg[0] - 1].header.prog_name);
 		STATS.live++;
-		STATS.last_live_id = -m.arg[0];
 	}
 	REGISTERS[PC] += next_pc(vm, cursor, &m);
 }

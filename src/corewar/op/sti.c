@@ -36,5 +36,4 @@ void		op_sti(t_vm *vm, t_cursor *cursor)
 		ARENA[c_mod(REGISTERS[PC] + addr + 0, 0, 1)] = (m.arg[0] >> 24) & 255;
 	}
 	REGISTERS[PC] += next_pc(vm, cursor, &m);
-	ft_printf("STI : %i\n", REGISTERS[PC]);
 }

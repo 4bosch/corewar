@@ -19,7 +19,6 @@ void		op_zjmp(t_vm *vm, t_cursor *cursor)
 	m = (t_opmem){0};
 	m.count = 1;
 	m.type[0] = DIR_CODE;
-	//ft_printf("JMP : %i\n", cursor->carry);
 	if (cursor->carry && op_is_dir2(vm, cursor, &m, 0))
 		REGISTERS[PC] += c_mod(m.arg[0], 1, 0);
 	else
