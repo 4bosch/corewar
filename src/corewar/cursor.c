@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 18:57:30 by abaisago          #+#    #+#             */
-/*   Updated: 2020/08/25 03:38:06 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/09 19:07:30 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,18 @@ void			cursor_fork(t_vm *vm, t_cursor *cursor, int fork_pos)
 
 	ft_memcpy(&fork, cursor, sizeof(fork));
 	fork.registers[PC] = c_mod(REGISTERS[PC] + fork_pos, 0, 1);
+	fork.cid = ++STATS.cid;
 	fork.op_code = -1;
 	if ((new = ft_list_link_new(&fork, sizeof(fork))) == NULL)
 		ft_printerr("corewar: cursor_fork(link_new): %s\n", strerror(errno));
 	ft_list_push_front(vm->cursors, new);
 }
 
-void			cursor_init(t_player *player, int pid,
-					int player_count, t_cursor *cursor)
+void			cursor_init(t_vm *vm, t_cursor *cursor, int pid,
+					int player_count)
 {
 	*cursor = (t_cursor){0};
+	cursor->cid = ++vm->stats.cid;
 	cursor->op_code = -1;
 	cursor->pid = -pid;
 	cursor->registers[PC] = (MEM_SIZE / player_count) * (pid - 1);

@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:32:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/08/25 20:00:28 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/09 16:28:23 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 /*
 ** s_cursor
 ** --------
+** cid:			cursor id
 ** exec_time:	cycles left to execute operation
 ** last_live:	last cycle of live instruction
 ** op_code:		current op_code to be executed
@@ -43,6 +44,7 @@
 
 typedef struct	s_cursor
 {
+	int			cid;
 	int			exec_time;
 	int			last_live;
 	int			op_code;
@@ -69,6 +71,7 @@ typedef struct	s_settings
 /*
 ** s_stats
 ** -------
+** cid:			last cursor id
 ** cycdie:		cycles until cycle_to_die check		(default: CYCLE_TO_DIE)
 ** cycle:		cycle since last cycle_to_die		(max: CYCLE_TO_DIE)
 ** cycle_total:	total number of cycles				(max: CYCLE_TO_DIE)
@@ -79,6 +82,7 @@ typedef struct	s_settings
 
 typedef struct	s_stats
 {
+	int			cid;
 	int			cycdie;
 	int			cycle;
 	int			cycle_total;
@@ -124,8 +128,8 @@ void			builtin_set_long(t_vm *vm, t_cursor *cursor, int offset,
 
 void			cursor_del(void *content, size_t size);
 void			cursor_fork(t_vm *vm, t_cursor *cursor, int fork_pos);
-void			cursor_init(t_player *player, int pid,
-					int player_count, t_cursor *cursor);
+void			cursor_init(t_vm *vm, t_cursor *cursor, int pid,
+					int player_count);
 int				cursor_life(t_list_link *link, void *input);
 void			cursor_update(t_list_link *link, void *input);
 
