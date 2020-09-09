@@ -23,8 +23,8 @@ void		op_live(t_vm *vm, t_cursor *cursor)
 	{
 		if (0 < -m.arg[0] && -m.arg[0] <= SETTINGS.player_count)
 		{
-			//ft_printf("Player %d (%s) is announced alive by a process, cycle %i\n",
-			//	-m.arg[0], PLAYERS[-m.arg[0] - 1].header.prog_name, STATS.cycle_total);
+			//ft_printf("Player %d (%s) is announced alive by a process\n",
+			//	-m.arg[0], PLAYERS[-m.arg[0] - 1].header.prog_name);
 			STATS.last_live_id = -m.arg[0];
 		}
 		cursor->last_live = STATS.cycle_total;

@@ -59,24 +59,24 @@ int				cursor_life(t_list_link *link, void *input)
 	return ((STATS.cycle_total - cursor->last_live) >= STATS.cycdie ? 1 : 0);
 }
 
-void            cursor_update(t_list_link *link, void *input)
+void			cursor_update(t_list_link *link, void *input)
 {
-    t_cursor    *cursor;
-    t_vm        *vm;
+	t_cursor	*cursor;
+	t_vm		*vm;
 
 	cursor = link->content;
-    vm = input;
-    if (cursor->op_code == -1)
-    {
-        cursor->op_code = vm->arena[cursor->registers[PC]];
-        if (cursor->op_code < 0 || cursor->op_code > 16)
-            cursor->op_code = 0;
-        cursor->exec_time = op_tab[cursor->op_code].cycles;
-    }
-    --cursor->exec_time;
-    if (cursor->exec_time == 0)
-    {
-        vm->operations[cursor->op_code](vm, cursor);
-        cursor->op_code = -1;
-    }
+	vm = input;
+	if (cursor->op_code == -1)
+	{
+		cursor->op_code = vm->arena[cursor->registers[PC]];
+		if (cursor->op_code < 0 || cursor->op_code > 16)
+			cursor->op_code = 0;
+		cursor->exec_time = op_tab[cursor->op_code].cycles;
+	}
+	--cursor->exec_time;
+	if (cursor->exec_time == 0)
+	{
+		vm->operations[cursor->op_code](vm, cursor);
+		cursor->op_code = -1;
+	}
 }

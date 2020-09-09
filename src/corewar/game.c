@@ -53,7 +53,7 @@ void			play_game(t_vm *vm)
 		&& (!(FLAGS & F_DUMP) || STATS.cycle != SETTINGS.cycdump))
 	{
 		if (STATS.cycle_total == SETTINGS.cycdump)
-			break;
+			break ;
 		if (STATS.cycle >= STATS.cycdie)
 		{
 			remove_dead_cursors(vm);

@@ -20,7 +20,7 @@
 #include <string.h>
 #include <unistd.h>
 
-t_op    op_tab[18] =
+t_op			op_tab[18] =
 {
 	{"nop", 0, {0}, 0, 1, "no operation", 0, 0},
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
