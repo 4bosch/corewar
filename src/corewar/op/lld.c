@@ -44,7 +44,6 @@ void		op_lld(t_vm *vm, t_cursor *cursor)
 	if ((op_is_dir4(vm, cursor, &m, 0) || lld_is_ind(vm, cursor, &m, 0)) +
 		op_is_reg(vm, cursor, &m, 1) == 2)
 	{
-		ft_printf("LLD : %i\n", m.arg[0]);
 		REGISTERS[m.pos[1]] = m.arg[0];
 		cursor->carry = (REGISTERS[m.pos[1]] ? 0 : 1);
 	}

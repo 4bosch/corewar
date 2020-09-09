@@ -15,4 +15,5 @@
 void		op_nop(t_vm *vm, t_cursor *cursor)
 {
 	REGISTERS[PC]++;
+	REGISTERS[PC] %= MEM_SIZE;
 }

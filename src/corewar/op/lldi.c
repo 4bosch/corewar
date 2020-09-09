@@ -30,7 +30,6 @@ void		op_lldi(t_vm *vm, t_cursor *cursor)
 		op_is_reg(vm, cursor, &m, 2) == 3)
 	{
 		a = m.arg[0] + m.arg[1];
-		ft_printf("LLDI : %i, %i\n", m.arg[0], m.arg[1]);
 		REGISTERS[m.pos[2]] = ARENA[c_mod(REGISTERS[PC] + a + 3, 0, 1)] << 0;
 		REGISTERS[m.pos[2]] |= ARENA[c_mod(REGISTERS[PC] + a + 2, 0, 1)] << 8;
 		REGISTERS[m.pos[2]] |= ARENA[c_mod(REGISTERS[PC] + a + 1, 0, 1)] << 16;

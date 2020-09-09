@@ -56,7 +56,7 @@ int				cursor_life(t_list_link *link, void *input)
 
 	cursor = link->content;
 	vm = input;
-	return ((STATS.cycle_total - cursor->last_live) > STATS.cycdie ? 1 : 0);
+	return ((STATS.cycle_total - cursor->last_live) >= STATS.cycdie ? 1 : 0);
 }
 
 void            cursor_update(t_list_link *link, void *input)
@@ -64,7 +64,7 @@ void            cursor_update(t_list_link *link, void *input)
     t_cursor    *cursor;
     t_vm        *vm;
 
-    cursor = link->content;
+	cursor = link->content;
     vm = input;
     if (cursor->op_code == -1)
     {
