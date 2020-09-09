@@ -6,7 +6,7 @@
 #    By: abaisago <adam_bai@protonmail.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 11:54:38 by abaisago          #+#    #+#              #
-#    Updated: 2020/08/27 14:47:56 by abosch           ###   ########.fr        #
+#    Updated: 2020/09/09 16:13:43 by abaisago         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,11 +32,14 @@ LIB_PATH       := lib
 LIB_FT_DIR     := $(LIB_PATH)/ft
 LIB_FT_NAME    := libft.a
 LIB_FT         := $(LIB_FT_DIR)/$(LIB_FT_NAME)
+LIB_FT_DBG     := $(LIB_FT_DIR)/debug/$(LIB_FT_NAME)
 LIB_FT_FLAGS   := -lft
 
 LIB            := $(LIB_FT)
+LIB_DBG        := $(LIB_FT_DBG)
 
 LDFLAGS        := -L$(LIB_FT_DIR)
+LDFLAGS_DBG    := -L$(LIB_FT_DIR)/debug
 LDLIBS         := $(LIB_FT_FLAGS)
 
 #------------------------------------------------#
@@ -70,7 +73,7 @@ RM             := /bin/rm
 SRC_PATH       := src
 
 SUB_ASM_LEX	   :=	lexer.c				\
-					handle_lexer.c 
+					handle_lexer.c
 SUB_ASM_LEX    := $(addprefix lexer/, $(SUB_ASM_LEX))
 
 SUB_ASM_PAR    :=	check_arg1.c		\
@@ -78,7 +81,7 @@ SUB_ASM_PAR    :=	check_arg1.c		\
 					check_op1.c			\
 					check_op2.c			\
 					handle_parser.c		\
-					parser.c				
+					parser.c
 SUB_ASM_PAR	   := $(addprefix parser/, $(SUB_ASM_PAR))
 
 SUB_ASM_TRANS  := 	translator.c		\
@@ -232,14 +235,14 @@ $(REL_PATH)/$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 
 dbg: $(DBG)
 
-$(DBG_ASM): $(LIB) $(DBG_OBJ_ASM)
+$(DBG_ASM): $(LIB_DBG) $(DBG_OBJ_ASM)
 	@$(PRINTF) $(CREAT)"[ $(PROJECT): All debug object files created ]"$(END)
-	@$(CC) $(DBG_CFLAGS) -o $@ $^ $(LDFLAGS) $(LDLIBS)
+	@$(CC) $(DBG_CFLAGS) -o $@ $^ $(LDFLAGS_DBG) $(LDLIBS)
 	@$(PRINTF) $(CREAT)"[ $(PROJECT): $@ created ]"$(END)
 
-$(DBG_CW): $(LIB) $(DBG_OBJ_CW)
+$(DBG_CW): $(LIB_DBG) $(DBG_OBJ_CW)
 	@$(PRINTF) $(CREAT)"[ $(PROJECT): All debug object files created ]"$(END)
-	@$(CC) $(DBG_CFLAGS) -o $@ $^ $(LDFLAGS) $(LDLIBS)
+	@$(CC) $(DBG_CFLAGS) -o $@ $^ $(LDFLAGS_DBG) $(LDLIBS)
 	@$(PRINTF) $(CREAT)"[ $(PROJECT): $@ created ]"$(END)
 
 $(DBG_PATH)/$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
@@ -257,6 +260,9 @@ $(DBG_PATH)/$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 libft: $(LIB_FT)
 $(LIB_FT): FORCE
 	make -sC $(LIB_FT_DIR)
+
+$(LIB_FT_DBG): FORCE
+	make -sC $(LIB_FT_DIR) dbg
 
 libft_clean:
 	make -sC $(LIB_FT_DIR) clean
