@@ -6,8 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 18:57:30 by abaisago          #+#    #+#             */
-/*   Updated: 2020/09/10 18:04:56 by abosch           ###   ########.fr       */
->>>>>>> 0a49091... feat(corewar): do not execute instruction if memory has been overwritten
+/*   Updated: 2020/09/10 18:07:48 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
