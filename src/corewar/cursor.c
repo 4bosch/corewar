@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 18:57:30 by abaisago          #+#    #+#             */
-/*   Updated: 2020/09/10 12:08:02 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/10 12:26:52 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ int				cursor_life(t_list_link *link, void *input)
 	return (is_live);
 }
 
-void            cursor_update(t_list_link *link, void *input)
+void			cursor_update(t_list_link *link, void *input)
 {
-    t_cursor    *cursor;
-    t_vm        *vm;
+	t_cursor	*cursor;
+	t_vm		*vm;
 
 	cursor = link->content;
     vm = input;

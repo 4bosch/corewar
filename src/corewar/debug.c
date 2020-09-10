@@ -39,7 +39,7 @@ void			dbgf_cursors(t_list_link *elem, void *input)
 	ft_printf("pid = % -d, PC=%- d \n", curs->pid, curs->registers[0]);
 }
 
-void		dbg_player(t_player *player)
+void			dbg_player(t_player *player)
 {
 	ft_printf("filename: %s\n", player->filename);
 	ft_printf("name:     %s\n", player->header.prog_name);

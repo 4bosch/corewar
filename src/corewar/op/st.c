@@ -15,7 +15,7 @@
 void		op_st(t_vm *vm, t_cursor *cursor)
 {
 	t_opmem		m;
-	int			size;
+	int			pc;
 
 	m = (t_opmem){0};
 	m.ocp = ARENA[(REGISTERS[PC] + 1) % MEM_SIZE];
@@ -24,16 +24,16 @@ void		op_st(t_vm *vm, t_cursor *cursor)
 	m.type[1] = (m.ocp & 0x30) >> 4;
 	m.type[2] = (m.ocp & 0x0c) >> 2;
 	m.modulo = 1;
-	size = MEM_SIZE;
 	if (op_is_reg(vm, cursor, &m, 0) + op_is_reg(vm, cursor, &m, 1) == 2)
 		REGISTERS[m.pos[1]] = m.arg[0];
 	else if (m.type[1] == IND_CODE && (m.count = 2) &&
 		op_is_reg(vm, cursor, &m, 0) + op_is_ind(vm, cursor, &m, 1) == 2)
 	{
-		ARENA[c_mod(REGISTERS[PC] + m.pos[1] + 3, 0, 1)] = (m.arg[0] >> 0) & 255;
-		ARENA[c_mod(REGISTERS[PC] + m.pos[1] + 2, 0, 1)] = (m.arg[0] >> 8) & 255;
-		ARENA[c_mod(REGISTERS[PC] + m.pos[1] + 1, 0, 1)] = (m.arg[0] >> 16) & 255;
-		ARENA[c_mod(REGISTERS[PC] + m.pos[1] + 0, 0, 1)] = (m.arg[0] >> 24) & 255;
+		pc = REGISTERS[PC];
+		ARENA[c_mod(pc + m.pos[1] + 3, 0, 1)] = (m.arg[0] >> 0) & 255;
+		ARENA[c_mod(pc + m.pos[1] + 2, 0, 1)] = (m.arg[0] >> 8) & 255;
+		ARENA[c_mod(pc + m.pos[1] + 1, 0, 1)] = (m.arg[0] >> 16) & 255;
+		ARENA[c_mod(pc + m.pos[1] + 0, 0, 1)] = (m.arg[0] >> 24) & 255;
 	}
 	REGISTERS[PC] += next_pc(vm, cursor, &m);
 }

@@ -41,7 +41,7 @@ static void		get_player_filename(t_vm *vm, int id, char *filename)
 
 static void		get_players_with_ids(t_vm *vm, int ac, char **av)
 {
-	int		    i;
+	int			i;
 	int			player_id;
 
 	i = 0;
@@ -57,9 +57,9 @@ static void		get_players_with_ids(t_vm *vm, int ac, char **av)
 		}
 }
 
-void		    options(t_vm *vm, int ac, char **av)
+void			options(t_vm *vm, int ac, char **av)
 {
-	int		    i;
+	int			i;
 
 	if (ac < 2)
 		ft_printerr(USAGE "\n");

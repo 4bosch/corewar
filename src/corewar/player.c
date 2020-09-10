@@ -85,7 +85,7 @@ void			load_players(t_vm *vm)
 	}
 }
 
-void		show_players(t_vm *vm)
+void			show_players(t_vm *vm)
 {
 	int			i;
 	t_player	*curr;
@@ -103,4 +103,3 @@ void		show_players(t_vm *vm)
 		i++;
 	}
 }
-
