@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 18:57:30 by abaisago          #+#    #+#             */
-/*   Updated: 2020/09/09 19:07:30 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/10 12:08:02 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void            cursor_update(t_list_link *link, void *input)
     vm = input;
     if (cursor->op_code == -1)
     {
-        cursor->op_code = vm->arena[cursor->registers[PC]];
+        cursor->op_code = ARENA[REGISTERS[PC]];
         if (cursor->op_code < 0 || cursor->op_code > 16)
             cursor->op_code = 0;
         cursor->exec_time = op_tab[cursor->op_code].cycles;
@@ -78,6 +78,8 @@ void            cursor_update(t_list_link *link, void *input)
     --cursor->exec_time;
     if (cursor->exec_time == 0)
     {
+		if (ARENA[REGISTERS[PC]] != cursor->op_code)
+			cursor->op_code = 0;
         vm->operations[cursor->op_code](vm, cursor);
         cursor->op_code = -1;
     }
