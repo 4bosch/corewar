@@ -6,7 +6,7 @@
 /*   By: ariperez <ariperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 19:43:34 by ariperez          #+#    #+#             */
-/*   Updated: 2020/07/19 22:52:54 by ariperez         ###   ########.fr       */
+/*   Updated: 2020/09/10 18:25:10 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,18 @@ int		lld_is_ind(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg)
 	return (0);
 }
 
+static void	lld_verbose(t_vm *vm, t_opmem *m)
+{
+	if (vm->settings.verbose == 0)
+		return ;
+	verbose_cycle(vm);
+	if (m->type[0] == IND_CODE)
+		ft_printf(" %d", m->pos[0]);
+	else
+		ft_printf(" %d", m->arg[0]);
+	ft_printf(" r%d", m->pos[1]);
+}
+
 void	op_lld(t_vm *vm, t_cursor *cursor)
 {
 	t_opmem		m;
@@ -47,6 +59,7 @@ void	op_lld(t_vm *vm, t_cursor *cursor)
 	if ((op_is_dir4(vm, cursor, &m, 0) || lld_is_ind(vm, cursor, &m, 0)) +
 		op_is_reg(vm, cursor, &m, 1) == 2)
 	{
+		lld_verbose(vm, &m);
 		REGISTERS[m.pos[1]] = m.arg[0];
 		cursor->carry = (REGISTERS[m.pos[1]] ? 0 : 1);
 	}

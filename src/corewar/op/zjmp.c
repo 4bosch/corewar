@@ -6,7 +6,7 @@
 /*   By: ariperez <ariperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 19:43:34 by ariperez          #+#    #+#             */
-/*   Updated: 2020/07/19 22:52:54 by ariperez         ###   ########.fr       */
+/*   Updated: 2020/09/10 18:09:49 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@ void		op_zjmp(t_vm *vm, t_cursor *cursor)
 	m.count = 1;
 	m.type[0] = DIR_CODE;
 	if (cursor->carry && op_is_dir2(vm, cursor, &m, 0))
+	{
+		verbose(vm, " %d", m.arg[0]);
 		REGISTERS[PC] += c_mod(m.arg[0], 1, 0);
+	}
 	else
+	{
+		verbose(vm, " %d", m.arg[0]);
 		REGISTERS[PC] += next_pc(vm, cursor, &m);
+	}
 }

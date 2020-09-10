@@ -6,11 +6,23 @@
 /*   By: ariperez <ariperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 19:43:34 by ariperez          #+#    #+#             */
-/*   Updated: 2020/07/19 22:52:54 by ariperez         ###   ########.fr       */
+/*   Updated: 2020/09/10 18:56:18 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+static void	st_verbose(t_vm *vm, t_cursor *cursor, t_opmem *m)
+{
+	if (vm->settings.verbose == 0)
+		return ;
+	verbose_cycle(vm);
+	ft_printf(" r%d ", m->pos[0]);
+	if (m->type[1] == REG_CODE)
+		ft_printf("r%d", m->pos[1]);
+	else
+		ft_printf("%d", m->pos[1]);
+}
 
 void		op_st(t_vm *vm, t_cursor *cursor)
 {
@@ -35,5 +47,6 @@ void		op_st(t_vm *vm, t_cursor *cursor)
 		ARENA[c_mod(pc + m.pos[1] + 1, 0, 1)] = (m.arg[0] >> 16) & 255;
 		ARENA[c_mod(pc + m.pos[1] + 0, 0, 1)] = (m.arg[0] >> 24) & 255;
 	}
+	st_verbose(vm, cursor, &m);
 	REGISTERS[PC] += next_pc(vm, cursor, &m);
 }

@@ -6,7 +6,7 @@
 /*   By: ariperez <ariperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 19:43:34 by ariperez          #+#    #+#             */
-/*   Updated: 2020/09/10 13:31:33 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/10 17:24:30 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void			op_live(t_vm *vm, t_cursor *cursor)
 	{
 		if (0 < -m.arg[0] && -m.arg[0] <= SETTINGS.player_count)
 		{
-			verbose(vm, "Player %d (%s) is said to be alive\n",
+			verbose(vm, " %d", m.arg[0]);
+			verbose(vm, "\nPlayer %d (%s) is said to be alive",
 				-m.arg[0], PLAYERS[-m.arg[0] - 1].header.prog_name);
 			STATS.last_live_id = -m.arg[0];
 		}

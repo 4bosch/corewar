@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 18:57:30 by abaisago          #+#    #+#             */
-/*   Updated: 2020/09/10 16:12:46 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/10 19:05:50 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ void			cursor_update(t_list_link *link, void *input)
     --cursor->exec_time;
     if (cursor->exec_time == 0)
     {
-		if (cursor->op_code != 0)
+		if (cursor->op_code != 0 && cursor->op_code != 16)
 			verbose(vm, "P %4d | %s",
 				cursor->cid, op_tab[cursor->op_code].name);
         vm->operations[cursor->op_code](vm, cursor);
-		if (cursor->op_code != 0) // XXX: two temporary lines
+		if (cursor->op_code != 0 && cursor->op_code != 16) // XXX: two temporary lines
 			verbose(vm, "\n", PLAYERS[-cursor->pid - 1].header.prog_name);
         cursor->op_code = -1;
     }

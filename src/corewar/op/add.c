@@ -6,7 +6,7 @@
 /*   By: ariperez <ariperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 19:43:34 by ariperez          #+#    #+#             */
-/*   Updated: 2020/07/19 22:52:54 by ariperez         ###   ########.fr       */
+/*   Updated: 2020/09/10 15:53:25 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void		op_add(t_vm *vm, t_cursor *cursor)
 		op_is_reg(vm, cursor, &m, 1) +
 		op_is_reg(vm, cursor, &m, 2) == 3)
 	{
+		verbose(vm, " r%d r%d r%d", m.pos[0], m.pos[1], m.pos[2]);
 		REGISTERS[m.pos[2]] = m.arg[0] + m.arg[1];
 		cursor->carry = (REGISTERS[m.pos[2]] == 0 ? 1 : 0);
 	}
