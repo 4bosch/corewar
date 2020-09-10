@@ -61,10 +61,10 @@ int				cursor_life(t_list_link *link, void *input)
 	vm = input;
 	is_live = (STATS.cycle_total - cursor->last_live) >= STATS.cycdie ? 1 : 0;
 	if (is_live)
-		verbose(vm, "Process #%-4d hasn't lived for %-4d cycles (%s)\n",
+		verbose(vm, "Process #%-4d hasn't lived for %-4d cycles (CTD %d)\n",
 			cursor->cid,
 			STATS.cycle_total - cursor->last_live,
-			PLAYERS[-cursor->pid - 1].header.prog_name);
+			STATS.cycdie);
 	return (is_live);
 }
 
@@ -87,9 +87,9 @@ void			cursor_update(t_list_link *link, void *input)
     {
 		if (ARENA[REGISTERS[PC]] != cursor->op_code)
 			cursor->op_code = 0;
-		verbose(vm, "P %4d | %s", cursor->cid, op_tab[cursor->op_code].name);
+		verbose(vm, "P %4d | %s\n", cursor->cid, op_tab[cursor->op_code].name);
         vm->operations[cursor->op_code](vm, cursor);
-		verbose(vm, " (%s)\n", PLAYERS[-cursor->pid - 1].header.prog_name);
+		//verbose(vm, " (%s)\n", PLAYERS[-cursor->pid - 1].header.prog_name);
         cursor->op_code = -1;
     }
 }

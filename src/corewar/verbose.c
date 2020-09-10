@@ -18,19 +18,19 @@
 ** The F_VERB flag is reset at each cycle's ends.
 */
 
+void	verbose_advance(t_vm *vm, t_cursor *cursor, int next)
+{
+	verbose(vm, "ADV 🐇%3X (%#4x -> %#4x)\n",
+		next, REGISTERS[PC], REGISTERS[PC] + next);
+}
+
 void	verbose_cycle(t_vm *vm)
 {
 	if (!(vm->settings.flags & F_VERB))
 	{
 		vm->settings.flags |= F_VERB;
-		ft_printf("\n===>  Cycle #%-5d <===\n", vm->stats.cycle_total);
+		ft_printf("It is now cycle %-5d\n", vm->stats.cycle_total);
 	}
-}
-
-void	verbose_jump(t_vm *vm, t_cursor *cursor, int next)
-{
-	verbose(vm, "\n 🐇%3X (%#4x -> %#4x)",
-		next, REGISTERS[PC], REGISTERS[PC] + next);
 }
 
 void	verbose(t_vm *vm, const char *fmt, ...)

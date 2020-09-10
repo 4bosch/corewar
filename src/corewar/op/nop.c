@@ -29,7 +29,7 @@ int			next_pc(t_vm *vm, t_cursor *cursor, t_opmem *m)
 		else if (m->type[i] == DIR_CODE && !op_tab[cursor->op_code].label_size)
 			nbr += 4;
 	}
-	verbose_jump(vm, cursor, nbr);
+	verbose_advance(vm, cursor, nbr);
 	return (nbr);
 }
 

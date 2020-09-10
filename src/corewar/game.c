@@ -37,10 +37,9 @@ static void		update_stats(t_vm *vm)
 {
 	if (STATS.live >= NBR_LIVE || STATS.check == MAX_CHECKS)
 	{
-		verbose(vm, "> CYCLE_TO_DIE: %d -> ", STATS.cycdie);
 		STATS.cycdie -= CYCLE_DELTA;
 		STATS.check = 0;
-		verbose(vm, "%d\n", STATS.cycdie);
+		verbose(vm, "Cycle to die is now %i\n", STATS.cycdie);
 	}
 	STATS.check++;
 	STATS.cycle = 0;
@@ -54,8 +53,8 @@ void			play_game(t_vm *vm)
 	while (CURSORS->head != NULL
 		&& (!(FLAGS & F_DUMP) || STATS.cycle != SETTINGS.cycdump))
 	{
-		if (STATS.cycle_total == SETTINGS.cycdump)
-			break ;
+		++STATS.cycle;
+		++STATS.cycle_total;
 		if (STATS.cycle >= STATS.cycdie)
 		{
 			remove_dead_cursors(vm);
@@ -63,8 +62,8 @@ void			play_game(t_vm *vm)
 		}
 		if (CURSORS->head)
 			update_cursors(vm);
-		++STATS.cycle;
-		++STATS.cycle_total;
+		if (STATS.cycle_total == SETTINGS.cycdump)
+			break ;
 		vm->settings.flags &= ~F_VERB;
 	}
 }

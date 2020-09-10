@@ -146,8 +146,8 @@ void			vm_init(t_vm *vm);
 void			load_code(t_vm *vm, t_cursor *cursor, t_player *player);
 void			show_players(t_vm *vm);
 
+void			verbose_advance(t_vm *vm, t_cursor *cursor, int next);
 void			verbose_cycle(t_vm *vm);
-void			verbose_jump(t_vm *vm, t_cursor *cursor, int next);
 void			verbose(t_vm *vm, const char *fmt, ...);
 
 void			show_winner(t_vm *vm);
