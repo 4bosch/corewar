@@ -6,13 +6,13 @@
 /*   By: ariperez <ariperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 19:43:34 by ariperez          #+#    #+#             */
-/*   Updated: 2020/08/25 03:40:04 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/10 12:22:40 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void		op_live(t_vm *vm, t_cursor *cursor)
+void			op_live(t_vm *vm, t_cursor *cursor)
 {
 	t_opmem		m;
 
@@ -21,6 +21,7 @@ void		op_live(t_vm *vm, t_cursor *cursor)
 	m.count = 1;
 	if (op_is_dir4(vm, cursor, &m, 0))
 	{
+		verbose(vm, " %d", cursor->cid, m.arg[0]);
 		if (0 < -m.arg[0] && -m.arg[0] <= SETTINGS.player_count)
 		{
 			//ft_printf("Player %d (%s) is announced alive by a process, cycle %i\n",
