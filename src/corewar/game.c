@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 17:29:34 by abaisago          #+#    #+#             */
-/*   Updated: 2020/09/10 12:01:21 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/10 14:42:10 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void			play_game(t_vm *vm)
 	{
 		++STATS.cycle;
 		++STATS.cycle_total;
+		if (SETTINGS.verbose > 7)
+			verbose_cycle(vm);
 		if (STATS.cycle >= STATS.cycdie)
 		{
 			remove_dead_cursors(vm);
