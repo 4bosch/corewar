@@ -6,7 +6,7 @@
 #    By: abaisago <adam_bai@protonmail.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 11:54:38 by abaisago          #+#    #+#              #
-#    Updated: 2020/09/09 16:13:43 by abaisago         ###   ########.fr        #
+#    Updated: 2020/09/10 12:18:25 by abaisago         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -137,6 +137,7 @@ SUB_CW         := main.c corewar.c \
                   options.c        \
                   player.c         \
                   util.c           \
+                  verbose.c        \
                   vm.c             \
                   $(SUB_CW_OP)
 SUB_CW         := $(addprefix corewar/, $(SUB_CW))

@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:32:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/09/09 16:28:23 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/10 12:18:47 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define STATS		vm->stats
 
 # define F_DUMP		0x01
+# define F_VERB		0x02
 
 # define NO_WINNER	0
 # define PC			0
@@ -144,6 +145,9 @@ void			vm_cursor_add(t_vm *vm, t_cursor *cursor);
 void			vm_init(t_vm *vm);
 void			load_code(t_vm *vm, t_cursor *cursor, t_player *player);
 void			show_players(t_vm *vm);
+
+void			verbose_cycle(t_vm *vm);
+void			verbose(t_vm *vm, const char *fmt, ...);
 
 void			show_winner(t_vm *vm);
 void			play_game(t_vm *vm);

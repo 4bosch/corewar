@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 17:29:34 by abaisago          #+#    #+#             */
-/*   Updated: 2020/08/25 19:25:31 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/10 12:01:21 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ static void		update_stats(t_vm *vm)
 {
 	if (STATS.live >= NBR_LIVE || STATS.check == MAX_CHECKS)
 	{
+		verbose(vm, "> CYCLE_TO_DIE: %d -> ", STATS.cycdie);
 		STATS.cycdie -= CYCLE_DELTA;
 		STATS.check = 0;
+		verbose(vm, "%d\n", STATS.cycdie);
 	}
 	STATS.check++;
 	STATS.cycle = 0;
@@ -63,5 +65,6 @@ void			play_game(t_vm *vm)
 			update_cursors(vm);
 		++STATS.cycle;
 		++STATS.cycle_total;
+		vm->settings.flags &= ~F_VERB;
 	}
 }
