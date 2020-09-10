@@ -20,7 +20,7 @@
 
 void	verbose_advance(t_vm *vm, t_cursor *cursor, int next)
 {
-	verbose(vm, "ADV 🐇%3X (%#4x -> %#4x)\n",
+	verbose(vm, "ADV %d (%#05x -> %#05x)\n",
 		next, REGISTERS[PC], REGISTERS[PC] + next);
 }
 

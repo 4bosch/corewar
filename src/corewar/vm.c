@@ -101,8 +101,8 @@ void			vm_init(t_vm *vm)
 	if ((vm->cursors = ft_list_init()) == NULL)
 		ft_printerr("corewar: vm_init(cursors): %s\n", strerror(errno));
 	vm_init_operations(vm);
+	STATS.check = 1;
 	vm->settings.cycdump = -1;
-	vm->settings.verbose = 64;
 	vm->stats.cycdie = CYCLE_TO_DIE;
 }
 

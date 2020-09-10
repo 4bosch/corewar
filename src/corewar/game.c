@@ -49,7 +49,6 @@ static void		update_stats(t_vm *vm)
 void			play_game(t_vm *vm)
 {
 	vm->stats.last_live_id = vm->settings.player_count;
-	STATS.check++;
 	while (CURSORS->head != NULL
 		&& (!(FLAGS & F_DUMP) || STATS.cycle != SETTINGS.cycdump))
 	{
