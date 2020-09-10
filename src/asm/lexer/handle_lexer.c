@@ -6,14 +6,14 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 14:18:12 by abosch            #+#    #+#             */
-/*   Updated: 2020/08/27 15:32:48 by abosch           ###   ########.fr       */
+/*   Updated: 2020/09/10 17:40:53 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
 static void		create_symbol_token(t_string *str, int i,
-	t_lexargs *args, t_list *label)
+		t_lexargs *args, t_list *label)
 {
 	t_label	lab;
 
@@ -21,11 +21,11 @@ static void		create_symbol_token(t_string *str, int i,
 	{
 		if (str->buf[0] == '+' || str->buf[0] == '-')
 			ft_printerr("asm: Label begin with an illegal "
-				"character : %c.\n", args->buf[i]);
+					"character : %c.\n", args->buf[i]);
 		args->i = i;
 		ft_list_push(args->toklist, token_new(LABELDEF, str));
 		ft_list_push(label, ft_list_link_new(
-			new_label(str->buf, &lab), sizeof(t_label)));
+					new_label(str->buf, &lab), sizeof(t_label)));
 	}
 	else
 	{
@@ -44,7 +44,7 @@ void			handle_symbol(t_lexargs *args, t_list *label)
 	if (args->buf[i] == '-' || args->buf[i] == '+')
 		++i;
 	while (ft_strchr(LABEL_CHARS, args->buf[i]) != NULL
-		&& args->buf[i] != '\n' && args->buf[i] != ':')
+			&& args->buf[i] != '\n' && args->buf[i] != ':')
 	{
 		if (args->buf[i] == '\0')
 		{
@@ -66,17 +66,20 @@ void			handle_string(t_lexargs *args)
 
 	i = ++args->i;
 	str = ft_string_init();
-	while (args->buf[++i] != '"')
+	if (args->buf[i] != '"')
 	{
-		if (args->buf[i] == '\0')
+		while (args->buf[++i] != '"')
 		{
-			ft_string_append(str, args->buf + args->i);
-			if (read_more(&i, args) == 0)
-				return ;
+			if (args->buf[i] == '\0')
+			{
+				ft_string_append(str, args->buf + args->i);
+				if (read_more(&i, args) == 0)
+					return ;
+			}
 		}
+		ft_string_nappend(str, args->buf + args->i, i - args->i);
+		args->i = i;
 	}
-	ft_string_nappend(str, args->buf + args->i, i - args->i);
-	args->i = i;
 	ft_list_push(args->toklist, token_new(STRING, str));
 }
 
@@ -88,7 +91,7 @@ void			handle_labelarg(t_lexargs *args)
 	i = ++(args->i);
 	str = ft_string_init();
 	while (ft_strchr(LABEL_CHARS, args->buf[i]) != NULL
-		&& args->buf[i] != '\n')
+			&& args->buf[i] != '\n')
 	{
 		if (args->buf[i] == '\0')
 		{

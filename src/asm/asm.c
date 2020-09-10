@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@adam@tuta.io>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:24:13 by abaisago          #+#    #+#             */
-/*   Updated: 2020/09/02 15:54:08 by abosch           ###   ########.fr       */
+/*   Updated: 2020/09/10 17:35:55 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,10 @@ int				asmcore(int ac, char **av)
 	if ((label = ft_list_init()) == NULL)
 		ft_printerr("asm: asmcore(ft_list_init): %s\n", strerror(errno));
 	fd = handle_open(ac, av);
+	ft_bzero(cmd.name, PROG_NAME_LENGTH);
+	ft_bzero(cmd.comment, COMMENT_LENGTH);
+	cmd.name[0] = -1;
+	cmd.comment[0] = -1;
 	lexer(token_list, label, fd);
 	DF("----- TOKEN LIST -----\n");		//DELETE
 	if(DEBUG) ft_list_print(token_list, &print_token); //DELETE
@@ -114,10 +118,6 @@ int				asmcore(int ac, char **av)
 	DF("\n");		//DELETE
 	token_tab = list2tab(token_list);
 	if (DEBUG) print_tab(token_tab); //DELETE
-	ft_bzero(cmd.name, PROG_NAME_LENGTH);
-	ft_bzero(cmd.comment, COMMENT_LENGTH);
-	cmd.name[0] = -1;
-	cmd.comment[0] = -1;
 	parser(token_tab, label, &cmd);
 	translator(token_tab, label, av[1], cmd);
 	if (close(fd) == -1)

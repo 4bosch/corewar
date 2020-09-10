@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 14:37:58 by abosch            #+#    #+#             */
-/*   Updated: 2020/08/27 14:42:26 by abosch           ###   ########.fr       */
+/*   Updated: 2020/09/10 16:43:54 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void		write_dir(t_targs *args, t_token *tok, char byte)
 	else if (byte == 16)
 	{
 		if (tok->type == SYMBOL)
-			int16 = byte_swap_16(ft_atoi(tok->content->buf));
+			int16 = byte_swap_16(ft_atoll(tok->content->buf));
 		else if (tok->type == LABELARG)
 			int16 = byte_swap_16(((t_label*)ft_list_find(args->label,
 				tok->content->buf, &cmp_label)->content)->addr - args->addr);

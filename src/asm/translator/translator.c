@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:44:41 by abosch            #+#    #+#             */
-/*   Updated: 2020/09/02 18:33:19 by abosch           ###   ########.fr       */
+/*   Updated: 2020/09/10 16:28:29 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void		translator(t_list **tab, t_list *label, char *name, t_cmd cmd)
 	if ((fd = open(prog_name, O_WRONLY | O_CREAT
 		| O_TRUNC, S_IRUSR | S_IWUSR)) < 0)
 		ft_printerr("asm: translator(open): %s\n", strerror(errno));
+	ft_printf("Writing output program to %s.\n", prog_name);
 	free(prog_name);
 	prog_size = get_label_addr(tab, label);
 	if (DEBUG) ft_list_print(label, &print_label); //DELETE
