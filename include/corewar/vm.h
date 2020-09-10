@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:32:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/09/10 12:18:47 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/10 12:51:52 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ void			load_code(t_vm *vm, t_cursor *cursor, t_player *player);
 void			show_players(t_vm *vm);
 
 void			verbose_cycle(t_vm *vm);
+void			verbose_jump(t_vm *vm, t_cursor *cursor, int next);
 void			verbose(t_vm *vm, const char *fmt, ...);
 
 void			show_winner(t_vm *vm);

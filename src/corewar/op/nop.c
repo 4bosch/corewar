@@ -6,7 +6,7 @@
 /*   By: ariperez <ariperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 19:43:34 by ariperez          #+#    #+#             */
-/*   Updated: 2020/07/19 22:52:54 by ariperez         ###   ########.fr       */
+/*   Updated: 2020/09/10 13:30:09 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int			next_pc(t_vm *vm, t_cursor *cursor, t_opmem *m)
 		else if (m->type[i] == DIR_CODE && !op_tab[cursor->op_code].label_size)
 			nbr += 4;
 	}
+	verbose_jump(vm, cursor, nbr);
 	return (nbr);
 }
 

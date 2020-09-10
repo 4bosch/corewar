@@ -6,7 +6,7 @@
 /*   By: ariperez <ariperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 19:43:34 by ariperez          #+#    #+#             */
-/*   Updated: 2020/09/10 12:22:40 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/10 13:31:33 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void			op_live(t_vm *vm, t_cursor *cursor)
 		verbose(vm, " %d", cursor->cid, m.arg[0]);
 		if (0 < -m.arg[0] && -m.arg[0] <= SETTINGS.player_count)
 		{
-			//ft_printf("Player %d (%s) is announced alive by a process\n",
-			//	-m.arg[0], PLAYERS[-m.arg[0] - 1].header.prog_name);
+			ft_printf("\nPlayer %d (%s) is announced alive by a process",
+				-m.arg[0], PLAYERS[-m.arg[0] - 1].header.prog_name);
 			STATS.last_live_id = -m.arg[0];
 		}
 		cursor->last_live = STATS.cycle_total;
