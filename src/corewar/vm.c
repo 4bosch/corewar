@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 20:33:49 by abaisago          #+#    #+#             */
-/*   Updated: 2020/08/01 13:03:09 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/10 16:22:34 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void			vm_cursor_add(t_vm *vm, t_cursor *cursor)
 
 	if ((link = ft_list_link_new(cursor, sizeof(*cursor))) == NULL)
 		ft_printerr("corewar: create_cursor(link): %s\n", strerror(errno));
-	ft_list_push_front(vm->cursors, link);
+	ft_list_push_front(&vm->cursors, link);
 }
 
 void			vm_init_operations(t_vm *vm)
@@ -98,8 +98,6 @@ void			vm_init_operations(t_vm *vm)
 void			vm_init(t_vm *vm)
 {
 	*vm = (t_vm){0};
-	if ((vm->cursors = ft_list_init()) == NULL)
-		ft_printerr("corewar: vm_init(cursors): %s\n", strerror(errno));
 	vm_init_operations(vm);
 	STATS.check = 1;
 	vm->settings.cycdump = -1;

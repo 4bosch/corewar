@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 16:32:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/09/10 12:51:52 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/10 16:11:13 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct	s_vm
 {
 	int32_t		(*endian)(int32_t number);
 	t_byte		arena[MEM_SIZE];
-	t_list		*cursors;
+	t_list		cursors;
 	void		(*operations[18])(struct s_vm*, t_cursor*);
 	t_player	players[MAX_PLAYERS];
 	t_settings	settings;

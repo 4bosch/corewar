@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 18:57:30 by abaisago          #+#    #+#             */
-/*   Updated: 2020/09/10 15:45:39 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/10 16:12:46 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void			cursor_fork(t_vm *vm, t_cursor *cursor, int fork_pos)
 	fork.op_code = -1;
 	if ((new = ft_list_link_new(&fork, sizeof(fork))) == NULL)
 		ft_printerr("corewar: cursor_fork(link_new): %s\n", strerror(errno));
-	ft_list_push_front(vm->cursors, new);
+	ft_list_push_front(&vm->cursors, new);
 }
 
 void			cursor_init(t_vm *vm, t_cursor *cursor, int pid,

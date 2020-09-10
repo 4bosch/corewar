@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 17:17:21 by abaisago          #+#    #+#             */
-/*   Updated: 2020/09/09 19:05:59 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/10 16:15:48 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void			load_players(t_vm *vm)
 		read_code(vm->players + i, fd);
 		cursor_init(vm, &cursor, i + 1, vm->settings.player_count);
 		vm_cursor_add(vm, &cursor);
-		load_code(vm, vm->cursors->head->content, vm->players + i);
+		load_code(vm, vm->cursors.head->content, vm->players + i);
 		close(fd);
 	}
 }
