@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 12:16:00 by abaisago          #+#    #+#             */
-/*   Updated: 2020/09/10 14:40:52 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/10 15:46:40 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 void	verbose_advance(t_vm *vm, t_cursor *cursor, int next)
 {
-	verbose(vm, "ADV %d (%#05x -> %#05x)\n",
+	verbose(vm, "\nADV %d (%#05x -> %#05x)",
 		next, REGISTERS[PC], REGISTERS[PC] + next);
 }
 
