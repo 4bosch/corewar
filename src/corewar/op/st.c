@@ -48,5 +48,5 @@ void		op_st(t_vm *vm, t_cursor *cursor)
 		ARENA[c_mod(pc + m.pos[1] + 0, 0, 1)] = (m.arg[0] >> 24) & 255;
 	}
 	st_verbose(vm, cursor, &m);
-	REGISTERS[PC] += next_pc(vm, cursor, &m);
+	REGISTERS[PC] = c_mod(REGISTERS[PC] + next_pc(vm, cursor, &m), 0, 1);
 }

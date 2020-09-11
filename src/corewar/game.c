@@ -56,13 +56,13 @@ void			play_game(t_vm *vm)
 		++STATS.cycle_total;
 		if (SETTINGS.verbose > 7)
 			verbose_cycle(vm);
+		if (CURSORS.head)
+			update_cursors(vm);
 		if (STATS.cycle >= STATS.cycdie)
 		{
 			remove_dead_cursors(vm);
 			update_stats(vm);
 		}
-		if (CURSORS.head)
-			update_cursors(vm);
 		if (STATS.cycle_total == SETTINGS.cycdump)
 			break ;
 		vm->settings.flags &= ~F_VERB;

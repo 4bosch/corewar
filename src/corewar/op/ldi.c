@@ -29,7 +29,8 @@ static void	ldi_verbose(t_vm *vm, t_cursor *cursor, t_opmem *m)
 		ft_printf(" %d", m->arg[1]);
 	ft_printf(" r%d", m->pos[2]);
 	ft_printf("\n       | -> load from %d + %d = %d (with pc and mod %d)",
-		m->arg[0], m->arg[1], m->arg[0] + m->arg[1], REGISTERS[PC]);
+		m->arg[0], m->arg[1], m->arg[0] + m->arg[1],
+		REGISTERS[PC] + m->arg[0] + m->arg[1]);
 }
 
 void		op_ldi(t_vm *vm, t_cursor *cursor)
@@ -56,5 +57,5 @@ void		op_ldi(t_vm *vm, t_cursor *cursor)
 		REGISTERS[m.pos[2]] |= ARENA[c_mod(REGISTERS[PC] + a + 1, 0, 1)] << 16;
 		REGISTERS[m.pos[2]] |= ARENA[c_mod(REGISTERS[PC] + a + 0, 0, 1)] << 24;
 	}
-	REGISTERS[PC] += next_pc(vm, cursor, &m);
+	REGISTERS[PC] = c_mod(REGISTERS[PC] + next_pc(vm, cursor, &m), 0, 1);
 }

@@ -20,8 +20,13 @@
 
 void	verbose_advance(t_vm *vm, t_cursor *cursor, int next)
 {
-	verbose(vm, "\nADV %d (%#05x -> %#05x)",
+	int		i;
+
+	verbose(vm, "\nADV %d (%#.4x -> %#.4x) ",
 		next, REGISTERS[PC], REGISTERS[PC] + next);
+	i = -1;
+	while (++i < next)
+		verbose(vm, "%.2x ", ARENA[(REGISTERS[PC] + i) % MEM_SIZE]);
 }
 
 void	verbose_cycle(t_vm *vm)
@@ -29,7 +34,7 @@ void	verbose_cycle(t_vm *vm)
 	if (SETTINGS.flags & F_VERB)
 		return ;
 	SETTINGS.flags |= F_VERB;
-	ft_printf("It is now cycle %-5d\n", vm->stats.cycle_total);
+	verbose(vm, "It is now cycle %d\n", vm->stats.cycle_total);
 }
 
 void	verbose(t_vm *vm, const char *fmt, ...)

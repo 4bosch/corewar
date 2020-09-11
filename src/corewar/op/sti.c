@@ -17,7 +17,7 @@ static void	sti_verbose(t_vm *vm, t_cursor *cursor, t_opmem *m)
 	if (vm->settings.verbose == 0)
 		return ;
 	verbose_cycle(vm);
-	ft_printf(" %d", m->pos[0]);
+	ft_printf(" r%d", m->pos[0]);
 	if (m->type[1] == REG_CODE)
 		ft_printf(" r%d", m->pos[1]);
 	else if (m->type[1] == IND_CODE)
@@ -28,8 +28,9 @@ static void	sti_verbose(t_vm *vm, t_cursor *cursor, t_opmem *m)
 		ft_printf(" r%d", m->pos[2]);
 	else
 		ft_printf(" %d", m->arg[2]);
-	ft_printf("\n       | -> store from %d + %d = %d (with pc and mod %d)",
-		m->arg[1], m->arg[2], m->arg[1] + m->arg[2], REGISTERS[PC]);
+	ft_printf("\n       | -> store to %d + %d = %d (with pc and mod %d)",
+		m->arg[1], m->arg[2], m->arg[1] + m->arg[2],
+		REGISTERS[PC] + m->arg[1] + m->arg[2]);
 }
 
 void		op_sti(t_vm *vm, t_cursor *cursor)
@@ -38,7 +39,7 @@ void		op_sti(t_vm *vm, t_cursor *cursor)
 	int			addr;
 
 	m = (t_opmem){0};
-	m.ocp = ARENA[(REGISTERS[PC] + 1 % MEM_SIZE)];
+	m.ocp = ARENA[(REGISTERS[PC] + 1) % MEM_SIZE];
 	m.count = 2;
 	m.type[0] = (m.ocp & 0xc0) >> 6;
 	m.type[1] = (m.ocp & 0x30) >> 4;
@@ -56,5 +57,5 @@ void		op_sti(t_vm *vm, t_cursor *cursor)
 		ARENA[c_mod(REGISTERS[PC] + addr + 1, 0, 1)] = (m.arg[0] >> 16) & 255;
 		ARENA[c_mod(REGISTERS[PC] + addr + 0, 0, 1)] = (m.arg[0] >> 24) & 255;
 	}
-	REGISTERS[PC] += next_pc(vm, cursor, &m);
+	REGISTERS[PC] = c_mod(REGISTERS[PC] + next_pc(vm, cursor, &m), 0, 1);
 }

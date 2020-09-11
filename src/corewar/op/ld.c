@@ -42,5 +42,5 @@ void		op_ld(t_vm *vm, t_cursor *cursor)
 		ld_verbose(vm, &m);
 		cursor->carry = (REGISTERS[m.pos[1]] ? 0 : 1);
 	}
-	REGISTERS[PC] += next_pc(vm, cursor, &m);
+	REGISTERS[PC] = c_mod(REGISTERS[PC] + next_pc(vm, cursor, &m), 0, 1);
 }

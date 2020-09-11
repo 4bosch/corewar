@@ -25,5 +25,5 @@ void		op_aff(t_vm *vm, t_cursor *cursor)
 		m.arg[0] %= 256;
 		//ft_printf("%c", m.arg[0]);
 	}
-	REGISTERS[PC] += next_pc(vm, cursor, &m);
+	REGISTERS[PC] = c_mod(REGISTERS[PC] + next_pc(vm, cursor, &m), 0, 1);
 }

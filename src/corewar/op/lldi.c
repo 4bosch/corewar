@@ -29,7 +29,8 @@ static void	lldi_verbose(t_vm *vm, t_cursor *cursor, t_opmem *m)
 		ft_printf(" %d", m->arg[1]);
 	ft_printf(" r%d", m->pos[2]);
 	ft_printf("\n       | -> load from %d + %d = %d (with pc %d)",
-		m->arg[0], m->arg[1], m->arg[0] + m->arg[1], REGISTERS[PC]);
+		m->arg[0], m->arg[1], m->arg[0] + m->arg[1],
+		REGISTERS[PC] + m->arg[0] + m->arg[1]);
 }
 
 void		op_lldi(t_vm *vm, t_cursor *cursor)
@@ -57,5 +58,5 @@ void		op_lldi(t_vm *vm, t_cursor *cursor)
 		REGISTERS[m.pos[2]] |= ARENA[c_mod(REGISTERS[PC] + a + 0, 0, 1)] << 24;
 		cursor->carry = (REGISTERS[m.pos[2]] ? 0 : 1);
 	}
-	REGISTERS[PC] += next_pc(vm, cursor, &m);
+	REGISTERS[PC] = c_mod(REGISTERS[PC] + next_pc(vm, cursor, &m), 0, 1);
 }

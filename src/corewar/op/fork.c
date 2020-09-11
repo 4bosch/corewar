@@ -25,5 +25,5 @@ void			op_fork(t_vm *vm, t_cursor *cursor)
 		verbose(vm, " %d (%d)", m.arg[0],
 			((t_cursor*)CURSORS.head->content)->registers[PC]);
 	}
-	REGISTERS[PC] += next_pc(vm, cursor, &m);
+	REGISTERS[PC] = c_mod(REGISTERS[PC] + next_pc(vm, cursor, &m), 0, 1);
 }

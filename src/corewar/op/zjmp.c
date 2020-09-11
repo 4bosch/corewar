@@ -19,14 +19,14 @@ void		op_zjmp(t_vm *vm, t_cursor *cursor)
 	m = (t_opmem){0};
 	m.count = 1;
 	m.type[0] = DIR_CODE;
-	if (cursor->carry && op_is_dir2(vm, cursor, &m, 0))
+	if (op_is_dir2(vm, cursor, &m, 0) && cursor->carry)
 	{
-		verbose(vm, " %d", m.arg[0]);
-		REGISTERS[PC] += c_mod(m.arg[0], 1, 0);
+		verbose(vm, " %d OK", m.arg[0]);
+		REGISTERS[PC] = c_mod(REGISTERS[PC] + c_mod(m.arg[0], 1, 0), 0, 1);
 	}
 	else
 	{
-		verbose(vm, " %d", m.arg[0]);
-		REGISTERS[PC] += next_pc(vm, cursor, &m);
+		verbose(vm, " %d FAILED", m.arg[0]);
+		REGISTERS[PC] = c_mod(REGISTERS[PC] + next_pc(vm, cursor, &m), 0, 1);
 	}
 }

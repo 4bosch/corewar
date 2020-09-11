@@ -30,5 +30,5 @@ void		op_add(t_vm *vm, t_cursor *cursor)
 		REGISTERS[m.pos[2]] = m.arg[0] + m.arg[1];
 		cursor->carry = (REGISTERS[m.pos[2]] == 0 ? 1 : 0);
 	}
-	REGISTERS[PC] += next_pc(vm, cursor, &m);
+	REGISTERS[PC] = c_mod(REGISTERS[PC] + next_pc(vm, cursor, &m), 0, 1);
 }
