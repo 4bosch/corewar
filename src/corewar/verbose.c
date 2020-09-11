@@ -34,7 +34,7 @@ void	verbose_cycle(t_vm *vm)
 	if (SETTINGS.flags & F_VERB)
 		return ;
 	SETTINGS.flags |= F_VERB;
-	verbose(vm, "It is now cycle %d\n", vm->stats.cycle_total);
+	verbose(vm, "It is now cycle %d  \n", vm->stats.cycle_total);
 }
 
 void	verbose(t_vm *vm, const char *fmt, ...)

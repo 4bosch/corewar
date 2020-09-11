@@ -23,7 +23,7 @@ void		op_aff(t_vm *vm, t_cursor *cursor)
 	if (op_is_reg(vm, cursor, &m, 0))
 	{
 		m.arg[0] %= 256;
-		//ft_printf("%c", m.arg[0]);
+		verbose(vm, "%c", m.arg[0]);
 	}
 	REGISTERS[PC] = c_mod(REGISTERS[PC] + next_pc(vm, cursor, &m), 0, 1);
 }
