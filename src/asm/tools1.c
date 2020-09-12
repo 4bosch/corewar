@@ -35,7 +35,7 @@ void	free_token(void *token, size_t useless)
 	tok->type = 0;
 }
 
-void	free_label(void	*label, size_t useless)
+void	free_label(void *label, size_t useless)
 {
 	(void)useless;
 	(void)label;

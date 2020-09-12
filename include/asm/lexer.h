@@ -27,22 +27,20 @@
 
 # define BUF_SIZE 4096
 
-typedef struct	s_lexargs t_lexargs;
-
-struct s_lexargs
+typedef struct	s_lexargs
 {
 	char	*buf;
 	int		fd;
 	int		i;
 	t_list	*toklist;
-};
+}				t_lexargs;
 
-int			read_more(int *i, t_lexargs *args);
-t_list_link	*token_new(t_byte type, t_string *content);
-void		handle_comment(t_lexargs *args);
-void		handle_string(t_lexargs *args);
-void		handle_symbol(t_lexargs *args, t_list *label);
-void		handle_labelarg(t_lexargs *args);
-void		lexer(t_list *token_list, t_list *label, int fd);
+int				read_more(int *i, t_lexargs *args);
+t_list_link		*token_new(t_byte type, t_string *content);
+void			handle_comment(t_lexargs *args);
+void			handle_string(t_lexargs *args);
+void			handle_symbol(t_lexargs *args, t_list *label);
+void			handle_labelarg(t_lexargs *args);
+void			lexer(t_list *token_list, t_list *label, int fd);
 
 #endif

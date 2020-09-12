@@ -12,8 +12,6 @@
 
 #include "lexer.h"
 
-#include "debug.h" ///////////////DELETE
-
 int				read_more(int *i, t_lexargs *args)
 {
 	if ((*i = read(args->fd, args->buf, BUF_SIZE - 1)) == 0)
