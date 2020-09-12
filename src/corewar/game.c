@@ -6,13 +6,11 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 17:29:34 by abaisago          #+#    #+#             */
-/*   Updated: 2020/09/10 16:15:24 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/13 00:28:47 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-#include "debug.h"
 
 void			show_winner(t_vm *vm)
 {

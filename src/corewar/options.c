@@ -6,7 +6,7 @@
 /*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 13:50:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/21 21:41:08 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/13 00:00:36 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,19 @@
 
 #include "error.h"
 
+#include <errno.h>
+#include <string.h>
+
 static int		get_option_value(int ac, char **av, int i)
 {
+	char		*endptr;
+	int			ret;
+
 	if (i >= ac)
 		ft_printerr(USAGE"\n");
+	ret = ft_stoi(av[i], &endptr, 0);
+	if (endptr == NULL)
+		ft_printerr("corewar: get_option_value: %s\n", strerror(errno));
 	return (ft_atoll(av[i]));
 }
 

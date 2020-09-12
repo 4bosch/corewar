@@ -6,7 +6,7 @@
 /*   By: ariperez <ariperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 19:43:34 by ariperez          #+#    #+#             */
-/*   Updated: 2020/09/10 18:42:58 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/13 00:27:39 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,14 @@ void		op_sti(t_vm *vm, t_cursor *cursor)
 	{
 		sti_verbose(vm, cursor, &m);
 		addr = c_mod(m.arg[1] + m.arg[2], 1, 0);
-		vm->arena[c_mod(cursor->registers[PC] + addr + 3, 0, 1)] = (m.arg[0] >> 0) & 255;
-		vm->arena[c_mod(cursor->registers[PC] + addr + 2, 0, 1)] = (m.arg[0] >> 8) & 255;
-		vm->arena[c_mod(cursor->registers[PC] + addr + 1, 0, 1)] = (m.arg[0] >> 16) & 255;
-		vm->arena[c_mod(cursor->registers[PC] + addr + 0, 0, 1)] = (m.arg[0] >> 24) & 255;
+		vm->arena[c_mod(cursor->registers[PC] + addr + 3, 0, 1)]
+			= (m.arg[0] >> 0) & 255;
+		vm->arena[c_mod(cursor->registers[PC] + addr + 2, 0, 1)]
+			= (m.arg[0] >> 8) & 255;
+		vm->arena[c_mod(cursor->registers[PC] + addr + 1, 0, 1)]
+			= (m.arg[0] >> 16) & 255;
+		vm->arena[c_mod(cursor->registers[PC] + addr + 0, 0, 1)]
+			= (m.arg[0] >> 24) & 255;
 	}
 	cursor->registers[PC] =
 			c_mod(cursor->registers[PC] + next_pc(vm, cursor, &m), 0, 1);
