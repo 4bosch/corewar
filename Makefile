@@ -6,7 +6,7 @@
 #    By: abaisago <adam_bai@protonmail.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 11:54:38 by abaisago          #+#    #+#              #
-#    Updated: 2020/09/10 12:18:25 by abaisago         ###   ########.fr        #
+#    Updated: 2020/09/12 21:54:23 by abosch           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,11 +94,11 @@ SUB_ASM_TRANS  := 	translator.c		\
 					write_op2.c
 SUB_ASM_TRANS  := $(addprefix translator/, $(SUB_ASM_TRANS))
 
-SUB_ASM        := 	main.c asm.c		\
-					$(SUB_ASM_LEX)		\
-					$(SUB_ASM_PAR)		\
-					$(SUB_ASM_TRANS)	\
-					tools1.c			\
+SUB_ASM        := 	main.c asm.c asm_tool.c		\
+					$(SUB_ASM_LEX)				\
+					$(SUB_ASM_PAR)				\
+					$(SUB_ASM_TRANS)			\
+					tools1.c					\
                     dbg.c
 SUB_ASM        := $(addprefix asm/, $(SUB_ASM)) corewar/util.c
 SUB_LIB        := ft_string_nappend.c ft_strisnumber.c ft_list_count.c

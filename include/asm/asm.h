@@ -22,6 +22,7 @@
 # include "parser.h"
 # include "translator.h"
 
+t_list	**list2tab(t_list *token_list);
 int		asmcore(int ac, char **av);
 
 #endif
