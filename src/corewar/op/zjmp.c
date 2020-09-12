@@ -22,11 +22,13 @@ void		op_zjmp(t_vm *vm, t_cursor *cursor)
 	if (op_is_dir2(vm, cursor, &m, 0) && cursor->carry)
 	{
 		verbose(vm, " %d OK", m.arg[0]);
-		REGISTERS[PC] = c_mod(REGISTERS[PC] + c_mod(m.arg[0], 1, 0), 0, 1);
+		cursor->registers[PC] =
+				c_mod(cursor->registers[PC] + c_mod(m.arg[0], 1, 0), 0, 1);
 	}
 	else
 	{
 		verbose(vm, " %d FAILED", m.arg[0]);
-		REGISTERS[PC] = c_mod(REGISTERS[PC] + next_pc(vm, cursor, &m), 0, 1);
+		cursor->registers[PC] =
+				c_mod(cursor->registers[PC] + next_pc(vm, cursor, &m), 0, 1);
 	}
 }

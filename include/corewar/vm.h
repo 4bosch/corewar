@@ -16,14 +16,6 @@
 
 # include "op.h"
 
-# define ARENA		vm->arena
-# define FLAGS		vm->settings.flags
-# define CURSORS	vm->cursors
-# define PLAYERS	vm->players
-# define REGISTERS	cursor->registers
-# define SETTINGS	vm->settings
-# define STATS		vm->stats
-
 # define F_DUMP		0x01
 # define F_VERB		0x02
 

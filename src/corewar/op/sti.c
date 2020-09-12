@@ -30,7 +30,7 @@ static void	sti_verbose(t_vm *vm, t_cursor *cursor, t_opmem *m)
 		ft_printf(" %d", m->arg[2]);
 	ft_printf("\n       | -> store to %d + %d = %d (with pc and mod %d)",
 		m->arg[1], m->arg[2], m->arg[1] + m->arg[2],
-		REGISTERS[PC] + m->arg[1] + m->arg[2]);
+		cursor->registers[PC] + m->arg[1] + m->arg[2]);
 }
 
 void		op_sti(t_vm *vm, t_cursor *cursor)
@@ -39,7 +39,7 @@ void		op_sti(t_vm *vm, t_cursor *cursor)
 	int			addr;
 
 	m = (t_opmem){0};
-	m.ocp = ARENA[(REGISTERS[PC] + 1) % MEM_SIZE];
+	m.ocp = vm->arena[(cursor->registers[PC] + 1) % MEM_SIZE];
 	m.count = 2;
 	m.type[0] = (m.ocp & 0xc0) >> 6;
 	m.type[1] = (m.ocp & 0x30) >> 4;
@@ -52,10 +52,11 @@ void		op_sti(t_vm *vm, t_cursor *cursor)
 	{
 		sti_verbose(vm, cursor, &m);
 		addr = c_mod(m.arg[1] + m.arg[2], 1, 0);
-		ARENA[c_mod(REGISTERS[PC] + addr + 3, 0, 1)] = (m.arg[0] >> 0) & 255;
-		ARENA[c_mod(REGISTERS[PC] + addr + 2, 0, 1)] = (m.arg[0] >> 8) & 255;
-		ARENA[c_mod(REGISTERS[PC] + addr + 1, 0, 1)] = (m.arg[0] >> 16) & 255;
-		ARENA[c_mod(REGISTERS[PC] + addr + 0, 0, 1)] = (m.arg[0] >> 24) & 255;
+		vm->arena[c_mod(cursor->registers[PC] + addr + 3, 0, 1)] = (m.arg[0] >> 0) & 255;
+		vm->arena[c_mod(cursor->registers[PC] + addr + 2, 0, 1)] = (m.arg[0] >> 8) & 255;
+		vm->arena[c_mod(cursor->registers[PC] + addr + 1, 0, 1)] = (m.arg[0] >> 16) & 255;
+		vm->arena[c_mod(cursor->registers[PC] + addr + 0, 0, 1)] = (m.arg[0] >> 24) & 255;
 	}
-	REGISTERS[PC] = c_mod(REGISTERS[PC] + next_pc(vm, cursor, &m), 0, 1);
+	cursor->registers[PC] =
+			c_mod(cursor->registers[PC] + next_pc(vm, cursor, &m), 0, 1);
 }

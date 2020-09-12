@@ -37,7 +37,7 @@ void		op_and(t_vm *vm, t_cursor *cursor)
 	t_opmem		m;
 
 	m = (t_opmem){0};
-	m.ocp = ARENA[(REGISTERS[PC] + 1) % MEM_SIZE];
+	m.ocp = vm->arena[(cursor->registers[PC] + 1) % MEM_SIZE];
 	m.count = 2;
 	m.type[0] = (m.ocp & 0xc0) >> 6;
 	m.type[1] = (m.ocp & 0x30) >> 4;
@@ -50,8 +50,9 @@ void		op_and(t_vm *vm, t_cursor *cursor)
 		op_is_reg(vm, cursor, &m, 2) == 3)
 	{
 		and_verbose(vm, &m);
-		REGISTERS[m.pos[2]] = m.arg[0] & m.arg[1];
-		cursor->carry = (REGISTERS[m.pos[2]] ? 0 : 1);
+		cursor->registers[m.pos[2]] = m.arg[0] & m.arg[1];
+		cursor->carry = (cursor->registers[m.pos[2]] ? 0 : 1);
 	}
-	REGISTERS[PC] = c_mod(REGISTERS[PC] + next_pc(vm, cursor, &m), 0, 1);
+	cursor->registers[PC] =
+			c_mod(cursor->registers[PC] + next_pc(vm, cursor, &m), 0, 1);
 }

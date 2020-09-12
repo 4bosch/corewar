@@ -16,10 +16,11 @@ int		op_is_reg(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg)
 {
 	if (m->type[narg] == REG_CODE)
 	{
-		m->pos[narg] = (ARENA[c_mod(REGISTERS[PC] + m->count, 0, 1)]);
+		m->pos[narg] =
+					(vm->arena[c_mod(cursor->registers[PC] + m->count, 0, 1)]);
 		m->count += 1;
 		if (1 <= m->pos[narg] && m->pos[narg] <= REG_NUMBER &&
-		((m->arg[narg] = REGISTERS[m->pos[narg]]) || 1))
+		((m->arg[narg] = cursor->registers[m->pos[narg]]) || 1))
 			return (1);
 	}
 	return (0);
@@ -29,13 +30,13 @@ int		op_is_dir4(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg)
 {
 	int		pc;
 
-	pc = REGISTERS[PC];
+	pc = cursor->registers[PC];
 	if (m->type[narg] == DIR_CODE)
 	{
-		m->arg[narg] = (ARENA[c_mod(pc + m->count + 3, 0, 1)]) << 0;
-		m->arg[narg] |= (ARENA[c_mod(pc + m->count + 2, 0, 1)]) << 8;
-		m->arg[narg] |= (ARENA[c_mod(pc + m->count + 1, 0, 1)]) << 16;
-		m->arg[narg] |= (ARENA[c_mod(pc + m->count + 0, 0, 1)]) << 24;
+		m->arg[narg] = (vm->arena[c_mod(pc + m->count + 3, 0, 1)]) << 0;
+		m->arg[narg] |= (vm->arena[c_mod(pc + m->count + 2, 0, 1)]) << 8;
+		m->arg[narg] |= (vm->arena[c_mod(pc + m->count + 1, 0, 1)]) << 16;
+		m->arg[narg] |= (vm->arena[c_mod(pc + m->count + 0, 0, 1)]) << 24;
 		m->count += 4;
 		return (1);
 	}
@@ -46,11 +47,11 @@ int		op_is_dir2(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg)
 {
 	int		pc;
 
-	pc = REGISTERS[PC];
+	pc = cursor->registers[PC];
 	if (m->type[narg] == DIR_CODE)
 	{
-		m->arg[narg] = (ARENA[c_mod(pc + m->count + 1, 0, 1)]) << 0;
-		m->arg[narg] |= (ARENA[c_mod(pc + m->count + 0, 0, 1)]) << 8;
+		m->arg[narg] = (vm->arena[c_mod(pc + m->count + 1, 0, 1)]) << 0;
+		m->arg[narg] |= (vm->arena[c_mod(pc + m->count + 0, 0, 1)]) << 8;
 		if (m->arg[narg] >= 0x10000 / 2)
 			m->arg[narg] = -0x10000 + m->arg[narg];
 		m->count += 2;
@@ -63,19 +64,19 @@ int		op_is_ind(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg)
 {
 	int		pc;
 
-	pc = REGISTERS[PC];
+	pc = cursor->registers[PC];
 	if (m->type[narg] == IND_CODE)
 	{
-		m->pos[narg] = (ARENA[c_mod(pc + m->count + 1, 0, 1)]) << 0;
-		m->pos[narg] |= (ARENA[c_mod(pc + m->count + 0, 0, 1)]) << 8;
+		m->pos[narg] = (vm->arena[c_mod(pc + m->count + 1, 0, 1)]) << 0;
+		m->pos[narg] |= (vm->arena[c_mod(pc + m->count + 0, 0, 1)]) << 8;
 		if (m->pos[narg] >= 0x10000 / 2)
 			m->pos[narg] = -0x10000 + m->pos[narg];
 		m->count += 2;
 		m->pos[narg] = c_mod(m->pos[narg], m->modulo, 1);
-		m->arg[narg] = (ARENA[c_mod(pc + m->pos[narg] + 3, 0, 1)]) << 0;
-		m->arg[narg] |= (ARENA[c_mod(pc + m->pos[narg] + 2, 0, 1)]) << 8;
-		m->arg[narg] |= (ARENA[c_mod(pc + m->pos[narg] + 1, 0, 1)]) << 16;
-		m->arg[narg] |= (ARENA[c_mod(pc + m->pos[narg] + 0, 0, 1)]) << 24;
+		m->arg[narg] = (vm->arena[c_mod(pc + m->pos[narg] + 3, 0, 1)]) << 0;
+		m->arg[narg] |= (vm->arena[c_mod(pc + m->pos[narg] + 2, 0, 1)]) << 8;
+		m->arg[narg] |= (vm->arena[c_mod(pc + m->pos[narg] + 1, 0, 1)]) << 16;
+		m->arg[narg] |= (vm->arena[c_mod(pc + m->pos[narg] + 0, 0, 1)]) << 24;
 		return (1);
 	}
 	return (0);

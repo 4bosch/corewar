@@ -23,7 +23,8 @@ void		op_lfork(t_vm *vm, t_cursor *cursor)
 	{
 		cursor_fork(vm, cursor, m.arg[0]);
 		verbose(vm, " %d (%d)", m.arg[0],
-			((t_cursor*)CURSORS.head->content)->registers[PC]);
+			((t_cursor*)vm->cursors.head->content)->registers[PC]);
 	}
-	REGISTERS[PC] = c_mod(REGISTERS[PC] + next_pc(vm, cursor, &m), 0, 1);
+	cursor->registers[PC] =
+			c_mod(cursor->registers[PC] + next_pc(vm, cursor, &m), 0, 1);
 }

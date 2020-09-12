@@ -22,14 +22,15 @@ void			op_live(t_vm *vm, t_cursor *cursor)
 	if (op_is_dir4(vm, cursor, &m, 0))
 	{
 		verbose(vm, " %d", m.arg[0]);
-		if (0 < -m.arg[0] && -m.arg[0] <= SETTINGS.player_count)
+		if (0 < -m.arg[0] && -m.arg[0] <= vm->settings.player_count)
 		{
 			verbose(vm, "\nPlayer %d (%s) is said to be alive",
-				-m.arg[0], PLAYERS[-m.arg[0] - 1].header.prog_name);
-			STATS.last_live_id = -m.arg[0];
+				-m.arg[0], vm->players[-m.arg[0] - 1].header.prog_name);
+			vm->stats.last_live_id = -m.arg[0];
 		}
-		cursor->last_live = STATS.cycle_total;
-		STATS.live++;
+		cursor->last_live = vm->stats.cycle_total;
+		vm->stats.live++;
 	}
-	REGISTERS[PC] = c_mod(REGISTERS[PC] + next_pc(vm, cursor, &m), 0, 1);
+	cursor->registers[PC] =
+			c_mod(cursor->registers[PC] + next_pc(vm, cursor, &m), 0, 1);
 }

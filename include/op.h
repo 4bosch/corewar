@@ -80,6 +80,6 @@ typedef struct		s_op
 	int				label_size;
 }					t_op;
 
-extern t_op			op_tab[18];
+extern t_op			g_op_tab[18];
 
 #endif

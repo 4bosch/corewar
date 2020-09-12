@@ -29,7 +29,7 @@ void		op_ld(t_vm *vm, t_cursor *cursor)
 	t_opmem		m;
 
 	m = (t_opmem){0};
-	m.ocp = ARENA[(REGISTERS[PC] + 1) % MEM_SIZE];
+	m.ocp = vm->arena[(cursor->registers[PC] + 1) % MEM_SIZE];
 	m.count = 2;
 	m.type[0] = (m.ocp & 0xc0) >> 6;
 	m.type[1] = (m.ocp & 0x30) >> 4;
@@ -37,9 +37,10 @@ void		op_ld(t_vm *vm, t_cursor *cursor)
 	if ((op_is_dir4(vm, cursor, &m, 0) || op_is_ind(vm, cursor, &m, 0)) +
 		op_is_reg(vm, cursor, &m, 1) == 2)
 	{
-		REGISTERS[m.pos[1]] = m.arg[0];
+		cursor->registers[m.pos[1]] = m.arg[0];
 		ld_verbose(vm, &m);
-		cursor->carry = (REGISTERS[m.pos[1]] ? 0 : 1);
+		cursor->carry = (cursor->registers[m.pos[1]] ? 0 : 1);
 	}
-	REGISTERS[PC] = c_mod(REGISTERS[PC] + next_pc(vm, cursor, &m), 0, 1);
+	cursor->registers[PC] =
+			c_mod(cursor->registers[PC] + next_pc(vm, cursor, &m), 0, 1);
 }

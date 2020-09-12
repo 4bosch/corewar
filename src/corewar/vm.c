@@ -20,7 +20,7 @@
 #include <string.h>
 #include <unistd.h>
 
-t_op			op_tab[18] =
+t_op			g_op_tab[18] =
 {
 	{"nop", 0, {0}, 0, 1, "no operation", 0, 0},
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
@@ -99,7 +99,7 @@ void			vm_init(t_vm *vm)
 {
 	*vm = (t_vm){0};
 	vm_init_operations(vm);
-	STATS.check = 1;
+	vm->stats.check = 1;
 	vm->settings.cycdump = -1;
 	vm->stats.cycdie = CYCLE_TO_DIE;
 }
