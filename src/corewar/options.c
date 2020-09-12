@@ -6,7 +6,7 @@
 /*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 13:50:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/09/13 00:00:36 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/13 00:40:11 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static int		get_option_value(int ac, char **av, int i)
 	int			ret;
 
 	if (i >= ac)
-		ft_printerr(USAGE"\n");
+		ft_printerr("usage: corewar [-dump nbr_cycles] [-n number] CHAMPION.cor"
+					"[CHAMPION.cor ...]\n");
 	ret = ft_stoi(av[i], &endptr, 0);
 	if (endptr == NULL)
 		ft_printerr("corewar: get_option_value: %s\n", strerror(errno));
@@ -58,7 +59,8 @@ static void		get_players_with_ids(t_vm *vm, int ac, char **av)
 		if (ft_strequ(av[i], "-n"))
 		{
 			if (++i + 1 >= ac)
-				ft_printerr(USAGE "\n");
+				ft_printerr("usage: corewar [-dump nbr_cycles] [-n number]"
+						"CHAMPION.cor [CHAMPION.cor ...]\n");
 			player_id = ft_atoll(av[i]);
 			if (player_id <= 0 || player_id > MAX_PLAYERS)
 				ft_printerr("corewar: " EINVID "\n", av[i]);
@@ -71,7 +73,8 @@ void			options(t_vm *vm, int ac, char **av)
 	int			i;
 
 	if (ac < 2)
-		ft_printerr(USAGE "\n");
+		ft_printerr("usage: corewar [-dump nbr_cycles] [-n number]"
+			"CHAMPION.cor [CHAMPION.cor ...]\n");
 	i = 0;
 	get_players_with_ids(vm, ac, av);
 	while (++i < ac)

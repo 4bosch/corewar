@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:47:34 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/06 17:22:09 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/13 00:41:20 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 void	checks(t_vm *vm)
 {
 	if (vm->settings.player_count <= 0)
-		ft_printerr(USAGE"\n");
+		ft_printerr("usage: corewar [-dump nbr_cycles] [-n number]"
+			"CHAMPION.cor [CHAMPION.cor ...]\n");
 	vm->endian = (get_endianness()) ? byte_swap_32 : return_self;
 }

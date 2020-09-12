@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 17:15:19 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/25 18:30:27 by abosch           ###   ########.fr       */
+/*   Updated: 2020/09/13 00:37:05 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@
 # define EMANYPLAYER	"too many players specified"
 # define ESMALLFILE		"'%s' file too small"
 # define EUNMATCHSIZE	"'%s' code size does not match what its header says"
-# define USAGE			"usage: " \
-	"corewar [-dump nbr_cycles] [-n number] CHAMPION.cor [CHAMPION.cor ...]"
 
 /*
 ** ASM
