@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OP_H
-# define OP_H
-
 /*
 ** Toutes les tailles sont en octets.
 ** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?
 */
+
+#ifndef OP_H
+# define OP_H
 
 # define IND_SIZE				2
 # define REG_SIZE				4
@@ -28,9 +28,9 @@
 
 # define MAX_ARGS_NUMBER		4
 # define MAX_PLAYERS			4
-# define MEM_SIZE				(4*1024)
-# define IDX_MOD				(MEM_SIZE / 8)
-# define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
+# define MEM_SIZE				4096
+# define IDX_MOD				512
+# define CHAMP_MAX_SIZE			682
 
 # define COMMENT_CHAR			'#'
 # define LABEL_CHAR				':'
@@ -49,10 +49,6 @@
 # define NBR_LIVE				21
 # define MAX_CHECKS				10
 
-/*
-**
-*/
-
 typedef char		t_arg_type;
 
 # define T_REG					1
@@ -60,20 +56,16 @@ typedef char		t_arg_type;
 # define T_IND					4
 # define T_LAB					8
 
-/*
-**
-*/
-
-# define PROG_NAME_LENGTH		(128)
-# define COMMENT_LENGTH			(2048)
+# define PROG_NAME_LENGTH		128
+# define COMMENT_LENGTH			2048
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
 typedef struct		s_header
 {
-  unsigned int		magic;
-  char				prog_name[PROG_NAME_LENGTH + 4];
-  int				prog_size;
-  char				comment[COMMENT_LENGTH + 4];
+	unsigned int	magic;
+	char			prog_name[PROG_NAME_LENGTH + 4];
+	int				prog_size;
+	char			comment[COMMENT_LENGTH + 4];
 }					t_header;
 
 typedef struct		s_op
@@ -90,9 +82,4 @@ typedef struct		s_op
 
 extern t_op			op_tab[18];
 
-/*
-**********
-** OP_H **
-**********
-*/
 #endif

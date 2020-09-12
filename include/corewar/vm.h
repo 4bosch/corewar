@@ -136,7 +136,7 @@ void			cursor_update(t_list_link *link, void *input);
 
 void			checks(t_vm *vm);
 
-void		    options(t_vm *vm, int ac, char **av);
+void			options(t_vm *vm, int ac, char **av);
 
 void			load_players(t_vm *vm);
 

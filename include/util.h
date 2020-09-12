@@ -41,10 +41,9 @@
 # define LABELARG	7
 # define REG		8
 
-
-typedef struct	s_cmd t_cmd;
-typedef struct	s_token t_token;
-typedef struct	s_label t_label;
+typedef struct s_cmd	t_cmd;
+typedef struct s_token	t_token;
+typedef struct s_label	t_label;
 
 struct			s_token
 {
@@ -64,8 +63,8 @@ struct			s_label
 	int			addr;
 };
 
-void	free_token(void *token, size_t useless);
-void	free_label(void *label, size_t useless);
+void			free_token(void *token, size_t useless);
+void			free_label(void *label, size_t useless);
 
 /*
 ** VM
@@ -74,10 +73,10 @@ void	free_label(void *label, size_t useless);
 # define ENDIAN_BIG		0
 # define ENGIAN_LITTLE	1
 
-int16_t	byte_swap_16(const int16_t num);
-int32_t	byte_swap_32(const int32_t num);
-int		get_endianness(void);
-int		return_self(const int num);
+int16_t			byte_swap_16(const int16_t num);
+int32_t			byte_swap_32(const int32_t num);
+int				get_endianness(void);
+int				return_self(const int num);
 
 /*
 ************

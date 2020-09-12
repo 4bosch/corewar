@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-int		lld_is_ind(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg)
+static int	lld_is_ind(t_vm *vm, t_cursor *cursor, t_opmem *m, int narg)
 {
 	int		pc;
 
@@ -45,7 +45,7 @@ static void	lld_verbose(t_vm *vm, t_opmem *m)
 	ft_printf(" r%d", m->pos[1]);
 }
 
-void	op_lld(t_vm *vm, t_cursor *cursor)
+void		op_lld(t_vm *vm, t_cursor *cursor)
 {
 	t_opmem		m;
 

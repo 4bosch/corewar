@@ -74,23 +74,23 @@ void			cursor_update(t_list_link *link, void *input)
 	t_vm		*vm;
 
 	cursor = link->content;
-    vm = input;
-    if (cursor->op_code == -1)
-    {
+	vm = input;
+	if (cursor->op_code == -1)
+	{
 		cursor->op_code = ARENA[REGISTERS[PC]];
 		if (cursor->op_code < 0 || cursor->op_code > 16)
 			cursor->op_code = 0;
 		cursor->exec_time = op_tab[cursor->op_code].cycles;
-    }
-    --cursor->exec_time;
-    if (cursor->exec_time == 0)
-    {
+	}
+	--cursor->exec_time;
+	if (cursor->exec_time == 0)
+	{
 		if (cursor->op_code != 0 && cursor->op_code != 16)
 			verbose(vm, "P %4d | %s",
 				cursor->cid, op_tab[cursor->op_code].name);
-        vm->operations[cursor->op_code](vm, cursor);
+		vm->operations[cursor->op_code](vm, cursor);
 		if (cursor->op_code != 0 && cursor->op_code != 16)
 			verbose(vm, "\n", PLAYERS[-cursor->pid - 1].header.prog_name);
-        cursor->op_code = -1;
-    }
+		cursor->op_code = -1;
+	}
 }

@@ -20,11 +20,13 @@
 
 # define DEBUG 0
 
-# if DEBUG == 1
-#  define DF(...) ft_printf(__VA_ARGS__)
-# else
-#  define DF(...) /* Doesn't do anything in release builds */
-# endif
+/*
+** # if DEBUG == 1
+** #  define DF(...) ft_printf(__VA_ARGS__)
+** # else
+** #  define DF(...)  //Doesn't do anything in release builds
+** # endif
+*/
 
 void		print_tab(t_list **tab);
 int			print_token(void *cont, size_t c_s, unsigned pos, unsigned to);
