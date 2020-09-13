@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 14:18:12 by abosch            #+#    #+#             */
-/*   Updated: 2020/09/13 14:35:08 by abosch           ###   ########.fr       */
+/*   Updated: 2020/09/13 14:38:18 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void			handle_labelarg(t_lexargs *args)
 
 	i = ++(args->i);
 	if ((str = ft_string_init()) == NULL)
-		ft_printerr("asm: handle_labelarg(string_init): %s.\n", strerror(errno));
+		ft_printerr("asm: handle_labelarg(string_init): %s\n", strerror(errno));
 	while (ft_strchr(LABEL_CHARS, args->buf[i]) != NULL
 			&& args->buf[i] != '\n')
 	{
