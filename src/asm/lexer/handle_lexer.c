@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 14:18:12 by abosch            #+#    #+#             */
-/*   Updated: 2020/09/13 14:09:25 by abosch           ###   ########.fr       */
+/*   Updated: 2020/09/13 14:35:08 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void			handle_symbol(t_lexargs *args, t_list *label)
 
 	i = args->i;
 	if ((str = ft_string_init()) == NULL)
-		ft_printerr("asm: handle_symbol(ft_string_init): %s.\n", strerror(errno));
+		ft_printerr("asm: handle_symbol(string_init): %s.\n", strerror(errno));
 	if (args->buf[i] == '-' || args->buf[i] == '+')
 		++i;
 	while (ft_strchr(LABEL_CHARS, args->buf[i]) != NULL
@@ -70,7 +70,7 @@ void			handle_string(t_lexargs *args)
 
 	i = ++args->i;
 	if ((str = ft_string_init()) == NULL)
-		ft_printerr("asm: handle_string(ft_string_init): %s.\n", strerror(errno));
+		ft_printerr("asm: handle_string(string_init): %s.\n", strerror(errno));
 	if (args->buf[i] != '"')
 	{
 		while (args->buf[++i] != '"')
@@ -98,7 +98,7 @@ void			handle_labelarg(t_lexargs *args)
 
 	i = ++(args->i);
 	if ((str = ft_string_init()) == NULL)
-		ft_printerr("asm: handle_labelarg(ft_string_init): %s.\n", strerror(errno));
+		ft_printerr("asm: handle_labelarg(string_init): %s.\n", strerror(errno));
 	while (ft_strchr(LABEL_CHARS, args->buf[i]) != NULL
 			&& args->buf[i] != '\n')
 	{
