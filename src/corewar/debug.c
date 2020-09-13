@@ -6,7 +6,7 @@
 /*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 17:01:08 by abaisago          #+#    #+#             */
-/*   Updated: 2020/07/31 17:25:57 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/13 14:05:21 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void			dbgf_cursors(t_list_link *elem, void *input)
 {
 	t_cursor	*curs;
 
+	(void)input;
 	curs = (t_cursor *)(elem->content);
 	ft_printf("pid = % -d, PC=%- d \n", curs->pid, curs->registers[0]);
 }

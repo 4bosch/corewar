@@ -6,7 +6,7 @@
 /*   By: ariperez <ariperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 19:43:34 by ariperez          #+#    #+#             */
-/*   Updated: 2020/09/10 13:30:09 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/13 14:05:57 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int			next_pc(t_vm *vm, t_cursor *cursor, t_opmem *m)
 
 void		op_nop(t_vm *vm, t_cursor *cursor)
 {
+	(void)vm;
 	cursor->registers[PC]++;
 	cursor->registers[PC] %= MEM_SIZE;
 }

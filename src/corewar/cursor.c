@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 18:57:30 by abaisago          #+#    #+#             */
-/*   Updated: 2020/09/10 19:19:52 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/13 14:04:47 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@
 
 void			cursor_del(void *content, size_t size)
 {
-	t_cursor	*cursor;
-
-	cursor = content;
+	(void)content;
+	(void)size;
 	return ;
 }
 

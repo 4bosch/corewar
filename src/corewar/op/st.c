@@ -6,13 +6,13 @@
 /*   By: ariperez <ariperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 19:43:34 by ariperez          #+#    #+#             */
-/*   Updated: 2020/09/10 18:56:18 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/13 14:07:47 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void	st_verbose(t_vm *vm, t_cursor *cursor, t_opmem *m)
+static void	st_verbose(t_vm *vm, t_opmem *m)
 {
 	if (vm->settings.verbose == 0)
 		return ;
@@ -46,7 +46,7 @@ void		op_st(t_vm *vm, t_cursor *cursor)
 		vm->arena[c_mod(pc + m.pos[1] + 1, 0, 1)] = (m.arg[0] >> 16) & 255;
 		vm->arena[c_mod(pc + m.pos[1] + 0, 0, 1)] = (m.arg[0] >> 24) & 255;
 	}
-	st_verbose(vm, cursor, &m);
+	st_verbose(vm, &m);
 	cursor->registers[PC] =
 			c_mod(cursor->registers[PC] + next_pc(vm, cursor, &m), 0, 1);
 }
