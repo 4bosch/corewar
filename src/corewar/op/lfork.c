@@ -16,7 +16,7 @@ void		op_lfork(t_vm *vm, t_cursor *cursor)
 {
 	t_opmem		m;
 
-	m = (t_opmem){0};
+	ft_memset(&m, 0, sizeof(t_opmem));
 	m.count = 1;
 	m.type[0] = DIR_CODE;
 	if (op_is_dir2(vm, cursor, &m, 0))

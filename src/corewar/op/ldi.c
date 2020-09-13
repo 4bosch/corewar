@@ -38,7 +38,7 @@ void		op_ldi(t_vm *vm, t_cursor *cursor)
 	t_opmem		m;
 	int			a;
 
-	m = (t_opmem){0};
+	ft_memset(&m, 0, sizeof(t_opmem));
 	m.ocp = vm->arena[(cursor->registers[PC] + 1) % MEM_SIZE];
 	m.count = 2;
 	m.type[0] = (m.ocp & 0xc0) >> 6;

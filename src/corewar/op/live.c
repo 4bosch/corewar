@@ -16,7 +16,7 @@ void			op_live(t_vm *vm, t_cursor *cursor)
 {
 	t_opmem		m;
 
-	m = (t_opmem){0};
+	ft_memset(&m, 0, sizeof(t_opmem));
 	m.type[0] = DIR_CODE;
 	m.count = 1;
 	if (op_is_dir4(vm, cursor, &m, 0))

@@ -42,7 +42,7 @@ void			cursor_fork(t_vm *vm, t_cursor *cursor, int fork_pos)
 void			cursor_init(t_vm *vm, t_cursor *cursor, int pid,
 					int player_count)
 {
-	*cursor = (t_cursor){0};
+	ft_memset(cursor, 0, sizeof(t_cursor));
 	cursor->cid = ++vm->stats.cid;
 	cursor->op_code = -1;
 	cursor->pid = -pid;

@@ -97,7 +97,7 @@ void			vm_init_operations(t_vm *vm)
 
 void			vm_init(t_vm *vm)
 {
-	*vm = (t_vm){0};
+	ft_memset(vm, 0, sizeof(t_vm));
 	vm_init_operations(vm);
 	vm->stats.check = 1;
 	vm->settings.cycdump = -1;
