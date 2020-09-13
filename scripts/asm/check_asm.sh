@@ -1,12 +1,12 @@
 rm log 2> /dev/null;
-for i in champ/*.s;
+for i in champ/valid/*.s;
 do
 	echo $i >> log;
-	./asm $i >> log;
+	$1 $i >> log;
 	i=${i/.s/.cor};
 	mv $i mycor.cor;
 	i=${i/.cor/.s};
-	./zasm $i >> log;
+	scripts/asm/zasm $i >> log;
 	i=${i/.s/.cor};
 	mv $i zazcor.cor;
 	diff mycor.cor zazcor.cor >> log;

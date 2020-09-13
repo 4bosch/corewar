@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 16:52:42 by abosch            #+#    #+#             */
-/*   Updated: 2020/07/30 16:01:36 by abosch           ###   ########.fr       */
+/*   Updated: 2020/09/13 13:22:49 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include "op.h"
 # include "error.h"
 # include "tools.h"
-
-# include "debug.h" ///////////// DELETE
 
 int		is_valid_label(t_list *label, char *s);
 int		is_reg(const char *s);
