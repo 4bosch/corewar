@@ -6,7 +6,7 @@
 /*   By: abaisago <adam_bai@tuta.io>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 17:15:19 by abaisago          #+#    #+#             */
-/*   Updated: 2020/09/13 10:32:21 by abosch           ###   ########.fr       */
+/*   Updated: 2020/09/13 12:57:23 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 # define EBIGSIZE		"'%s' size of '%d' too big"
 # define EDUPID			"duplicate player id '%d'"
+# define EINVARG		"argument '%s' is out of range"
 # define EINVCOMMENT	"'%s' has an invalid comment"
 # define EINVEXT		"'%s' has an invalid file extension, must be .cor"
 # define EINVID			"player id '%s' is out of range"

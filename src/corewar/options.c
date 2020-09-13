@@ -6,7 +6,7 @@
 /*   By: weilin <weilin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 13:50:56 by abaisago          #+#    #+#             */
-/*   Updated: 2020/09/13 00:40:11 by abaisago         ###   ########.fr       */
+/*   Updated: 2020/09/13 13:05:01 by abaisago         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@
 static int		get_option_value(int ac, char **av, int i)
 {
 	char		*endptr;
-	int			ret;
+	int			res;
 
 	if (i >= ac)
 		ft_printerr("usage: corewar [-dump nbr_cycles] [-n number] CHAMPION.cor"
-					"[CHAMPION.cor ...]\n");
-	ret = ft_stoi(av[i], &endptr, 0);
-	if (endptr == NULL)
-		ft_printerr("corewar: get_option_value: %s\n", strerror(errno));
-	return (ft_atoll(av[i]));
+			"[CHAMPION.cor ...]\n");
+	res = ft_stoi(av[i], &endptr, 0);
+	if (endptr == NULL || res < 0)
+		ft_printerr("corewar: " EINVARG "\n", av[i]);
+	return (res);
 }
 
 static void		get_player_filename(t_vm *vm, int id, char *filename)
@@ -61,10 +61,11 @@ static void		get_players_with_ids(t_vm *vm, int ac, char **av)
 			if (++i + 1 >= ac)
 				ft_printerr("usage: corewar [-dump nbr_cycles] [-n number]"
 						"CHAMPION.cor [CHAMPION.cor ...]\n");
-			player_id = ft_atoll(av[i]);
+			player_id = ft_stoi(av[i], NULL, 0);
 			if (player_id <= 0 || player_id > MAX_PLAYERS)
-				ft_printerr("corewar: " EINVID "\n", av[i]);
+				ft_printerr("corewar: " EINVARG "\n", av[i]);
 			get_player_filename(vm, player_id, av[++i]);
+			vm->settings.player_count += 1;
 		}
 }
 
