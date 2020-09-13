@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 14:18:20 by abosch            #+#    #+#             */
-/*   Updated: 2020/08/27 14:18:22 by abosch           ###   ########.fr       */
+/*   Updated: 2020/09/13 00:42:32 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 int				read_more(int *i, t_lexargs *args)
 {
-	if ((*i = read(args->fd, args->buf, BUF_SIZE - 1)) == 0)
-		return (0);
-	else if (*i == -1)
+	*i = read(args->fd, args->buf, BUF_SIZE - 1);
+	if (*i == -1)
 		ft_printerr("asm : read_more(read): %s\n", strerror(errno));
 	args->buf[*i] = '\0';
-	args->i = 0;
+	args->i = -1;
+	if (*i == 0)
+		return (0);
 	*i = 0;
 	return (1);
 }

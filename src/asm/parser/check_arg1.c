@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 14:18:31 by abosch            #+#    #+#             */
-/*   Updated: 2020/08/27 14:18:33 by abosch           ###   ########.fr       */
+/*   Updated: 2020/09/13 10:55:59 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		check_dir(t_list *label, t_token *tok)
 	else if (tok->type == LABELARG)
 	{
 		if (!is_valid_label(label, tok->content->buf))
-			ft_printerr(EINVLAB);
+			ft_printerr(EINVLAB, tok->content->buf);
 	}
 	else
 		ft_printerr(EBADDIR);
@@ -43,7 +43,7 @@ void		check_reg_ind(t_list *label, t_token *tok)
 	else if (tok->type == LABELARG)
 	{
 		if (!is_valid_label(label, tok->content->buf))
-			ft_printerr(EINVLAB);
+			ft_printerr(EINVLAB, tok->content->buf);
 	}
 	else
 		ft_printerr(ENOREGIND);
@@ -84,7 +84,7 @@ void		check_ind_dir(t_list *label, t_list_link **lnk)
 	else if (tok->type == LABELARG)
 	{
 		if (!is_valid_label(label, tok->content->buf))
-			ft_printerr(EINVLAB);
+			ft_printerr(EINVLAB, tok->content->buf);
 		*lnk = (*lnk)->next;
 	}
 	else if (tok->type == DIR)

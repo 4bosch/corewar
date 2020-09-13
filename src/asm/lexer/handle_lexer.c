@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 14:18:12 by abosch            #+#    #+#             */
-/*   Updated: 2020/09/10 17:40:53 by abosch           ###   ########.fr       */
+/*   Updated: 2020/09/13 10:42:33 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,15 @@ void			handle_symbol(t_lexargs *args, t_list *label)
 		{
 			ft_string_append(str, args->buf + args->i);
 			if (read_more(&i, args) == 0)
-				return ;
+				break ;
+			else
+				args->i = 0;
 		}
 		else
 			i++;
 	}
-	ft_string_nappend(str, args->buf + args->i, i - args->i);
+	if (i != 0)
+		ft_string_nappend(str, args->buf + args->i, i - args->i);
 	create_symbol_token(str, i, args, label);
 }
 
@@ -74,11 +77,14 @@ void			handle_string(t_lexargs *args)
 			{
 				ft_string_append(str, args->buf + args->i);
 				if (read_more(&i, args) == 0)
-					return ;
+					break ;
 			}
 		}
-		ft_string_nappend(str, args->buf + args->i, i - args->i);
-		args->i = i;
+		if (i != 0)
+		{
+			ft_string_nappend(str, args->buf + args->i, i - args->i);
+			args->i = i;
+		}
 	}
 	ft_list_push(args->toklist, token_new(STRING, str));
 }
@@ -97,12 +103,13 @@ void			handle_labelarg(t_lexargs *args)
 		{
 			ft_string_append(str, args->buf + args->i);
 			if (read_more(&i, args) == 0)
-				return ;
+				break ;
 		}
 		else
 			i++;
 	}
-	ft_string_nappend(str, args->buf + args->i, i - args->i);
+	if (i != 0)
+		ft_string_nappend(str, args->buf + args->i, i - args->i);
 	args->i = i - 1;
 	ft_list_push(args->toklist, token_new(LABELARG, str));
 }
