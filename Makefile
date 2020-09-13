@@ -6,7 +6,7 @@
 #    By: abaisago <adam_bai@protonmail.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 11:54:38 by abaisago          #+#    #+#              #
-#    Updated: 2020/09/12 21:54:23 by abosch           ###   ########.fr        #
+#    Updated: 2020/09/13 13:42:28 by abaisago         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,9 +47,7 @@ LDLIBS         := $(LIB_FT_FLAGS)
 #------------------------------------------------#
 
 CC             := gcc
-CFLAGS         := -Wall -Wextra -Werror          \
-                  -Wno-unused-parameter          \
-                  -Wno-unused-but-set-variable
+CFLAGS         := -Wall -Wextra -Werror
 CPPFLAGS       := -Iinclude                      \
                   -Iinclude/asm                  \
                   -Iinclude/corewar              \
