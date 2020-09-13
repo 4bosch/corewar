@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 14:18:20 by abosch            #+#    #+#             */
-/*   Updated: 2020/09/13 00:42:32 by abosch           ###   ########.fr       */
+/*   Updated: 2020/09/13 13:42:38 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,14 @@ int				read_more(int *i, t_lexargs *args)
 
 t_list_link		*token_new(t_byte type, t_string *content)
 {
-	t_token	tok;
+	t_token		tok;
+	t_list_link	*lnk;
 
 	tok.type = type;
 	tok.content = content;
-	return (ft_list_link_new(&tok, sizeof(t_token)));
+	if((lnk = ft_list_link_new(&tok, sizeof(t_token))) == NULL)
+		ft_printerr("asm: token_new(ft_list_link_new): %s\n", strerror(errno));
+	return (lnk);
 }
 
 static int		simple_case(t_lexargs *args)
