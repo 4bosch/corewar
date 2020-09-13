@@ -6,13 +6,11 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:44:41 by abosch            #+#    #+#             */
-/*   Updated: 2020/09/10 18:06:53 by abosch           ###   ########.fr       */
+/*   Updated: 2020/09/13 11:25:39 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "translator.h"
-
-#include "debug.h" // DELETE
 
 void		write_ops(t_list **tab, int i, t_list *label, int fd)
 {
@@ -74,7 +72,6 @@ void		translator(t_list **tab, t_list *label, char *name, t_cmd cmd)
 	ft_printf("Writing output program to %s.\n", prog_name);
 	free(prog_name);
 	prog_size = get_label_addr(tab, label);
-	if (DEBUG) ft_list_print(label, &print_label); //DELETE
 	write_commands(fd, cmd, prog_size);
 	skip_command(tab, &i);
 	write_ops(tab, i, label, fd);

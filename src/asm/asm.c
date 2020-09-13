@@ -6,17 +6,12 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 21:50:54 by abosch            #+#    #+#             */
-/*   Updated: 2020/09/13 00:30:02 by abosch           ###   ########.fr       */
+/*   Updated: 2020/09/13 11:25:15 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-#include "debug.h"
-
 #include <stdlib.h>
-
-
 
 static int		handle_open(int ac, char **av)
 {

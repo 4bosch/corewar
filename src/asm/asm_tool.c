@@ -6,7 +6,7 @@
 /*   By: abosch <abosch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 21:52:25 by abosch            #+#    #+#             */
-/*   Updated: 2020/09/12 21:52:45 by abosch           ###   ########.fr       */
+/*   Updated: 2020/09/13 11:24:48 by abosch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void		fill_tab(int len, t_list **tab, t_list *list)
 	ft_list_push(tab[j], ft_list_pop_front(list));
 }
 
-t_list	**list2tab(t_list *token_list)
+t_list			**list2tab(t_list *token_list)
 {
 	t_list		**ret;
 	int			len;
